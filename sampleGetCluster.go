@@ -7,32 +7,15 @@ import (
 )
 
 func main() {
-	Username := "admin"
-	Password := "admin"
-	ClusterVip := "10.2.145.49"
+	Username := "clusterUsername"
+	Password := "clusterPassword"
+	ClusterVip := "prod-cluster.eng.cohesity.com"
 	var Domain string
-	client := CohesityManagementSdk.NewCohesitySdkClient(Username, Password, Domain)
-	client.Configuration().SetClusterVip(&ClusterVip)
-	client.Configuration().SetSkipSSL(true)
-
-	client.Authorize()
-	//cluster := client.Cluster()
+	skipSsl := true
+	client := CohesityManagementSdk.NewCohesitySdkClient(ClusterVip, Username, Password, Domain, skipSsl)
 
 	var err error
-	//var result *models.BasicCohesityClusterInformation
-	// var result *models.CohesityCluster
-	// boolvalue := true
-	// result, err = cluster.GetCluster(&boolvalue)
-
-	// if err != nil {
-	// 	println(err)
-	// } else {
-	// 	//TODO: Use result variable here
-	// 	println(result)
-	// }
-
 	protectionJobs := client.ProtectionJobs()
-
 	var result2 []*models.ProtectionJob
 	var includeLastRunAndStats bool
 	var policyIds []string
@@ -47,7 +30,7 @@ func main() {
 
 	result2, err = protectionJobs.GetProtectionJobs(&includeLastRunAndStats, policyIds, &isActive, &isDeleted, &onlyReturnBasicSummary, Environments, tenantIds, &allUnderHierarchy, ids, names)
 	if err != nil {
-
+		// Handle Error.
 	} else {
 		println("Protection Job Name: ", result2[0].Name)
 	}
