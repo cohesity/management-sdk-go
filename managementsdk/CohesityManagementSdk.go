@@ -113,3 +113,13 @@ func NewCohesitySdkClient(clustervip string, username string, password string, d
 
 	return cohesityManagementSdkClient
 }
+
+//CohesityPatch
+func NewCohesityClientWithToken(clustervip string, mgmtauthtoken *models.AccessToken) COHESITYMANAGEMENTSDK {
+	cohesityManagementSdkClient := new(COHESITYMANAGEMENTSDK_IMPL)
+	cohesityManagementSdkClient.config = configuration.NewCONFIGURATION()
+	cohesityManagementSdkClient.config.SetClusterVip(&clustervip)
+	cohesityManagementSdkClient.config.SetSkipSSL(true)
+	cohesityManagementSdkClient.config.SetAccessToken(mgmtauthtoken)
+	return cohesityManagementSdkClient
+}
