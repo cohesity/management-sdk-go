@@ -28,10 +28,10 @@ func main() {
 	var ids []int64
 	var names []string
 
-	result2, err = protectionJobs.GetProtectionJobs(&includeLastRunAndStats, policyIds, &isActive, &isDeleted, &onlyReturnBasicSummary, Environments, tenantIds, &allUnderHierarchy, ids, names)
+	result, err = protectionJobs.GetProtectionJobs(&includeLastRunAndStats, policyIds, &isActive, &isDeleted, &onlyReturnBasicSummary, Environments, tenantIds, &allUnderHierarchy, ids, names)
 	if err != nil {
 		// Handle Error.
 	} else {
-		println("Protection Job Name: ", result2[0].Name)
+		println("First Protection Job Name: ", result[0].Name)
 	}
 }

@@ -100,7 +100,7 @@ type COHESITYMANAGEMENTSDK interface {
 /*
  * Factory for the COHESITYMANAGEMENTSDK interface returning COHESITYMANAGEMENTSDK_IMPL
  */
-func NewCohesitySdkClient(clustervip string, username string, password string, domain string, skipssl bool) COHESITYMANAGEMENTSDK {
+func NewCohesitySdkClient(clustervip string, username string, password string, domain string) COHESITYMANAGEMENTSDK {
 	cohesityManagementSdkClient := new(COHESITYMANAGEMENTSDK_IMPL)
 	cohesityManagementSdkClient.config = configuration.NewCONFIGURATION()
 
@@ -108,7 +108,7 @@ func NewCohesitySdkClient(clustervip string, username string, password string, d
 	cohesityManagementSdkClient.config.SetPassword(password)
 	cohesityManagementSdkClient.config.SetDomain(domain)
 	cohesityManagementSdkClient.config.SetClusterVip(&clustervip)
-	cohesityManagementSdkClient.config.SetSkipSSL(skipssl)
+	cohesityManagementSdkClient.config.SetSkipSSL(true)
 	cohesityManagementSdkClient.Authorize()
 
 	return cohesityManagementSdkClient
