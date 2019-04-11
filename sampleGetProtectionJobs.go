@@ -11,18 +11,17 @@ func main() {
 	Password := "clusterPassword"
 	ClusterVip := "prod-cluster.eng.cohesity.com"
 	var Domain string
-	skipSsl := true
-	client := CohesityManagementSdk.NewCohesitySdkClient(ClusterVip, Username, Password, Domain, skipSsl)
+	client := CohesityManagementSdk.NewCohesitySdkClient(ClusterVip, Username, Password, Domain)
 
 	var err error
 	protectionJobs := client.ProtectionJobs()
-	var result2 []*models.ProtectionJob
+	var result []*models.ProtectionJob
 	var includeLastRunAndStats bool
 	var policyIds []string
 	var isActive bool = true
 	var isDeleted bool = false
 	var onlyReturnBasicSummary bool = true
-	Environments := []models.EnvironmentsEnum{models.Environments_KVIEW}
+	Environments := []models.EnvironmentsEnum{}
 	var tenantIds []string
 	var allUnderHierarchy bool
 	var ids []int64
@@ -32,6 +31,10 @@ func main() {
 	if err != nil {
 		// Handle Error.
 	} else {
-		println("First Protection Job Name: ", result[0].Name)
+		if len(result) == 0 {
+			println("There are no Protection Jobs in the cluster.")
+		} else {
+			println("Protection Job Name: ", result[0].Name)
+		}
 	}
 }
