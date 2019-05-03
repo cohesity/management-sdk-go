@@ -568,8 +568,8 @@ func (me *COHESITYMANAGEMENTSDK_IMPL) AccessTokens() accesstokens.ACCESSTOKENS {
 
 func (me *COHESITYMANAGEMENTSDK_IMPL) Authorize() (*models.AccessToken, error) {
 	AccessTokenRequest := &models.CreateAccessTokenCredentialRequest{}
-	AccessTokenRequest.Password = me.config.Username()
-	AccessTokenRequest.Username = me.config.Password()
+	AccessTokenRequest.Username = me.config.Username()
+	AccessTokenRequest.Password = me.config.Password()
 	domain := me.config.Domain()
 	if domain != "" {
 		AccessTokenRequest.Domain = &domain
