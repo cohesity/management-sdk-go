@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -25,18 +26,18 @@ const (
     ExternalTargetType_KAMAZONC2S
 )
 
-func (r ExternalTargetTypeEnum) MarshalJSON() ([]byte, error) { 
+func (r ExternalTargetTypeEnum) MarshalJSON() ([]byte, error) {
     s := ExternalTargetTypeEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *ExternalTargetTypeEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *ExternalTargetTypeEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  ExternalTargetTypeEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -45,25 +46,25 @@ func (r *ExternalTargetTypeEnum) UnmarshalJSON(data []byte) error {
 func ExternalTargetTypeEnumToValue(externalTargetTypeEnum ExternalTargetTypeEnum) string {
     switch externalTargetTypeEnum {
         case ExternalTargetType_KS3COMPATIBLE:
-    		return "kS3Compatible"		
+    		return "kS3Compatible"
         case ExternalTargetType_KQSTARTAPE:
-    		return "kQStarTape"		
+    		return "kQStarTape"
         case ExternalTargetType_KAWSGOVCLOUD:
-    		return "kAWSGovCloud"		
+    		return "kAWSGovCloud"
         case ExternalTargetType_KNAS:
-    		return "kNAS"		
+    		return "kNAS"
         case ExternalTargetType_KAZUREGOVCLOUD:
-    		return "kAzureGovCloud"		
+    		return "kAzureGovCloud"
         case ExternalTargetType_KAZURE:
-    		return "kAzure"		
+    		return "kAzure"
         case ExternalTargetType_KGOOGLE:
-    		return "kGoogle"		
+    		return "kGoogle"
         case ExternalTargetType_KAMAZON:
-    		return "kAmazon"		
+    		return "kAmazon"
         case ExternalTargetType_KORACLE:
-    		return "kOracle"		
+    		return "kOracle"
         case ExternalTargetType_KAMAZONC2S:
-    		return "kAmazonC2S"		
+    		return "kAmazonC2S"
         default:
         	return "kS3Compatible"
     }

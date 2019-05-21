@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -16,20 +17,22 @@ const (
     TierType_KAMAZONS3STANDARD TierTypeEnum = 1 + iota
     TierType_KAMAZONS3STANDARDIA
     TierType_KAMAZONGLACIER
+    TierType_KAMAZONS3ONEZONEIA
+    TierType_KAMAZONS3INTELLIGENTTIERING
 )
 
-func (r TierTypeEnum) MarshalJSON() ([]byte, error) { 
+func (r TierTypeEnum) MarshalJSON() ([]byte, error) {
     s := TierTypeEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *TierTypeEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *TierTypeEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  TierTypeEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -38,11 +41,15 @@ func (r *TierTypeEnum) UnmarshalJSON(data []byte) error {
 func TierTypeEnumToValue(tierTypeEnum TierTypeEnum) string {
     switch tierTypeEnum {
         case TierType_KAMAZONS3STANDARD:
-    		return "kAmazonS3Standard"		
+    		return "kAmazonS3Standard"
         case TierType_KAMAZONS3STANDARDIA:
-    		return "kAmazonS3StandardIA"		
+    		return "kAmazonS3StandardIA"
         case TierType_KAMAZONGLACIER:
-    		return "kAmazonGlacier"		
+    		return "kAmazonGlacier"
+        case TierType_KAMAZONS3ONEZONEIA:
+    		return "kAmazonS3OneZoneIA"
+        case TierType_KAMAZONS3INTELLIGENTTIERING:
+    		return "kAmazonS3IntelligentTiering"
         default:
         	return "kAmazonS3Standard"
     }
@@ -71,6 +78,10 @@ func TierTypeEnumFromValue(value string) TierTypeEnum {
             return TierType_KAMAZONS3STANDARDIA
         case "kAmazonGlacier":
             return TierType_KAMAZONGLACIER
+        case "kAmazonS3OneZoneIA":
+            return TierType_KAMAZONS3ONEZONEIA
+        case "kAmazonS3IntelligentTiering":
+            return TierType_KAMAZONS3INTELLIGENTTIERING
         default:
             return TierType_KAMAZONS3STANDARD
     }

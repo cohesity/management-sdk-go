@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -30,18 +31,18 @@ const (
     AlertCategoryList_KSECURITY
 )
 
-func (r AlertCategoryListEnum) MarshalJSON() ([]byte, error) { 
+func (r AlertCategoryListEnum) MarshalJSON() ([]byte, error) {
     s := AlertCategoryListEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *AlertCategoryListEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *AlertCategoryListEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  AlertCategoryListEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -50,35 +51,35 @@ func (r *AlertCategoryListEnum) UnmarshalJSON(data []byte) error {
 func AlertCategoryListEnumToValue(alertCategoryListEnum AlertCategoryListEnum) string {
     switch alertCategoryListEnum {
         case AlertCategoryList_KDISK:
-    		return "kDisk"		
+    		return "kDisk"
         case AlertCategoryList_KNODE:
-    		return "kNode"		
+    		return "kNode"
         case AlertCategoryList_KCLUSTER:
-    		return "kCluster"		
+    		return "kCluster"
         case AlertCategoryList_KNODEHEALTH:
-    		return "kNodeHealth"		
+    		return "kNodeHealth"
         case AlertCategoryList_KCLUSTERHEALTH:
-    		return "kClusterHealth"		
+    		return "kClusterHealth"
         case AlertCategoryList_KBACKUPRESTORE:
-    		return "kBackupRestore"		
+    		return "kBackupRestore"
         case AlertCategoryList_KENCRYPTION:
-    		return "kEncryption"		
+    		return "kEncryption"
         case AlertCategoryList_KARCHIVALRESTORE:
-    		return "kArchivalRestore"		
+    		return "kArchivalRestore"
         case AlertCategoryList_KREMOTEREPLICATION:
-    		return "kRemoteReplication"		
+    		return "kRemoteReplication"
         case AlertCategoryList_KQUOTA:
-    		return "kQuota"		
+    		return "kQuota"
         case AlertCategoryList_KLICENSE:
-    		return "kLicense"		
+    		return "kLicense"
         case AlertCategoryList_KHELIOSPROACTIVEWELLNESS:
-    		return "kHeliosProActiveWellness"		
+    		return "kHeliosProActiveWellness"
         case AlertCategoryList_KHELIOSANALYTICSJOBS:
-    		return "kHeliosAnalyticsJobs"		
+    		return "kHeliosAnalyticsJobs"
         case AlertCategoryList_KHELIOSSIGNATUREJOBS:
-    		return "kHeliosSignatureJobs"		
+    		return "kHeliosSignatureJobs"
         case AlertCategoryList_KSECURITY:
-    		return "kSecurity"		
+    		return "kSecurity"
         default:
         	return "kDisk"
     }

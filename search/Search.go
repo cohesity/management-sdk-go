@@ -1,15 +1,16 @@
+// Copyright 2019 Cohesity Inc.
 package search
 
-import "github.com/cohesity/management-sdk-go/models"
 import "github.com/cohesity/management-sdk-go/configuration"
+import "github.com/cohesity/management-sdk-go/models"
 
 /*
  * Interface for the SEARCH_IMPL
  */
 type SEARCH interface {
-    SearchProtectionSources ([]int64, []models.PhysicalServerHostTypesEnum, []string, *int64, *int64, *string, []string, []models.Environments7Enum) ([]*models.ProtectionSourceResponse, error)
-
     SearchProtectionRuns (string) (*models.ProtectionRunResponse, error)
+
+    SearchProtectionSources ([]models.EnvironmentSearchProtectionSourcesEnum, []int64, []models.PhysicalServerHostTypeEnum, []string, *int64, *int64, *string, []string) ([]*models.ProtectionSourceResponse, error)
 }
 
 /*

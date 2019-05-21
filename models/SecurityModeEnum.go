@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -18,18 +19,18 @@ const (
     SecurityMode_KNTFSMODE
 )
 
-func (r SecurityModeEnum) MarshalJSON() ([]byte, error) { 
+func (r SecurityModeEnum) MarshalJSON() ([]byte, error) {
     s := SecurityModeEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *SecurityModeEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *SecurityModeEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  SecurityModeEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -38,11 +39,11 @@ func (r *SecurityModeEnum) UnmarshalJSON(data []byte) error {
 func SecurityModeEnumToValue(securityModeEnum SecurityModeEnum) string {
     switch securityModeEnum {
         case SecurityMode_KNATIVEMODE:
-    		return "kNativeMode"		
+    		return "kNativeMode"
         case SecurityMode_KUNIFIEDMODE:
-    		return "kUnifiedMode"		
+    		return "kUnifiedMode"
         case SecurityMode_KNTFSMODE:
-    		return "kNtfsMode"		
+    		return "kNtfsMode"
         default:
         	return "kNativeMode"
     }

@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -20,18 +21,18 @@ const (
     RemovalReason_KUSERREMOVEDOWNNODE
 )
 
-func (r RemovalReasonEnum) MarshalJSON() ([]byte, error) { 
+func (r RemovalReasonEnum) MarshalJSON() ([]byte, error) {
     s := RemovalReasonEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *RemovalReasonEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *RemovalReasonEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  RemovalReasonEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -40,15 +41,15 @@ func (r *RemovalReasonEnum) UnmarshalJSON(data []byte) error {
 func RemovalReasonEnumToValue(removalReasonEnum RemovalReasonEnum) string {
     switch removalReasonEnum {
         case RemovalReason_KAUTOHEALTHCHECK:
-    		return "kAutoHealthCheck"		
+    		return "kAutoHealthCheck"
         case RemovalReason_KUSERGRACEFULREMOVAL:
-    		return "kUserGracefulRemoval"		
+    		return "kUserGracefulRemoval"
         case RemovalReason_KUSERAVOIDACCESS:
-    		return "kUserAvoidAccess"		
+    		return "kUserAvoidAccess"
         case RemovalReason_KUSERGRACEFULNODEREMOVAL:
-    		return "kUserGracefulNodeRemoval"		
+    		return "kUserGracefulNodeRemoval"
         case RemovalReason_KUSERREMOVEDOWNNODE:
-    		return "kUserRemoveDownNode"		
+    		return "kUserRemoveDownNode"
         default:
         	return "kAutoHealthCheck"
     }

@@ -1,12 +1,12 @@
+// Copyright 2019 Cohesity Inc.
 package unirest
 
 import (
 	"bytes"
+	"crypto/tls"
 	"encoding/base64"
 	"encoding/json"
 	"errors"
-	"github.com/apimatic/form"
-	"github.com/satori/go.uuid"
 	"mime/multipart"
 	"net/http"
 	"net/url"
@@ -14,7 +14,9 @@ import (
 	"strconv"
 	"strings"
 	"time"
-	"crypto/tls"
+
+	"github.com/apimatic/form"
+	uuid "github.com/satori/go.uuid"
 )
 
 type Request struct {
@@ -83,16 +85,14 @@ func (me *Request) PerformRequest(skipVerify bool) (*http.Response, error) {
 	//set timeout values
 	me.httpClient.Transport.(*http.Transport).TLSHandshakeTimeout += 2 * time.Second
 	me.httpClient.Transport.(*http.Transport).ResponseHeaderTimeout = 10 * time.Second
-	
+
 	//set skipVerify SSL
 	me.httpClient.Transport.(*http.Transport).TLSClientConfig = &tls.Config{InsecureSkipVerify: skipVerify}
 
-	//perform the underlying http request
 	res, err := me.httpClient.Do(req)
 	if err != nil {
 		return nil, err
 	}
-
 	return res, nil
 }
 
@@ -161,10 +161,13 @@ func (me *Request) encodeRawBody(method string) (*http.Request, error) {
 
 	reader := bytes.NewReader(bodyBytes)
 	req, err := http.NewRequest(method, me.url, reader)
+	if err != nil {
+		return nil, err
+	}
 	req.Header.Set("Content-Length", strconv.Itoa(len(string(bodyBytes))))
-	if(!isString){
-		req.Header.Set("Content-Type", "application/json; charset=utf-8")		
-	} 
+	if !isString {
+		req.Header.Set("Content-Type", "application/json; charset=utf-8")
+	}
 	return req, err
 }
 

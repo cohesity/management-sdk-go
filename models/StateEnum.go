@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -19,18 +20,18 @@ const (
     State_KMIXED
 )
 
-func (r StateEnum) MarshalJSON() ([]byte, error) { 
+func (r StateEnum) MarshalJSON() ([]byte, error) {
     s := StateEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *StateEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *StateEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  StateEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -39,13 +40,13 @@ func (r *StateEnum) UnmarshalJSON(data []byte) error {
 func StateEnumToValue(stateEnum StateEnum) string {
     switch stateEnum {
         case State_KONLINE:
-    		return "kOnline"		
+    		return "kOnline"
         case State_KRESTRICTED:
-    		return "kRestricted"		
+    		return "kRestricted"
         case State_KOFFLINE:
-    		return "kOffline"		
+    		return "kOffline"
         case State_KMIXED:
-    		return "kMixed"		
+    		return "kMixed"
         default:
         	return "kOnline"
     }

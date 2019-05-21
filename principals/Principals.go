@@ -1,31 +1,32 @@
+// Copyright 2019 Cohesity Inc.
 package principals
 
-import "github.com/cohesity/management-sdk-go/models"
 import "github.com/cohesity/management-sdk-go/configuration"
+import "github.com/cohesity/management-sdk-go/models"
 
 /*
  * Interface for the PRINCIPALS_IMPL
  */
 type PRINCIPALS interface {
-    GetSessionUser () (*models.UserDetails, error)
+    ListSourcesForPrincipals ([]string) ([]*models.SourcesForSid, error)
 
-    CreateResetS3SecretKey (*models.ResetS3SecretAccessKey) (*models.NewS3SecretAccessKey, error)
+    UpdateSourcesForPrincipals (*models.UpdateSourcesForPrincipalsParams) (error)
 
-    UpdateUser (*models.UserRequest) (*models.UserDetails, error)
+    SearchPrincipals (*string, models.ObjectClassSearchPrincipalsEnum, *string, []string, *bool) ([]*models.Principal, error)
 
-    CreateUser (*models.UserRequest) (*models.UserDetails, error)
+    GetSessionUser () (*models.User, error)
 
-    DeleteUsers (*models.DeleteUsersRequest) (error)
+    DeleteUsers (*models.UserDeleteParameters) (error)
+
+    GetUsers ([]string, *bool, []string, []string, *string, *bool) ([]*models.User, error)
+
+    CreateUser (*models.UserParameters) (*models.User, error)
+
+    UpdateUser (*models.UserParameters) (*models.User, error)
 
     GetUserPrivileges () ([]string, error)
 
-    GetUsers (*bool, []string, []string, *string, []string) ([]*models.UserDetails, error)
-
-    SearchPrincipals (models.ObjectClass4Enum, *string, []string, *bool, *string) ([]*models.Principal, error)
-
-    UpdateSourcesForPrincipals (*models.UpdateSourcesForPrincipalParameters) (error)
-
-    ListSourcesForPrincipals ([]string) ([]*models.SourcesForSid, error)
+    CreateResetS3SecretKey (*models.ResetS3SecretKeyParameters) (*models.NewS3SecretAccessKey, error)
 }
 
 /*

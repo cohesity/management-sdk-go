@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -17,18 +18,18 @@ const (
     LockingProtocol_KSETATIME
 )
 
-func (r LockingProtocolEnum) MarshalJSON() ([]byte, error) { 
+func (r LockingProtocolEnum) MarshalJSON() ([]byte, error) {
     s := LockingProtocolEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *LockingProtocolEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *LockingProtocolEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  LockingProtocolEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -37,9 +38,9 @@ func (r *LockingProtocolEnum) UnmarshalJSON(data []byte) error {
 func LockingProtocolEnumToValue(lockingProtocolEnum LockingProtocolEnum) string {
     switch lockingProtocolEnum {
         case LockingProtocol_KSETREADONLY:
-    		return "kSetReadOnly"		
+    		return "kSetReadOnly"
         case LockingProtocol_KSETATIME:
-    		return "kSetAtime"		
+    		return "kSetAtime"
         default:
         	return "kSetReadOnly"
     }

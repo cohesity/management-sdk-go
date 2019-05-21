@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -23,18 +24,18 @@ const (
     DataProtocol_KMANAGEMENT
 )
 
-func (r DataProtocolEnum) MarshalJSON() ([]byte, error) { 
+func (r DataProtocolEnum) MarshalJSON() ([]byte, error) {
     s := DataProtocolEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *DataProtocolEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *DataProtocolEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  DataProtocolEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -43,21 +44,21 @@ func (r *DataProtocolEnum) UnmarshalJSON(data []byte) error {
 func DataProtocolEnumToValue(dataProtocolEnum DataProtocolEnum) string {
     switch dataProtocolEnum {
         case DataProtocol_KNFS:
-    		return "kNfs"		
+    		return "kNfs"
         case DataProtocol_KCIFS:
-    		return "kCifs"		
+    		return "kCifs"
         case DataProtocol_KISCSI:
-    		return "kIscsi"		
+    		return "kIscsi"
         case DataProtocol_KFC:
-    		return "kFc"		
+    		return "kFc"
         case DataProtocol_KFCACHE:
-    		return "kFcache"		
+    		return "kFcache"
         case DataProtocol_KHTTP:
-    		return "kHttp"		
+    		return "kHttp"
         case DataProtocol_KNDMP:
-    		return "kNdmp"		
+    		return "kNdmp"
         case DataProtocol_KMANAGEMENT:
-    		return "kManagement"		
+    		return "kManagement"
         default:
         	return "kNfs"
     }

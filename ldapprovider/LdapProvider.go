@@ -1,21 +1,22 @@
+// Copyright 2019 Cohesity Inc.
 package ldapprovider
 
-import "github.com/cohesity/management-sdk-go/models"
 import "github.com/cohesity/management-sdk-go/configuration"
+import "github.com/cohesity/management-sdk-go/models"
 
 /*
  * Interface for the LDAPPROVIDER_IMPL
  */
 type LDAPPROVIDER interface {
+    GetLdapProvider ([]string, *bool, []int64) ([]*models.LdapProviderResponse, error)
+
+    CreateLdapProvider (*models.LdapProvider) (*models.LdapProviderResponse, error)
+
+    UpdateLdapProvider (*models.UpdateLdapProviderParam) (*models.LdapProviderResponse, error)
+
     DeleteLdapProvider (int64) (error)
 
     GetLdapProviderStatus (int64) (error)
-
-    UpdateLdapProvider (*models.UpdateLDAPProviderParameters) (*models.LDAPProviderResponse, error)
-
-    CreateLdapProvider (*models.LDAP) (*models.LDAPProviderResponse, error)
-
-    GetLdapProvider ([]string, *bool, []int64) ([]*models.LDAPProviderResponse, error)
 }
 
 /*

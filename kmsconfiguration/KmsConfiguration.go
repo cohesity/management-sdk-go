@@ -1,17 +1,18 @@
+// Copyright 2019 Cohesity Inc.
 package kmsconfiguration
 
-import "github.com/cohesity/management-sdk-go/models"
 import "github.com/cohesity/management-sdk-go/configuration"
+import "github.com/cohesity/management-sdk-go/models"
 
 /*
  * Interface for the KMSCONFIGURATION_IMPL
  */
 type KMSCONFIGURATION interface {
-    GetKmsConfig (*string) ([]*models.GetKMSConfigurationResponseParameters, error)
+    GetKmsConfig (*string) ([]*models.KmsConfigurationResponse, error)
 
-    UpdateKmsConfig (*models.KMSConfiguration) (*models.GetKMSConfigurationResponseParameters, error)
+    CreateKmsConfig (*models.KmsConfiguration) (*models.KmsConfigurationResponse, error)
 
-    CreateKmsConfig (*models.KMSConfiguration) (*models.GetKMSConfigurationResponseParameters, error)
+    UpdateKmsConfig (*models.KmsConfiguration) (*models.KmsConfigurationResponse, error)
 }
 
 /*

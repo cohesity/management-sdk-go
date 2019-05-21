@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -18,18 +19,18 @@ const (
     Priority_KHIGH
 )
 
-func (r PriorityEnum) MarshalJSON() ([]byte, error) { 
+func (r PriorityEnum) MarshalJSON() ([]byte, error) {
     s := PriorityEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *PriorityEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *PriorityEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  PriorityEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -38,11 +39,11 @@ func (r *PriorityEnum) UnmarshalJSON(data []byte) error {
 func PriorityEnumToValue(priorityEnum PriorityEnum) string {
     switch priorityEnum {
         case Priority_KLOW:
-    		return "kLow"		
+    		return "kLow"
         case Priority_KMEDIUM:
-    		return "kMedium"		
+    		return "kMedium"
         case Priority_KHIGH:
-    		return "kHigh"		
+    		return "kHigh"
         default:
         	return "kLow"
     }

@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -18,18 +19,18 @@ const (
     NetappType_KVOLUME
 )
 
-func (r NetappTypeEnum) MarshalJSON() ([]byte, error) { 
+func (r NetappTypeEnum) MarshalJSON() ([]byte, error) {
     s := NetappTypeEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *NetappTypeEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *NetappTypeEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  NetappTypeEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -38,11 +39,11 @@ func (r *NetappTypeEnum) UnmarshalJSON(data []byte) error {
 func NetappTypeEnumToValue(netappTypeEnum NetappTypeEnum) string {
     switch netappTypeEnum {
         case NetappType_KCLUSTER:
-    		return "kCluster"		
+    		return "kCluster"
         case NetappType_KVSERVER:
-    		return "kVserver"		
+    		return "kVserver"
         case NetappType_KVOLUME:
-    		return "kVolume"		
+    		return "kVolume"
         default:
         	return "kCluster"
     }

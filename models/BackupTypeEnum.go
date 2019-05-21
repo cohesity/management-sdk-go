@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -17,18 +18,18 @@ const (
     BackupType_KVSSBACKUP
 )
 
-func (r BackupTypeEnum) MarshalJSON() ([]byte, error) { 
+func (r BackupTypeEnum) MarshalJSON() ([]byte, error) {
     s := BackupTypeEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *BackupTypeEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *BackupTypeEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  BackupTypeEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -37,9 +38,9 @@ func (r *BackupTypeEnum) UnmarshalJSON(data []byte) error {
 func BackupTypeEnumToValue(backupTypeEnum BackupTypeEnum) string {
     switch backupTypeEnum {
         case BackupType_KRCTBACKUP:
-    		return "kRctBackup"		
+    		return "kRctBackup"
         case BackupType_KVSSBACKUP:
-    		return "kVssBackup"		
+    		return "kVssBackup"
         default:
         	return "kRctBackup"
     }

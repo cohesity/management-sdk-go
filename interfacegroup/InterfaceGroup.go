@@ -1,7 +1,8 @@
+// Copyright 2019 Cohesity Inc.
 package interfacegroup
 
-import "github.com/cohesity/management-sdk-go/models"
 import "github.com/cohesity/management-sdk-go/configuration"
+import "github.com/cohesity/management-sdk-go/models"
 
 /*
  * Interface for the INTERFACEGROUP_IMPL
@@ -9,11 +10,11 @@ import "github.com/cohesity/management-sdk-go/configuration"
 type INTERFACEGROUP interface {
     GetInterfaceGroups () ([]*models.InterfaceGroup, error)
 
-    DeleteInterfaceGroup (string) (error)
-
     CreateInterfaceGroup (*models.InterfaceGroup) (*models.InterfaceGroup, error)
 
     UpdateInterfaceGroup (*models.InterfaceGroup) (*models.InterfaceGroup, error)
+
+    DeleteInterfaceGroup (string) (error)
 }
 
 /*

@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -20,18 +21,18 @@ const (
     ClusterType_KGOOGLECLOUD
 )
 
-func (r ClusterTypeEnum) MarshalJSON() ([]byte, error) { 
+func (r ClusterTypeEnum) MarshalJSON() ([]byte, error) {
     s := ClusterTypeEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *ClusterTypeEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *ClusterTypeEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  ClusterTypeEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -40,15 +41,15 @@ func (r *ClusterTypeEnum) UnmarshalJSON(data []byte) error {
 func ClusterTypeEnumToValue(clusterTypeEnum ClusterTypeEnum) string {
     switch clusterTypeEnum {
         case ClusterType_KPHYSICAL:
-    		return "kPhysical"		
+    		return "kPhysical"
         case ClusterType_KVIRTUALROBO:
-    		return "kVirtualRobo"		
+    		return "kVirtualRobo"
         case ClusterType_KMICROSOFTCLOUD:
-    		return "kMicrosoftCloud"		
+    		return "kMicrosoftCloud"
         case ClusterType_KAMAZONCLOUD:
-    		return "kAmazonCloud"		
+    		return "kAmazonCloud"
         case ClusterType_KGOOGLECLOUD:
-    		return "kGoogleCloud"		
+    		return "kGoogleCloud"
         default:
         	return "kPhysical"
     }

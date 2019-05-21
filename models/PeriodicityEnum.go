@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -13,26 +14,24 @@ type PeriodicityEnum int
  * Value collection for PeriodicityEnum enum
  */
 const (
-    Periodicity_KEVERY PeriodicityEnum = 1 + iota
-    Periodicity_KHOUR
-    Periodicity_KDAY
-    Periodicity_KWEEK
-    Periodicity_KMONTH
-    Periodicity_KYEAR
+    Periodicity_KCONTINUOUS PeriodicityEnum = 1 + iota
+    Periodicity_KDAILY
+    Periodicity_KMONTHLY
+    Periodicity_KCONTINUOUSRPO
 )
 
-func (r PeriodicityEnum) MarshalJSON() ([]byte, error) { 
+func (r PeriodicityEnum) MarshalJSON() ([]byte, error) {
     s := PeriodicityEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *PeriodicityEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *PeriodicityEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  PeriodicityEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -40,20 +39,16 @@ func (r *PeriodicityEnum) UnmarshalJSON(data []byte) error {
  */
 func PeriodicityEnumToValue(periodicityEnum PeriodicityEnum) string {
     switch periodicityEnum {
-        case Periodicity_KEVERY:
-    		return "kEvery"		
-        case Periodicity_KHOUR:
-    		return "kHour"		
-        case Periodicity_KDAY:
-    		return "kDay"		
-        case Periodicity_KWEEK:
-    		return "kWeek"		
-        case Periodicity_KMONTH:
-    		return "kMonth"		
-        case Periodicity_KYEAR:
-    		return "kYear"		
+        case Periodicity_KCONTINUOUS:
+    		return "kContinuous"
+        case Periodicity_KDAILY:
+    		return "kDaily"
+        case Periodicity_KMONTHLY:
+    		return "kMonthly"
+        case Periodicity_KCONTINUOUSRPO:
+    		return "kContinuousRPO"
         default:
-        	return "kEvery"
+        	return "kContinuous"
     }
 }
 
@@ -74,19 +69,15 @@ func PeriodicityEnumArrayToValue(periodicityEnum []PeriodicityEnum) []string {
  */
 func PeriodicityEnumFromValue(value string) PeriodicityEnum {
     switch value {
-        case "kEvery":
-            return Periodicity_KEVERY
-        case "kHour":
-            return Periodicity_KHOUR
-        case "kDay":
-            return Periodicity_KDAY
-        case "kWeek":
-            return Periodicity_KWEEK
-        case "kMonth":
-            return Periodicity_KMONTH
-        case "kYear":
-            return Periodicity_KYEAR
+        case "kContinuous":
+            return Periodicity_KCONTINUOUS
+        case "kDaily":
+            return Periodicity_KDAILY
+        case "kMonthly":
+            return Periodicity_KMONTHLY
+        case "kContinuousRPO":
+            return Periodicity_KCONTINUOUSRPO
         default:
-            return Periodicity_KEVERY
+            return Periodicity_KCONTINUOUS
     }
 }

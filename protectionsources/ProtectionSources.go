@@ -1,25 +1,26 @@
+// Copyright 2019 Cohesity Inc.
 package protectionsources
 
-import "github.com/cohesity/management-sdk-go/models"
 import "github.com/cohesity/management-sdk-go/configuration"
+import "github.com/cohesity/management-sdk-go/models"
 
 /*
  * Interface for the PROTECTIONSOURCES_IMPL
  */
 type PROTECTIONSOURCES interface {
-    ListVirtualMachines (*int64, []string, []string, *bool) ([]*models.ProtectionSource, error)
+    GetDownloadPhysicalAgent (models.HostTypeDownloadPhysicalAgentEnum, models.PkgTypeEnum) ([]int64, error)
 
-    DeleteUnregisterProtectionSource (int64) (error)
+    CreateUpgradePhysicalAgents (*models.UpgradePhysicalServerAgents) (*models.UpgradePhysicalAgentsMessage, error)
 
-    ListProtectionSourcesRegistrationInfo ([]string, *bool, []models.Environments2Enum, []int64, *bool, []string) (*models.GetRegistrationInformationResponse, error)
+    ListProtectionSources ([]models.EnvironmentListProtectionSourcesEnum, *string, *bool, []string, *int64, []models.ExcludeOffice365TypeEnum, *bool, *bool, []string, *bool, []models.ExcludeTypeEnum, *bool) ([]*models.ProtectionSourceNode, error)
 
-    CreateRegisterProtectionSource (*models.RegisterProtectionSourceParameters) (*models.ProtectionSource, error)
+    ListApplicationServers (*int64, models.EnvironmentListApplicationServersEnum, *int64, models.ApplicationEnum) ([]*models.RegisteredApplicationServer, error)
 
-    ListProtectionSourcesRootNodes ([]models.Environments2Enum, *string, *int64) ([]*models.NodeInAProtectionSourcesTree, error)
+    CreateRegisterApplicationServers (*models.RegisterApplicationServersParameters) (*models.ProtectionSource, error)
 
-    ListSqlAagHostsAndDatabases ([]int64) ([]*models.SQLAAGHostAndDatabases, error)
+    UpdateApplicationServers (*models.UpdateApplicationServerParameters) (*models.ProtectionSource, error)
 
-    ListProtectedObjects (models.Environment2Enum, int64, *bool) ([]*models.ProtectedVMInformation, error)
+    DeleteUnregisterApplicationServers (*models.UnRegisterApplicationServersParameters, int64) (*models.ProtectionSource, error)
 
     ListDataStoreInformation (int64) ([]*models.ProtectionSource, error)
 
@@ -27,21 +28,21 @@ type PROTECTIONSOURCES interface {
 
     GetProtectionSourcesObjectById (int64) (*models.ProtectionSource, error)
 
+    ListProtectedObjects (models.EnvironmentListProtectedObjectsEnum, int64, *bool, *bool) ([]*models.ProtectedVmInfo, error)
+
     CreateRefreshProtectionSourceById (int64) (error)
 
-    ListApplicationServers (models.Environment2Enum, *int64, models.ApplicationEnum, *int64) ([]*models.RegisteredApplicationServer, error)
+    CreateRegisterProtectionSource (*models.RegisterProtectionSourceParameters) (*models.ProtectionSource, error)
 
-    ListProtectionSources (*bool, *int64, []models.ExcludeOffice365TypesEnum, *bool, *bool, *bool, []string, []string, []models.ExcludeTypesEnum, *bool, []models.Environments2Enum, *string) ([]*models.NodeInAProtectionSourcesTree, error)
+    ListProtectionSourcesRegistrationInfo (*bool, []models.EnvironmentListProtectionSourcesRegistrationInfoEnum, []int64, *bool, []string, []string) (*models.GetRegistrationInfoResponse, error)
 
-    UpdateApplicationServers (*models.UpdateApplicationServerParameters) (*models.ProtectionSource, error)
+    ListProtectionSourcesRootNodes (*int64, []models.EnvironmentListProtectionSourcesRootNodesEnum, *string) ([]*models.ProtectionSourceNode, error)
 
-    CreateRegisterApplicationServers (*models.RegisterApplicationServersParameters) (*models.ProtectionSource, error)
+    ListSqlAagHostsAndDatabases ([]int64) ([]*models.SqlAagHostAndDatabases, error)
 
-    DeleteUnregisterApplicationServers (int64) (*models.ProtectionSource, error)
+    ListVirtualMachines (*int64, []string, []string, *bool) ([]*models.ProtectionSource, error)
 
-    CreateUpgradePhysicalAgents (*models.UpgradePhysicalServerAgentsRequest) (*models.StatusOfPhysicalUpgradeRequest, error)
-
-    GetDownloadPhysicalAgent (models.HostType8Enum, models.PkgTypeEnum) ([]int64, error)
+    DeleteUnregisterProtectionSource (int64) (error)
 }
 
 /*

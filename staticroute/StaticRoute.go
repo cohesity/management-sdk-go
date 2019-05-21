@@ -1,7 +1,8 @@
+// Copyright 2019 Cohesity Inc.
 package staticroute
 
-import "github.com/cohesity/management-sdk-go/models"
 import "github.com/cohesity/management-sdk-go/configuration"
+import "github.com/cohesity/management-sdk-go/models"
 
 /*
  * Interface for the STATICROUTE_IMPL
@@ -9,9 +10,9 @@ import "github.com/cohesity/management-sdk-go/configuration"
 type STATICROUTE interface {
     GetStaticRoutes () ([]*models.StaticRoute, error)
 
-    UpdateStaticRoute (string, *models.StaticRoute) (*models.StaticRoute, error)
-
     RemoveStaticRoute (string) (error)
+
+    UpdateStaticRoute (string, *models.StaticRoute) (*models.StaticRoute, error)
 }
 
 /*

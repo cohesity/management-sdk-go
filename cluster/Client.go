@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package cluster
 
 
@@ -5,10 +6,10 @@ import(
 	"errors"
 	"fmt"
 	"encoding/json"
-	"github.com/cohesity/management-sdk-go/models"
 	"github.com/cohesity/management-sdk-go/unirest-go"
 	"github.com/cohesity/management-sdk-go/apihelper"
 	"github.com/cohesity/management-sdk-go/configuration"
+	"github.com/cohesity/management-sdk-go/models"
 )
 /*
  * Client structure as interface implementation
@@ -18,14 +19,15 @@ type CLUSTER_IMPL struct {
 }
 
 /**
- * Returns the updated Cluster configuration.
- * @param    *models.UpdateCluster        body     parameter: Optional
- * @return	Returns the *models.CohesityCluster response from the API call
+ * All Active Directory domains that are currently joined to the Cohesity
+ * Cluster are returned. In addition, the default LOCAL domain on the
+ * Cohesity Cluster is returned as the first element of the domains array in
+ * the response.
+ * @return	Returns the *models.BasicClusterInfo response from the API call
  */
-func (me *CLUSTER_IMPL) UpdateCluster (
-            body *models.UpdateCluster) (*models.CohesityCluster, error) {
+func (me *CLUSTER_IMPL) GetBasicClusterInfo () (*models.BasicClusterInfo, error) {
     //the endpoint path uri
-    _pathUrl := "/public/cluster"
+    _pathUrl := "/public/basicClusterInfo"
 
     //variable to hold errors
     var err error = nil
@@ -41,19 +43,14 @@ func (me *CLUSTER_IMPL) UpdateCluster (
         //error in url validation or cleaning
         return nil, err
     }
-     if me.config.AccessToken() == nil {
-        return nil, errors.New("Access Token not set. Please authorize the client using client.Authorize()");
-    }
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
-        "user-agent" : "cohesity-Go-sdk-6.2.0",
+        "user-agent" : "cohesity-Go-sdk-1.1.0",
         "accept" : "application/json",
-        "content-type" : "application/json; charset=utf-8",
-        "Authorization" : fmt.Sprintf("%s %s",*me.config.AccessToken().TokenType, *me.config.AccessToken().AccessToken),
     }
 
     //prepare API request
-    _request := unirest.Put(_queryBuilder, headers, body)
+    _request := unirest.Get(_queryBuilder, headers)
     //and invoke the API call request to fetch the response
     _response, err := unirest.AsString(_request,me.config.SkipSSL());
     if err != nil {
@@ -73,7 +70,7 @@ func (me *CLUSTER_IMPL) UpdateCluster (
     }
 
     //returning the response
-    var retVal *models.CohesityCluster = &models.CohesityCluster{}
+    var retVal *models.BasicClusterInfo = &models.BasicClusterInfo{}
     err = json.Unmarshal(_response.RawBody, &retVal)
 
     if err != nil {
@@ -87,10 +84,10 @@ func (me *CLUSTER_IMPL) UpdateCluster (
 /**
  * Returns information about this Cohesity Cluster.
  * @param    *bool        fetchStats     parameter: Optional
- * @return	Returns the *models.CohesityCluster response from the API call
+ * @return	Returns the *models.Cluster response from the API call
  */
 func (me *CLUSTER_IMPL) GetCluster (
-            fetchStats *bool) (*models.CohesityCluster, error) {
+            fetchStats *bool) (*models.Cluster, error) {
     //the endpoint path uri
     _pathUrl := "/public/cluster"
 
@@ -122,7 +119,7 @@ func (me *CLUSTER_IMPL) GetCluster (
     }
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
-        "user-agent" : "cohesity-Go-sdk-6.2.0",
+        "user-agent" : "cohesity-Go-sdk-1.1.0",
         "accept" : "application/json",
         "Authorization" : fmt.Sprintf("%s %s",*me.config.AccessToken().TokenType, *me.config.AccessToken().AccessToken),
     }
@@ -148,7 +145,7 @@ func (me *CLUSTER_IMPL) GetCluster (
     }
 
     //returning the response
-    var retVal *models.CohesityCluster = &models.CohesityCluster{}
+    var retVal *models.Cluster = &models.Cluster{}
     err = json.Unmarshal(_response.RawBody, &retVal)
 
     if err != nil {
@@ -160,15 +157,14 @@ func (me *CLUSTER_IMPL) GetCluster (
 }
 
 /**
- * All Active Directory domains that are currently joined to the Cohesity
- * Cluster are returned. In addition, the default LOCAL domain on the
- * Cohesity Cluster is returned as the first element of the domains array in
- * the response.
- * @return	Returns the *models.BasicCohesityClusterInformation response from the API call
+ * Returns the updated Cluster configuration.
+ * @param    *models.UpdateClusterParams        body     parameter: Optional
+ * @return	Returns the *models.Cluster response from the API call
  */
-func (me *CLUSTER_IMPL) GetBasicClusterInfo () (*models.BasicCohesityClusterInformation, error) {
+func (me *CLUSTER_IMPL) UpdateCluster (
+            body *models.UpdateClusterParams) (*models.Cluster, error) {
     //the endpoint path uri
-    _pathUrl := "/public/basicClusterInfo"
+    _pathUrl := "/public/cluster"
 
     //variable to hold errors
     var err error = nil
@@ -189,13 +185,14 @@ func (me *CLUSTER_IMPL) GetBasicClusterInfo () (*models.BasicCohesityClusterInfo
     }
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
-        "user-agent" : "cohesity-Go-sdk-6.2.0",
+        "user-agent" : "cohesity-Go-sdk-1.1.0",
         "accept" : "application/json",
+        "content-type" : "application/json; charset=utf-8",
         "Authorization" : fmt.Sprintf("%s %s",*me.config.AccessToken().TokenType, *me.config.AccessToken().AccessToken),
     }
 
     //prepare API request
-    _request := unirest.Get(_queryBuilder, headers)
+    _request := unirest.Put(_queryBuilder, headers, body)
     //and invoke the API call request to fetch the response
     _response, err := unirest.AsString(_request,me.config.SkipSSL());
     if err != nil {
@@ -215,7 +212,7 @@ func (me *CLUSTER_IMPL) GetBasicClusterInfo () (*models.BasicCohesityClusterInfo
     }
 
     //returning the response
-    var retVal *models.BasicCohesityClusterInformation = &models.BasicCohesityClusterInformation{}
+    var retVal *models.Cluster = &models.Cluster{}
     err = json.Unmarshal(_response.RawBody, &retVal)
 
     if err != nil {

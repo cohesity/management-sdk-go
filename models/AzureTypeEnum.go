@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -28,18 +29,18 @@ const (
     AzureType_KCOMPUTEOPTIONS
 )
 
-func (r AzureTypeEnum) MarshalJSON() ([]byte, error) { 
+func (r AzureTypeEnum) MarshalJSON() ([]byte, error) {
     s := AzureTypeEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *AzureTypeEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *AzureTypeEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  AzureTypeEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -48,31 +49,31 @@ func (r *AzureTypeEnum) UnmarshalJSON(data []byte) error {
 func AzureTypeEnumToValue(azureTypeEnum AzureTypeEnum) string {
     switch azureTypeEnum {
         case AzureType_KSUBSCRIPTION:
-    		return "kSubscription"		
+    		return "kSubscription"
         case AzureType_KRESOURCEGROUP:
-    		return "kResourceGroup"		
+    		return "kResourceGroup"
         case AzureType_KVIRTUALMACHINE:
-    		return "kVirtualMachine"		
+    		return "kVirtualMachine"
         case AzureType_KSTORAGEACCOUNT:
-    		return "kStorageAccount"		
+    		return "kStorageAccount"
         case AzureType_KSTORAGEKEY:
-    		return "kStorageKey"		
+    		return "kStorageKey"
         case AzureType_KSTORAGECONTAINER:
-    		return "kStorageContainer"		
+    		return "kStorageContainer"
         case AzureType_KSTORAGEBLOB:
-    		return "kStorageBlob"		
+    		return "kStorageBlob"
         case AzureType_KSTORAGERESOURCEGROUP:
-    		return "kStorageResourceGroup"		
+    		return "kStorageResourceGroup"
         case AzureType_KNETWORKSECURITYGROUP:
-    		return "kNetworkSecurityGroup"		
+    		return "kNetworkSecurityGroup"
         case AzureType_KVIRTUALNETWORK:
-    		return "kVirtualNetwork"		
+    		return "kVirtualNetwork"
         case AzureType_KNETWORKRESOURCEGROUP:
-    		return "kNetworkResourceGroup"		
+    		return "kNetworkResourceGroup"
         case AzureType_KSUBNET:
-    		return "kSubnet"		
+    		return "kSubnet"
         case AzureType_KCOMPUTEOPTIONS:
-    		return "kComputeOptions"		
+    		return "kComputeOptions"
         default:
         	return "kSubscription"
     }

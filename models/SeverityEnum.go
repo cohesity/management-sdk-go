@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -18,18 +19,18 @@ const (
     Severity_KINFO
 )
 
-func (r SeverityEnum) MarshalJSON() ([]byte, error) { 
+func (r SeverityEnum) MarshalJSON() ([]byte, error) {
     s := SeverityEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *SeverityEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *SeverityEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  SeverityEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -38,11 +39,11 @@ func (r *SeverityEnum) UnmarshalJSON(data []byte) error {
 func SeverityEnumToValue(severityEnum SeverityEnum) string {
     switch severityEnum {
         case Severity_KCRITICAL:
-    		return "kCritical"		
+    		return "kCritical"
         case Severity_KWARNING:
-    		return "kWarning"		
+    		return "kWarning"
         case Severity_KINFO:
-    		return "kInfo"		
+    		return "kInfo"
         default:
         	return "kCritical"
     }

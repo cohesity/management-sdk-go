@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -22,18 +23,18 @@ const (
     Type_KSTORAGECONTAINER
 )
 
-func (r TypeEnum) MarshalJSON() ([]byte, error) { 
+func (r TypeEnum) MarshalJSON() ([]byte, error) {
     s := TypeEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *TypeEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *TypeEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  TypeEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -42,19 +43,19 @@ func (r *TypeEnum) UnmarshalJSON(data []byte) error {
 func TypeEnumToValue(typeEnum TypeEnum) string {
     switch typeEnum {
         case Type_KPRISMCENTRAL:
-    		return "kPrismCentral"		
+    		return "kPrismCentral"
         case Type_KSTANDALONECLUSTER:
-    		return "kStandaloneCluster"		
+    		return "kStandaloneCluster"
         case Type_KCLUSTER:
-    		return "kCluster"		
+    		return "kCluster"
         case Type_KHOST:
-    		return "kHost"		
+    		return "kHost"
         case Type_KVIRTUALMACHINE:
-    		return "kVirtualMachine"		
+    		return "kVirtualMachine"
         case Type_KNETWORK:
-    		return "kNetwork"		
+    		return "kNetwork"
         case Type_KSTORAGECONTAINER:
-    		return "kStorageContainer"		
+    		return "kStorageContainer"
         default:
         	return "kPrismCentral"
     }

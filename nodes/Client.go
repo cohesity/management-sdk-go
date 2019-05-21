@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package nodes
 
 
@@ -5,10 +6,10 @@ import(
 	"errors"
 	"fmt"
 	"encoding/json"
-	"github.com/cohesity/management-sdk-go/models"
 	"github.com/cohesity/management-sdk-go/unirest-go"
 	"github.com/cohesity/management-sdk-go/apihelper"
 	"github.com/cohesity/management-sdk-go/configuration"
+	"github.com/cohesity/management-sdk-go/models"
 )
 /*
  * Client structure as interface implementation
@@ -46,7 +47,7 @@ func (me *NODES_IMPL) GetNodes () ([]*models.Node, error) {
     }
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
-        "user-agent" : "cohesity-Go-sdk-6.2.0",
+        "user-agent" : "cohesity-Go-sdk-1.1.0",
         "accept" : "application/json",
         "Authorization" : fmt.Sprintf("%s %s",*me.config.AccessToken().TokenType, *me.config.AccessToken().AccessToken),
     }
@@ -121,7 +122,7 @@ func (me *NODES_IMPL) GetNodeById (
     }
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
-        "user-agent" : "cohesity-Go-sdk-6.2.0",
+        "user-agent" : "cohesity-Go-sdk-1.1.0",
         "accept" : "application/json",
         "Authorization" : fmt.Sprintf("%s %s",*me.config.AccessToken().TokenType, *me.config.AccessToken().AccessToken),
     }

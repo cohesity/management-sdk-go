@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -35,18 +36,18 @@ const (
     AccessInfoList_KGENERICREAD
 )
 
-func (r AccessInfoListEnum) MarshalJSON() ([]byte, error) { 
+func (r AccessInfoListEnum) MarshalJSON() ([]byte, error) {
     s := AccessInfoListEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *AccessInfoListEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *AccessInfoListEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  AccessInfoListEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -55,45 +56,45 @@ func (r *AccessInfoListEnum) UnmarshalJSON(data []byte) error {
 func AccessInfoListEnumToValue(accessInfoListEnum AccessInfoListEnum) string {
     switch accessInfoListEnum {
         case AccessInfoList_KFILEREADDATA:
-    		return "kFileReadData"		
+    		return "kFileReadData"
         case AccessInfoList_KFILEWRITEDATA:
-    		return "kFileWriteData"		
+    		return "kFileWriteData"
         case AccessInfoList_KFILEAPPENDDATA:
-    		return "kFileAppendData"		
+    		return "kFileAppendData"
         case AccessInfoList_KFILEREADEA:
-    		return "kFileReadEa"		
+    		return "kFileReadEa"
         case AccessInfoList_KFILEWRITEEA:
-    		return "kFileWriteEa"		
+    		return "kFileWriteEa"
         case AccessInfoList_KFILEEXECUTE:
-    		return "kFileExecute"		
+    		return "kFileExecute"
         case AccessInfoList_KFILEDELETECHILD:
-    		return "kFileDeleteChild"		
+    		return "kFileDeleteChild"
         case AccessInfoList_KFILEREADATTRIBUTES:
-    		return "kFileReadAttributes"		
+    		return "kFileReadAttributes"
         case AccessInfoList_KFILEWRITEATTRIBUTES:
-    		return "kFileWriteAttributes"		
+    		return "kFileWriteAttributes"
         case AccessInfoList_KDELETE:
-    		return "kDelete"		
+    		return "kDelete"
         case AccessInfoList_KREADCONTROL:
-    		return "kReadControl"		
+    		return "kReadControl"
         case AccessInfoList_KWRITEDAC:
-    		return "kWriteDac"		
+    		return "kWriteDac"
         case AccessInfoList_KWRITEOWNER:
-    		return "kWriteOwner"		
+    		return "kWriteOwner"
         case AccessInfoList_KSYNCHRONIZE:
-    		return "kSynchronize"		
+    		return "kSynchronize"
         case AccessInfoList_KACCESSSYSTEMSECURITY:
-    		return "kAccessSystemSecurity"		
+    		return "kAccessSystemSecurity"
         case AccessInfoList_KMAXIMUMALLOWED:
-    		return "kMaximumAllowed"		
+    		return "kMaximumAllowed"
         case AccessInfoList_KGENERICALL:
-    		return "kGenericAll"		
+    		return "kGenericAll"
         case AccessInfoList_KGENERICEXECUTE:
-    		return "kGenericExecute"		
+    		return "kGenericExecute"
         case AccessInfoList_KGENERICWRITE:
-    		return "kGenericWrite"		
+    		return "kGenericWrite"
         case AccessInfoList_KGENERICREAD:
-    		return "kGenericRead"		
+    		return "kGenericRead"
         default:
         	return "kFileReadData"
     }

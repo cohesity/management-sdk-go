@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -18,18 +19,18 @@ const (
     VaultType_KNAS
 )
 
-func (r VaultTypeEnum) MarshalJSON() ([]byte, error) { 
+func (r VaultTypeEnum) MarshalJSON() ([]byte, error) {
     s := VaultTypeEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *VaultTypeEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *VaultTypeEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  VaultTypeEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -38,11 +39,11 @@ func (r *VaultTypeEnum) UnmarshalJSON(data []byte) error {
 func VaultTypeEnumToValue(vaultTypeEnum VaultTypeEnum) string {
     switch vaultTypeEnum {
         case VaultType_KCLOUD:
-    		return "kCloud"		
+    		return "kCloud"
         case VaultType_KTAPE:
-    		return "kTape"		
+    		return "kTape"
         case VaultType_KNAS:
-    		return "kNas"		
+    		return "kNas"
         default:
         	return "kCloud"
     }

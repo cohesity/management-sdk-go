@@ -1,27 +1,28 @@
+// Copyright 2019 Cohesity Inc.
 package remoterestore
 
-import "github.com/cohesity/management-sdk-go/models"
 import "github.com/cohesity/management-sdk-go/configuration"
+import "github.com/cohesity/management-sdk-go/models"
 
 /*
  * Interface for the REMOTERESTORE_IMPL
  */
 type REMOTERESTORE interface {
-    ListRemoteVaultSearchJobs () ([]*models.RemoteVaultSearchInformation, error)
-
-    CreateRemoteVaultSearchJob (*models.CreateRemoteVaultSearchRequest) (*models.RemoteVaultSearchJobUid, error)
-
-    DeleteStopRemoteVaultSearchJob (*models.SearchJobStopRequest) (error)
-
-    ListRemoteVaultSearchJobById (int64) (*models.RemoteVaultSearchInformation, error)
-
-    GetRemoteVaultSearchJobResults (int64, int64, int64, *int64, *string, *string) (*models.RemoteVaultSearchJobResult, error)
-
     UploadVaultEncryptionKeys (int64, []*models.VaultEncryptionKey) (error)
 
     ListRemoteVaultRestoreTasks () ([]*models.RemoteVaultRestoreTaskStatus, error)
 
-    CreateRemoteVaultRestoreTask (*models.CreateRemoteVaultRestoreTaskRequest) (*models.UniqueGlobalId, error)
+    CreateRemoteVaultRestoreTask (*models.CreateRemoteVaultRestoreTaskParameters) (*models.UniversalId, error)
+
+    GetRemoteVaultSearchJobResults (int64, int64, int64, *int64, *string, *string) (*models.RemoteVaultSearchJobResults, error)
+
+    DeleteStopRemoteVaultSearchJob (*models.StopRemoteVaultSearchJobParameters) (error)
+
+    ListRemoteVaultSearchJobs () ([]*models.RemoteVaultSearchJobInformation, error)
+
+    CreateRemoteVaultSearchJob (*models.CreateRemoteVaultSearchJobParameters) (*models.CreatedRemoteVaultSearchJobUid, error)
+
+    ListRemoteVaultSearchJobById (int64) (*models.RemoteVaultSearchJobInformation, error)
 }
 
 /*

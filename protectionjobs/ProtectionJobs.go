@@ -1,27 +1,28 @@
+// Copyright 2019 Cohesity Inc.
 package protectionjobs
 
-import "github.com/cohesity/management-sdk-go/models"
 import "github.com/cohesity/management-sdk-go/configuration"
+import "github.com/cohesity/management-sdk-go/models"
 
 /*
  * Interface for the PROTECTIONJOBS_IMPL
  */
 type PROTECTIONJOBS interface {
-    DeleteProtectionJob (int64, *bool) (error)
+    ChangeProtectionJobState (int64, *models.ChangeProtectionJobStateParam) (error)
 
-    CreateRunProtectionJob (int64, *models.ProtectionRunParameters) (error)
+    GetProtectionJobs (*bool, *bool, []int64, []string, []string, *bool, *bool, *bool, []string, *bool, []models.EnvironmentGetProtectionJobsEnum, *bool) ([]*models.ProtectionJob, error)
+
+    CreateProtectionJob (*models.ProtectionJobRequestBody) (*models.ProtectionJob, error)
+
+    CreateRunProtectionJob (int64, *models.RunProtectionJobParam) (error)
+
+    UpdateProtectionJobsState (*models.UpdateProtectionJobsStateParams) (*models.UpdateProtectionJobsState, error)
+
+    DeleteProtectionJob (int64, *models.DeleteProtectionJobParam) (error)
 
     GetProtectionJobById (int64) (*models.ProtectionJob, error)
 
-    UpdateProtectionJob (*models.ProtectionJobRequest, int64) (*models.ProtectionJob, error)
-
-    GetProtectionJobs (*bool, []string, *bool, *bool, *bool, []models.EnvironmentsEnum, []string, *bool, []int64, []string) ([]*models.ProtectionJob, error)
-
-    ChangeProtectionJobState (int64, *models.ChangeProtectionJobStateParameters) (error)
-
-    CreateProtectionJob (*models.ProtectionJobRequest) (*models.ProtectionJob, error)
-
-    UpdateProtectionJobsState (*models.UpdateStateParametersOfProtectionJobs) (*models.SpecifiesTheResponseOfUpdationOfStateOfMultipleProtectionJobs, error)
+    UpdateProtectionJob (*models.ProtectionJobRequestBody, int64) (*models.ProtectionJob, error)
 }
 
 /*

@@ -1,35 +1,38 @@
+// Copyright 2019 Cohesity Inc.
 package activedirectory
 
-import "github.com/cohesity/management-sdk-go/models"
 import "github.com/cohesity/management-sdk-go/configuration"
+import "github.com/cohesity/management-sdk-go/models"
 
 /*
  * Interface for the ACTIVEDIRECTORY_IMPL
  */
 type ACTIVEDIRECTORY interface {
-    GetActiveDirectoryDomainControllers () (*models.DomainControllers, error)
+    DeleteActiveDirectoryEntry (*models.ActiveDirectoryEntry) (error)
 
-    AddActiveDirectoryPrincipals ([]*models.AddGroupsOrUsersRequest) ([]*models.NonLOCALGroupOrUser, error)
+    GetActiveDirectoryEntry ([]string, *bool, []string) ([]*models.ActiveDirectoryEntry, error)
 
-    SearchActiveDirectoryPrincipals (*string, models.ObjectClass4Enum, *string, []string, *bool) ([]*models.ActiveDirectoryPrincipal, error)
-
-    GetActiveDirectoryEntry ([]string, []string, *bool) ([]*models.ActiveDirectory, error)
-
-    UpdatePreferredDomainControllers ([]*models.UpdatePreferredDomainControllerRequest, string) (*models.ActiveDirectory, error)
-
-    UpdateActiveDirectoryMachineAccounts (*models.UpdateMachineAccountsRequest, string) (*models.ActiveDirectory, error)
-
-    UpdateActiveDirectoryLdapProvider (*models.UpdateLDAPProviderRequest, string) (*models.ActiveDirectory, error)
-
-    UpdateActiveDirectoryIgnoredTrustedDomains (*models.UpdateBlacklistedTrustedDomainRequest, string) (*models.ActiveDirectory, error)
-
-    UpdateActiveDirectoryIdMapping (*models.UpdateIDMappingInformationRequest, string) (*models.ActiveDirectory, error)
+    CreateActiveDirectoryEntry (*models.ActiveDirectoryEntry) (*models.ActiveDirectoryEntry, error)
 
     ListCentrifyZones (*string) ([]*models.ListCentrifyZone, error)
 
-    DeleteActiveDirectoryEntry (*models.ActiveDirectory) (error)
+    GetActiveDirectoryDomainControllers () (*models.DomainControllers, error)
 
-    CreateActiveDirectoryEntry (*models.ActiveDirectory) (*models.ActiveDirectory, error)
+    SearchActiveDirectoryPrincipals (*string, models.ObjectClassSearchActiveDirectoryPrincipalsEnum, *string, []string, *bool) ([]*models.ActiveDirectoryPrincipal, error)
+
+    AddActiveDirectoryPrincipals ([]*models.ActiveDirectoryPrincipalsAddParameters) ([]*models.AddedActiveDirectoryPrincipal, error)
+
+    CreateEnableTrustedDomainDiscovery (bool, string) (*models.ActiveDirectoryEntry, error)
+
+    UpdateActiveDirectoryIdMapping (*models.IdMappingInfo, string) (*models.ActiveDirectoryEntry, error)
+
+    UpdateActiveDirectoryIgnoredTrustedDomains (*models.UpdateIgnoredTrustedDomainsParams, string) (*models.ActiveDirectoryEntry, error)
+
+    UpdateActiveDirectoryLdapProvider (*models.UpdateLdapProviderParams, string) (*models.ActiveDirectoryEntry, error)
+
+    UpdateActiveDirectoryMachineAccounts (*models.UpdateMachineAccountsParams, string) (*models.ActiveDirectoryEntry, error)
+
+    UpdatePreferredDomainControllers ([]*models.PreferredDomainController, string) (*models.ActiveDirectoryEntry, error)
 }
 
 /*

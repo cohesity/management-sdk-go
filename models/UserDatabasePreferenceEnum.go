@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -18,18 +19,18 @@ const (
     UserDatabasePreference_KBACKUPONLYAAGDATABASES
 )
 
-func (r UserDatabasePreferenceEnum) MarshalJSON() ([]byte, error) { 
+func (r UserDatabasePreferenceEnum) MarshalJSON() ([]byte, error) {
     s := UserDatabasePreferenceEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *UserDatabasePreferenceEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *UserDatabasePreferenceEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  UserDatabasePreferenceEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -38,11 +39,11 @@ func (r *UserDatabasePreferenceEnum) UnmarshalJSON(data []byte) error {
 func UserDatabasePreferenceEnumToValue(userDatabasePreferenceEnum UserDatabasePreferenceEnum) string {
     switch userDatabasePreferenceEnum {
         case UserDatabasePreference_KBACKUPALLDATABASES:
-    		return "kBackupAllDatabases"		
+    		return "kBackupAllDatabases"
         case UserDatabasePreference_KBACKUPALLEXCEPTAAGDATABASES:
-    		return "kBackupAllExceptAAGDatabases"		
+    		return "kBackupAllExceptAAGDatabases"
         case UserDatabasePreference_KBACKUPONLYAAGDATABASES:
-    		return "kBackupOnlyAAGDatabases"		
+    		return "kBackupOnlyAAGDatabases"
         default:
         	return "kBackupAllDatabases"
     }

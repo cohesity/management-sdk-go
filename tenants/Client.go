@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package tenants
 
 
@@ -54,7 +55,7 @@ func (me *TENANTS_IMPL) GetDownloadTenantsProxy (
     }
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
-        "user-agent" : "cohesity-Go-sdk-6.2.0",
+        "user-agent" : "cohesity-Go-sdk-1.1.0",
         "accept" : "application/json",
         "Authorization" : fmt.Sprintf("%s %s",*me.config.AccessToken().TokenType, *me.config.AccessToken().AccessToken),
     }

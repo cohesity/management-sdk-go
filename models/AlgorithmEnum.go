@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -17,18 +18,18 @@ const (
     Algorithm_LRC
 )
 
-func (r AlgorithmEnum) MarshalJSON() ([]byte, error) { 
+func (r AlgorithmEnum) MarshalJSON() ([]byte, error) {
     s := AlgorithmEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *AlgorithmEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *AlgorithmEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  AlgorithmEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -37,9 +38,9 @@ func (r *AlgorithmEnum) UnmarshalJSON(data []byte) error {
 func AlgorithmEnumToValue(algorithmEnum AlgorithmEnum) string {
     switch algorithmEnum {
         case Algorithm_REED_SOLOMON:
-    		return "REED_SOLOMON"		
+    		return "REED_SOLOMON"
         case Algorithm_LRC:
-    		return "LRC"		
+    		return "LRC"
         default:
         	return "REED_SOLOMON"
     }

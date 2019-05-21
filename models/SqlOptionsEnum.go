@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -18,18 +19,18 @@ const (
     SqlOptions_KFINALIZE
 )
 
-func (r SqlOptionsEnum) MarshalJSON() ([]byte, error) { 
+func (r SqlOptionsEnum) MarshalJSON() ([]byte, error) {
     s := SqlOptionsEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *SqlOptionsEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *SqlOptionsEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  SqlOptionsEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -38,11 +39,11 @@ func (r *SqlOptionsEnum) UnmarshalJSON(data []byte) error {
 func SqlOptionsEnumToValue(sqlOptionsEnum SqlOptionsEnum) string {
     switch sqlOptionsEnum {
         case SqlOptions_KCREATE:
-    		return "kCreate"		
+    		return "kCreate"
         case SqlOptions_KUPDATE:
-    		return "kUpdate"		
+    		return "kUpdate"
         case SqlOptions_KFINALIZE:
-    		return "kFinalize"		
+    		return "kFinalize"
         default:
         	return "kCreate"
     }

@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package privileges
 
 
@@ -5,10 +6,10 @@ import(
 	"errors"
 	"fmt"
 	"encoding/json"
-	"github.com/cohesity/management-sdk-go/models"
 	"github.com/cohesity/management-sdk-go/unirest-go"
 	"github.com/cohesity/management-sdk-go/apihelper"
 	"github.com/cohesity/management-sdk-go/configuration"
+	"github.com/cohesity/management-sdk-go/models"
 )
 /*
  * Client structure as interface implementation
@@ -25,10 +26,10 @@ type PRIVILEGES_IMPL struct {
  * If an exact privilege name (such as PRINCIPAL_VIEW) is specified in the
  * 'name' parameter, only information about that single privilege is returned.
  * @param    *string        name     parameter: Optional
- * @return	Returns the []*models.PrivilegeInformation response from the API call
+ * @return	Returns the []*models.PrivilegeInfo response from the API call
  */
 func (me *PRIVILEGES_IMPL) GetPrivileges (
-            name *string) ([]*models.PrivilegeInformation, error) {
+            name *string) ([]*models.PrivilegeInfo, error) {
     //the endpoint path uri
     _pathUrl := "/public/privileges"
 
@@ -60,7 +61,7 @@ func (me *PRIVILEGES_IMPL) GetPrivileges (
     }
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
-        "user-agent" : "cohesity-Go-sdk-6.2.0",
+        "user-agent" : "cohesity-Go-sdk-1.1.0",
         "accept" : "application/json",
         "Authorization" : fmt.Sprintf("%s %s",*me.config.AccessToken().TokenType, *me.config.AccessToken().AccessToken),
     }
@@ -86,7 +87,7 @@ func (me *PRIVILEGES_IMPL) GetPrivileges (
     }
 
     //returning the response
-    var retVal []*models.PrivilegeInformation
+    var retVal []*models.PrivilegeInfo
     err = json.Unmarshal(_response.RawBody, &retVal)
 
     if err != nil {

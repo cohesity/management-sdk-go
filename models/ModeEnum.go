@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -17,18 +18,18 @@ const (
     Mode_KBLACKLIST
 )
 
-func (r ModeEnum) MarshalJSON() ([]byte, error) { 
+func (r ModeEnum) MarshalJSON() ([]byte, error) {
     s := ModeEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *ModeEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *ModeEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  ModeEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -37,9 +38,9 @@ func (r *ModeEnum) UnmarshalJSON(data []byte) error {
 func ModeEnumToValue(modeEnum ModeEnum) string {
     switch modeEnum {
         case Mode_KWHITELIST:
-    		return "kWhitelist"		
+    		return "kWhitelist"
         case Mode_KBLACKLIST:
-    		return "kBlacklist"		
+    		return "kBlacklist"
         default:
         	return "kWhitelist"
     }

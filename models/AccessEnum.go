@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -20,18 +21,18 @@ const (
     Access_KSPECIALACCESS
 )
 
-func (r AccessEnum) MarshalJSON() ([]byte, error) { 
+func (r AccessEnum) MarshalJSON() ([]byte, error) {
     s := AccessEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *AccessEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *AccessEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  AccessEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -40,15 +41,15 @@ func (r *AccessEnum) UnmarshalJSON(data []byte) error {
 func AccessEnumToValue(accessEnum AccessEnum) string {
     switch accessEnum {
         case Access_KREADONLY:
-    		return "kReadOnly"		
+    		return "kReadOnly"
         case Access_KREADWRITE:
-    		return "kReadWrite"		
+    		return "kReadWrite"
         case Access_KMODIFY:
-    		return "kModify"		
+    		return "kModify"
         case Access_KFULLCONTROL:
-    		return "kFullControl"		
+    		return "kFullControl"
         case Access_KSPECIALACCESS:
-    		return "kSpecialAccess"		
+    		return "kSpecialAccess"
         default:
         	return "kReadOnly"
     }

@@ -1,21 +1,22 @@
+// Copyright 2019 Cohesity Inc.
 package vlan
 
-import "github.com/cohesity/management-sdk-go/models"
 import "github.com/cohesity/management-sdk-go/configuration"
+import "github.com/cohesity/management-sdk-go/models"
 
 /*
  * Interface for the VLAN_IMPL
  */
 type VLAN interface {
-    UpdateVlan (int64, *models.VLAN) (*models.VLAN, error)
+    GetVlans ([]string, *bool, *bool) ([]*models.Vlan, error)
+
+    CreateVlan () (*models.Vlan, error)
 
     RemoveVlan (int64) (error)
 
-    GetVlans (*bool, []string) ([]*models.VLAN, error)
+    GetVlanById (int64) (*models.Vlan, error)
 
-    CreateVlan () (*models.VLAN, error)
-
-    GetVlanById (int64) (*models.VLAN, error)
+    UpdateVlan (int64, *models.Vlan) (*models.Vlan, error)
 }
 
 /*

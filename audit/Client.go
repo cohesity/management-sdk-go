@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package audit
 
 
@@ -5,10 +6,10 @@ import(
 	"errors"
 	"fmt"
 	"encoding/json"
-	"github.com/cohesity/management-sdk-go/models"
 	"github.com/cohesity/management-sdk-go/unirest-go"
 	"github.com/cohesity/management-sdk-go/apihelper"
 	"github.com/cohesity/management-sdk-go/configuration"
+	"github.com/cohesity/management-sdk-go/models"
 )
 /*
  * Client structure as interface implementation
@@ -22,33 +23,33 @@ type AUDIT_IMPL struct {
  * Cohesity Cluster, the Cluster generates Audit Logs.
  * If no parameters are specified, all logs currently on the Cohesity Cluster
  * are returned. Specifying parameters filters the results that are returned.
- * @param    *bool           allUnderHierarchy     parameter: Optional
- * @param    []string        domains               parameter: Optional
- * @param    *string         search                parameter: Optional
- * @param    *int64          startIndex            parameter: Optional
- * @param    *string         outputFormat          parameter: Optional
+ * @param    *int64          pageCount             parameter: Optional
  * @param    *string         tenantId              parameter: Optional
- * @param    []string        userNames             parameter: Optional
  * @param    []string        entityTypes           parameter: Optional
  * @param    []string        actions               parameter: Optional
- * @param    *int64          startTimeUsecs        parameter: Optional
+ * @param    *string         search                parameter: Optional
  * @param    *int64          endTimeUsecs          parameter: Optional
- * @param    *int64          pageCount             parameter: Optional
- * @return	Returns the *models.ClusterAuditLogFilterResult response from the API call
+ * @param    *int64          startIndex            parameter: Optional
+ * @param    *bool           allUnderHierarchy     parameter: Optional
+ * @param    []string        userNames             parameter: Optional
+ * @param    []string        domains               parameter: Optional
+ * @param    *int64          startTimeUsecs        parameter: Optional
+ * @param    *string         outputFormat          parameter: Optional
+ * @return	Returns the *models.ClusterAuditLogsSearchResult response from the API call
  */
 func (me *AUDIT_IMPL) SearchClusterAuditLogs (
-            allUnderHierarchy *bool,
-            domains []string,
-            search *string,
-            startIndex *int64,
-            outputFormat *string,
+            pageCount *int64,
             tenantId *string,
-            userNames []string,
             entityTypes []string,
             actions []string,
-            startTimeUsecs *int64,
+            search *string,
             endTimeUsecs *int64,
-            pageCount *int64) (*models.ClusterAuditLogFilterResult, error) {
+            startIndex *int64,
+            allUnderHierarchy *bool,
+            userNames []string,
+            domains []string,
+            startTimeUsecs *int64,
+            outputFormat *string) (*models.ClusterAuditLogsSearchResult, error) {
     //the endpoint path uri
     _pathUrl := "/public/auditLogs/cluster"
 
@@ -62,18 +63,18 @@ func (me *AUDIT_IMPL) SearchClusterAuditLogs (
 
     //process optional query parameters
     _queryBuilder, err = apihelper.AppendUrlWithQueryParameters(_queryBuilder, map[string]interface{} {
-        "allUnderHierarchy" : allUnderHierarchy,
-        "domains" : domains,
-        "search" : search,
-        "startIndex" : startIndex,
-        "outputFormat" : outputFormat,
+        "pageCount" : pageCount,
         "tenantId" : tenantId,
-        "userNames" : userNames,
         "entityTypes" : entityTypes,
         "actions" : actions,
-        "startTimeUsecs" : startTimeUsecs,
+        "search" : search,
         "endTimeUsecs" : endTimeUsecs,
-        "pageCount" : pageCount,
+        "startIndex" : startIndex,
+        "allUnderHierarchy" : allUnderHierarchy,
+        "userNames" : userNames,
+        "domains" : domains,
+        "startTimeUsecs" : startTimeUsecs,
+        "outputFormat" : outputFormat,
     })
     if err != nil {
         //error in query param handling
@@ -91,7 +92,7 @@ func (me *AUDIT_IMPL) SearchClusterAuditLogs (
     }
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
-        "user-agent" : "cohesity-Go-sdk-6.2.0",
+        "user-agent" : "cohesity-Go-sdk-1.1.0",
         "accept" : "application/json",
         "Authorization" : fmt.Sprintf("%s %s",*me.config.AccessToken().TokenType, *me.config.AccessToken().AccessToken),
     }
@@ -117,7 +118,7 @@ func (me *AUDIT_IMPL) SearchClusterAuditLogs (
     }
 
     //returning the response
-    var retVal *models.ClusterAuditLogFilterResult = &models.ClusterAuditLogFilterResult{}
+    var retVal *models.ClusterAuditLogsSearchResult = &models.ClusterAuditLogsSearchResult{}
     err = json.Unmarshal(_response.RawBody, &retVal)
 
     if err != nil {

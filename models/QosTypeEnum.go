@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -17,18 +18,18 @@ const (
     QosType_KBACKUPSSD
 )
 
-func (r QosTypeEnum) MarshalJSON() ([]byte, error) { 
+func (r QosTypeEnum) MarshalJSON() ([]byte, error) {
     s := QosTypeEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *QosTypeEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *QosTypeEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  QosTypeEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -37,9 +38,9 @@ func (r *QosTypeEnum) UnmarshalJSON(data []byte) error {
 func QosTypeEnumToValue(qosTypeEnum QosTypeEnum) string {
     switch qosTypeEnum {
         case QosType_KBACKUPHDD:
-    		return "kBackupHDD"		
+    		return "kBackupHDD"
         case QosType_KBACKUPSSD:
-    		return "kBackupSSD"		
+    		return "kBackupSSD"
         default:
         	return "kBackupHDD"
     }

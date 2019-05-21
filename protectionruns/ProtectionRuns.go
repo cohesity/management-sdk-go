@@ -1,17 +1,18 @@
+// Copyright 2019 Cohesity Inc.
 package protectionruns
 
-import "github.com/cohesity/management-sdk-go/models"
 import "github.com/cohesity/management-sdk-go/configuration"
+import "github.com/cohesity/management-sdk-go/models"
 
 /*
  * Interface for the PROTECTIONRUNS_IMPL
  */
 type PROTECTIONRUNS interface {
-    CreateCancelProtectionJobRun (int64, *models.CancelAProtectionJobRun) (error)
+    GetProtectionRuns (*bool, *int64, *int64, *bool, []string, *bool, *int64, *int64, *int64, *int64, *bool) ([]*models.ProtectionRunInstance, error)
 
-    GetProtectionRuns (*int64, *bool, *int64, *int64, *int64, *int64, []string, *bool, *bool, *int64) ([]*models.ProtectionJobRunInstance, error)
+    UpdateProtectionRuns (*models.UpdateProtectionJobRunsParam) (error)
 
-    UpdateProtectionRuns (*models.UpdateProtectionJobRunsParameters) (error)
+    CreateCancelProtectionJobRun (int64, *models.CancelProtectionJobRunParam) (error)
 }
 
 /*

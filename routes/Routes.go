@@ -1,17 +1,18 @@
+// Copyright 2019 Cohesity Inc.
 package routes
 
-import "github.com/cohesity/management-sdk-go/models"
 import "github.com/cohesity/management-sdk-go/configuration"
+import "github.com/cohesity/management-sdk-go/models"
 
 /*
  * Interface for the ROUTES_IMPL
  */
 type ROUTES interface {
+    DeleteRoute (*models.DeleteRouteParam) (error)
+
     GetRoutes () ([]*models.Route, error)
 
     AddRoute (*models.Route) (*models.Route, error)
-
-    DeleteRoute (*models.DeleteRouteParameters) (error)
 }
 
 /*

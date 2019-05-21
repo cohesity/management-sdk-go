@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -19,18 +20,18 @@ const (
     ToolsRunningStatus_KGUESTTOOLSRUNNING
 )
 
-func (r ToolsRunningStatusEnum) MarshalJSON() ([]byte, error) { 
+func (r ToolsRunningStatusEnum) MarshalJSON() ([]byte, error) {
     s := ToolsRunningStatusEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *ToolsRunningStatusEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *ToolsRunningStatusEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  ToolsRunningStatusEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -39,13 +40,13 @@ func (r *ToolsRunningStatusEnum) UnmarshalJSON(data []byte) error {
 func ToolsRunningStatusEnumToValue(toolsRunningStatusEnum ToolsRunningStatusEnum) string {
     switch toolsRunningStatusEnum {
         case ToolsRunningStatus_KUNKNOWN:
-    		return "kUnknown"		
+    		return "kUnknown"
         case ToolsRunningStatus_KGUESTTOOLSEXECUTINGSCRIPTS:
-    		return "kGuestToolsExecutingScripts"		
+    		return "kGuestToolsExecutingScripts"
         case ToolsRunningStatus_KGUESTTOOLSNOTRUNNING:
-    		return "kGuestToolsNotRunning"		
+    		return "kGuestToolsNotRunning"
         case ToolsRunningStatus_KGUESTTOOLSRUNNING:
-    		return "kGuestToolsRunning"		
+    		return "kGuestToolsRunning"
         default:
         	return "kUnknown"
     }

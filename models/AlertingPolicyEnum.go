@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -18,18 +19,18 @@ const (
     AlertingPolicy_KSLAVIOLATION
 )
 
-func (r AlertingPolicyEnum) MarshalJSON() ([]byte, error) { 
+func (r AlertingPolicyEnum) MarshalJSON() ([]byte, error) {
     s := AlertingPolicyEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *AlertingPolicyEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *AlertingPolicyEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  AlertingPolicyEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -38,11 +39,11 @@ func (r *AlertingPolicyEnum) UnmarshalJSON(data []byte) error {
 func AlertingPolicyEnumToValue(alertingPolicyEnum AlertingPolicyEnum) string {
     switch alertingPolicyEnum {
         case AlertingPolicy_KSUCCESS:
-    		return "kSuccess"		
+    		return "kSuccess"
         case AlertingPolicy_KFAILURE:
-    		return "kFailure"		
+    		return "kFailure"
         case AlertingPolicy_KSLAVIOLATION:
-    		return "kSlaViolation"		
+    		return "kSlaViolation"
         default:
         	return "kSuccess"
     }

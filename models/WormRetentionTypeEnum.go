@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -18,18 +19,18 @@ const (
     WormRetentionType_KADMINISTRATIVE
 )
 
-func (r WormRetentionTypeEnum) MarshalJSON() ([]byte, error) { 
+func (r WormRetentionTypeEnum) MarshalJSON() ([]byte, error) {
     s := WormRetentionTypeEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *WormRetentionTypeEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *WormRetentionTypeEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  WormRetentionTypeEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -38,11 +39,11 @@ func (r *WormRetentionTypeEnum) UnmarshalJSON(data []byte) error {
 func WormRetentionTypeEnumToValue(wormRetentionTypeEnum WormRetentionTypeEnum) string {
     switch wormRetentionTypeEnum {
         case WormRetentionType_KNONE:
-    		return "kNone"		
+    		return "kNone"
         case WormRetentionType_KCOMPLIANCE:
-    		return "kCompliance"		
+    		return "kCompliance"
         case WormRetentionType_KADMINISTRATIVE:
-    		return "kAdministrative"		
+    		return "kAdministrative"
         default:
         	return "kNone"
     }

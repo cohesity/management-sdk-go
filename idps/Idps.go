@@ -1,21 +1,22 @@
+// Copyright 2019 Cohesity Inc.
 package idps
 
-import "github.com/cohesity/management-sdk-go/models"
 import "github.com/cohesity/management-sdk-go/configuration"
+import "github.com/cohesity/management-sdk-go/models"
 
 /*
  * Interface for the IDPS_IMPL
  */
 type IDPS interface {
-    DeleteIdp (int64) (error)
+    GetIdps ([]string, []int64, []string) ([]*models.IdpServiceConfiguration, error)
 
-    GetIdps ([]string, []int64, []string) ([]*models.IdPServiceConfiguration, error)
-
-    UpdateIdp (int64, *models.UpdateIdPConfigurationRequest) (*models.IdPServiceConfiguration, error)
+    CreateIdp (*models.CreateIdpConfigurationRequest) (*models.IdpServiceConfiguration, error)
 
     GetIdpLogin (*string) (error)
 
-    CreateIdp (*models.CreateIdPConfigurationRequest) (*models.IdPServiceConfiguration, error)
+    DeleteIdp (int64) (error)
+
+    UpdateIdp (int64, *models.UpdateIdpConfigurationRequest) (*models.IdpServiceConfiguration, error)
 }
 
 /*

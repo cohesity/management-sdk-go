@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -43,18 +44,18 @@ const (
     ApplicationEnvironment_KAZURENATIVE
 )
 
-func (r ApplicationEnvironmentEnum) MarshalJSON() ([]byte, error) { 
+func (r ApplicationEnvironmentEnum) MarshalJSON() ([]byte, error) {
     s := ApplicationEnvironmentEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *ApplicationEnvironmentEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *ApplicationEnvironmentEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  ApplicationEnvironmentEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -63,61 +64,61 @@ func (r *ApplicationEnvironmentEnum) UnmarshalJSON(data []byte) error {
 func ApplicationEnvironmentEnumToValue(applicationEnvironmentEnum ApplicationEnvironmentEnum) string {
     switch applicationEnvironmentEnum {
         case ApplicationEnvironment_KVMWARE:
-    		return "kVMware"		
+    		return "kVMware"
         case ApplicationEnvironment_KHYPERV:
-    		return "kHyperV"		
+    		return "kHyperV"
         case ApplicationEnvironment_KSQL:
-    		return "kSQL"		
+    		return "kSQL"
         case ApplicationEnvironment_KVIEW:
-    		return "kView"		
+    		return "kView"
         case ApplicationEnvironment_KPUPPETEER:
-    		return "kPuppeteer"		
+    		return "kPuppeteer"
         case ApplicationEnvironment_KPHYSICAL:
-    		return "kPhysical"		
+    		return "kPhysical"
         case ApplicationEnvironment_KPURE:
-    		return "kPure"		
+    		return "kPure"
         case ApplicationEnvironment_KAZURE:
-    		return "kAzure"		
+    		return "kAzure"
         case ApplicationEnvironment_KNETAPP:
-    		return "kNetapp"		
+    		return "kNetapp"
         case ApplicationEnvironment_KAGENT:
-    		return "kAgent"		
+    		return "kAgent"
         case ApplicationEnvironment_KGENERICNAS:
-    		return "kGenericNas"		
+    		return "kGenericNas"
         case ApplicationEnvironment_KACROPOLIS:
-    		return "kAcropolis"		
+    		return "kAcropolis"
         case ApplicationEnvironment_KPHYSICALFILES:
-    		return "kPhysicalFiles"		
+    		return "kPhysicalFiles"
         case ApplicationEnvironment_KISILON:
-    		return "kIsilon"		
+    		return "kIsilon"
         case ApplicationEnvironment_KKVM:
-    		return "kKVM"		
+    		return "kKVM"
         case ApplicationEnvironment_KAWS:
-    		return "kAWS"		
+    		return "kAWS"
         case ApplicationEnvironment_KEXCHANGE:
-    		return "kExchange"		
+    		return "kExchange"
         case ApplicationEnvironment_KHYPERVVSS:
-    		return "kHyperVVSS"		
+    		return "kHyperVVSS"
         case ApplicationEnvironment_KORACLE:
-    		return "kOracle"		
+    		return "kOracle"
         case ApplicationEnvironment_KGCP:
-    		return "kGCP"		
+    		return "kGCP"
         case ApplicationEnvironment_KFLASHBLADE:
-    		return "kFlashBlade"		
+    		return "kFlashBlade"
         case ApplicationEnvironment_KAWSNATIVE:
-    		return "kAWSNative"		
+    		return "kAWSNative"
         case ApplicationEnvironment_KVCD:
-    		return "kVCD"		
+    		return "kVCD"
         case ApplicationEnvironment_KO365:
-    		return "kO365"		
+    		return "kO365"
         case ApplicationEnvironment_KO365OUTLOOK:
-    		return "kO365Outlook"		
+    		return "kO365Outlook"
         case ApplicationEnvironment_KHYPERFLEX:
-    		return "kHyperFlex"		
+    		return "kHyperFlex"
         case ApplicationEnvironment_KGCPNATIVE:
-    		return "kGCPNative"		
+    		return "kGCPNative"
         case ApplicationEnvironment_KAZURENATIVE:
-    		return "kAzureNative"		
+    		return "kAzureNative"
         default:
         	return "kVMware"
     }

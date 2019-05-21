@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -20,18 +21,18 @@ const (
     TaskState_KUNMOUNTDATASTOREDONE
 )
 
-func (r TaskStateEnum) MarshalJSON() ([]byte, error) { 
+func (r TaskStateEnum) MarshalJSON() ([]byte, error) {
     s := TaskStateEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *TaskStateEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *TaskStateEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  TaskStateEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -40,15 +41,15 @@ func (r *TaskStateEnum) UnmarshalJSON(data []byte) error {
 func TaskStateEnumToValue(taskStateEnum TaskStateEnum) string {
     switch taskStateEnum {
         case TaskState_KDETACHDISKSDONE:
-    		return "kDetachDisksDone"		
+    		return "kDetachDisksDone"
         case TaskState_KSETUPDISKSDONE:
-    		return "kSetupDisksDone"		
+    		return "kSetupDisksDone"
         case TaskState_KMIGRATEDISKSSTARTED:
-    		return "kMigrateDisksStarted"		
+    		return "kMigrateDisksStarted"
         case TaskState_KMIGRATEDISKSDONE:
-    		return "kMigrateDisksDone"		
+    		return "kMigrateDisksDone"
         case TaskState_KUNMOUNTDATASTOREDONE:
-    		return "kUnMountDatastoreDone"		
+    		return "kUnMountDatastoreDone"
         default:
         	return "kDetachDisksDone"
     }
