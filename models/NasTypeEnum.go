@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -19,18 +20,18 @@ const (
     NasType_KDFSTOPDIR
 )
 
-func (r NasTypeEnum) MarshalJSON() ([]byte, error) { 
+func (r NasTypeEnum) MarshalJSON() ([]byte, error) {
     s := NasTypeEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *NasTypeEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *NasTypeEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  NasTypeEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -39,13 +40,13 @@ func (r *NasTypeEnum) UnmarshalJSON(data []byte) error {
 func NasTypeEnumToValue(nasTypeEnum NasTypeEnum) string {
     switch nasTypeEnum {
         case NasType_KGROUP:
-    		return "kGroup"		
+    		return "kGroup"
         case NasType_KHOST:
-    		return "kHost"		
+    		return "kHost"
         case NasType_KDFSGROUP:
-    		return "kDfsGroup"		
+    		return "kDfsGroup"
         case NasType_KDFSTOPDIR:
-    		return "kDfsTopDir"		
+    		return "kDfsTopDir"
         default:
         	return "kGroup"
     }

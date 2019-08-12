@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package certificates
 
 
@@ -5,10 +6,10 @@ import(
 	"errors"
 	"fmt"
 	"encoding/json"
-	"github.com/cohesity/management-sdk-go/models"
 	"github.com/cohesity/management-sdk-go/unirest-go"
 	"github.com/cohesity/management-sdk-go/apihelper"
 	"github.com/cohesity/management-sdk-go/configuration"
+	"github.com/cohesity/management-sdk-go/models"
 )
 /*
  * Client structure as interface implementation
@@ -44,7 +45,7 @@ func (me *CERTIFICATES_IMPL) DeleteWebServerCertificate () (error) {
     }
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
-        "user-agent" : "cohesity-Go-sdk-6.2.0",
+        "user-agent" : "cohesity-Go-sdk-1.1.2",
         "Authorization" : fmt.Sprintf("%s %s",*me.config.AccessToken().TokenType, *me.config.AccessToken().AccessToken),
     }
 
@@ -75,9 +76,9 @@ func (me *CERTIFICATES_IMPL) DeleteWebServerCertificate () (error) {
 
 /**
  * Returns the Server Certificate configured on the cluster.
- * @return	Returns the *models.SSLCertificateConfiguration response from the API call
+ * @return	Returns the *models.SslCertificateConfig response from the API call
  */
-func (me *CERTIFICATES_IMPL) GetWebServerCertificate () (*models.SSLCertificateConfiguration, error) {
+func (me *CERTIFICATES_IMPL) GetWebServerCertificate () (*models.SslCertificateConfig, error) {
     //the endpoint path uri
     _pathUrl := "/public/certificates/webServer"
 
@@ -100,7 +101,7 @@ func (me *CERTIFICATES_IMPL) GetWebServerCertificate () (*models.SSLCertificateC
     }
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
-        "user-agent" : "cohesity-Go-sdk-6.2.0",
+        "user-agent" : "cohesity-Go-sdk-1.1.2",
         "accept" : "application/json",
         "Authorization" : fmt.Sprintf("%s %s",*me.config.AccessToken().TokenType, *me.config.AccessToken().AccessToken),
     }
@@ -126,7 +127,7 @@ func (me *CERTIFICATES_IMPL) GetWebServerCertificate () (*models.SSLCertificateC
     }
 
     //returning the response
-    var retVal *models.SSLCertificateConfiguration = &models.SSLCertificateConfiguration{}
+    var retVal *models.SslCertificateConfig = &models.SslCertificateConfig{}
     err = json.Unmarshal(_response.RawBody, &retVal)
 
     if err != nil {
@@ -139,11 +140,11 @@ func (me *CERTIFICATES_IMPL) GetWebServerCertificate () (*models.SSLCertificateC
 
 /**
  * Returns the updated Web Server Certificate on the cluster.
- * @param    *models.SSLCertificateConfiguration        body     parameter: Optional
- * @return	Returns the *models.SSLCertificateConfiguration response from the API call
+ * @param    *models.SslCertificateConfig        body     parameter: Optional
+ * @return	Returns the *models.SslCertificateConfig response from the API call
  */
 func (me *CERTIFICATES_IMPL) UpdateWebServerCertificate (
-            body *models.SSLCertificateConfiguration) (*models.SSLCertificateConfiguration, error) {
+            body *models.SslCertificateConfig) (*models.SslCertificateConfig, error) {
     //the endpoint path uri
     _pathUrl := "/public/certificates/webServer"
 
@@ -166,7 +167,7 @@ func (me *CERTIFICATES_IMPL) UpdateWebServerCertificate (
     }
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
-        "user-agent" : "cohesity-Go-sdk-6.2.0",
+        "user-agent" : "cohesity-Go-sdk-1.1.2",
         "accept" : "application/json",
         "content-type" : "application/json; charset=utf-8",
         "Authorization" : fmt.Sprintf("%s %s",*me.config.AccessToken().TokenType, *me.config.AccessToken().AccessToken),
@@ -193,7 +194,7 @@ func (me *CERTIFICATES_IMPL) UpdateWebServerCertificate (
     }
 
     //returning the response
-    var retVal *models.SSLCertificateConfiguration = &models.SSLCertificateConfiguration{}
+    var retVal *models.SslCertificateConfig = &models.SslCertificateConfig{}
     err = json.Unmarshal(_response.RawBody, &retVal)
 
     if err != nil {

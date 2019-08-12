@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -18,18 +19,18 @@ const (
     GlacierRetrievalType_KEXPEDITED
 )
 
-func (r GlacierRetrievalTypeEnum) MarshalJSON() ([]byte, error) { 
+func (r GlacierRetrievalTypeEnum) MarshalJSON() ([]byte, error) {
     s := GlacierRetrievalTypeEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *GlacierRetrievalTypeEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *GlacierRetrievalTypeEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  GlacierRetrievalTypeEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -38,11 +39,11 @@ func (r *GlacierRetrievalTypeEnum) UnmarshalJSON(data []byte) error {
 func GlacierRetrievalTypeEnumToValue(glacierRetrievalTypeEnum GlacierRetrievalTypeEnum) string {
     switch glacierRetrievalTypeEnum {
         case GlacierRetrievalType_KSTANDARD:
-    		return "kStandard"		
+    		return "kStandard"
         case GlacierRetrievalType_KBULK:
-    		return "kBulk"		
+    		return "kBulk"
         case GlacierRetrievalType_KEXPEDITED:
-    		return "kExpedited"		
+    		return "kExpedited"
         default:
         	return "kStandard"
     }

@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -20,18 +21,18 @@ const (
     IndexingTaskStatus_KJOBPAUSED
 )
 
-func (r IndexingTaskStatusEnum) MarshalJSON() ([]byte, error) { 
+func (r IndexingTaskStatusEnum) MarshalJSON() ([]byte, error) {
     s := IndexingTaskStatusEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *IndexingTaskStatusEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *IndexingTaskStatusEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  IndexingTaskStatusEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -40,15 +41,15 @@ func (r *IndexingTaskStatusEnum) UnmarshalJSON(data []byte) error {
 func IndexingTaskStatusEnumToValue(indexingTaskStatusEnum IndexingTaskStatusEnum) string {
     switch indexingTaskStatusEnum {
         case IndexingTaskStatus_KJOBRUNNING:
-    		return "kJobRunning"		
+    		return "kJobRunning"
         case IndexingTaskStatus_KJOBFINISHED:
-    		return "kJobFinished"		
+    		return "kJobFinished"
         case IndexingTaskStatus_KJOBFAILED:
-    		return "kJobFailed"		
+    		return "kJobFailed"
         case IndexingTaskStatus_KJOBCANCELED:
-    		return "kJobCanceled"		
+    		return "kJobCanceled"
         case IndexingTaskStatus_KJOBPAUSED:
-    		return "kJobPaused"		
+    		return "kJobPaused"
         default:
         	return "kJobRunning"
     }

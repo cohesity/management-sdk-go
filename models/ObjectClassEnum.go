@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -16,20 +17,21 @@ const (
     ObjectClass_KUSER ObjectClassEnum = 1 + iota
     ObjectClass_KGROUP
     ObjectClass_KCOMPUTER
+    ObjectClass_KWELLKNOWNPRINCIPAL
 )
 
-func (r ObjectClassEnum) MarshalJSON() ([]byte, error) { 
+func (r ObjectClassEnum) MarshalJSON() ([]byte, error) {
     s := ObjectClassEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *ObjectClassEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *ObjectClassEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  ObjectClassEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -38,11 +40,13 @@ func (r *ObjectClassEnum) UnmarshalJSON(data []byte) error {
 func ObjectClassEnumToValue(objectClassEnum ObjectClassEnum) string {
     switch objectClassEnum {
         case ObjectClass_KUSER:
-    		return "kUser"		
+    		return "kUser"
         case ObjectClass_KGROUP:
-    		return "kGroup"		
+    		return "kGroup"
         case ObjectClass_KCOMPUTER:
-    		return "kComputer"		
+    		return "kComputer"
+        case ObjectClass_KWELLKNOWNPRINCIPAL:
+    		return "kWellKnownPrincipal"
         default:
         	return "kUser"
     }
@@ -71,6 +75,8 @@ func ObjectClassEnumFromValue(value string) ObjectClassEnum {
             return ObjectClass_KGROUP
         case "kComputer":
             return ObjectClass_KCOMPUTER
+        case "kWellKnownPrincipal":
+            return ObjectClass_KWELLKNOWNPRINCIPAL
         default:
             return ObjectClass_KUSER
     }

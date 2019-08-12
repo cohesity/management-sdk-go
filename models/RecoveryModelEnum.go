@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -18,18 +19,18 @@ const (
     RecoveryModel_KBULKLOGGEDRECOVERYMODEL
 )
 
-func (r RecoveryModelEnum) MarshalJSON() ([]byte, error) { 
+func (r RecoveryModelEnum) MarshalJSON() ([]byte, error) {
     s := RecoveryModelEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *RecoveryModelEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *RecoveryModelEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  RecoveryModelEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -38,11 +39,11 @@ func (r *RecoveryModelEnum) UnmarshalJSON(data []byte) error {
 func RecoveryModelEnumToValue(recoveryModelEnum RecoveryModelEnum) string {
     switch recoveryModelEnum {
         case RecoveryModel_KSIMPLERECOVERYMODEL:
-    		return "kSimpleRecoveryModel"		
+    		return "kSimpleRecoveryModel"
         case RecoveryModel_KFULLRECOVERYMODEL:
-    		return "kFullRecoveryModel"		
+    		return "kFullRecoveryModel"
         case RecoveryModel_KBULKLOGGEDRECOVERYMODEL:
-    		return "kBulkLoggedRecoveryModel"		
+    		return "kBulkLoggedRecoveryModel"
         default:
         	return "kSimpleRecoveryModel"
     }

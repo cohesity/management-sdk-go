@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -17,18 +18,18 @@ const (
     NasProtocol_KCIFS1
 )
 
-func (r NasProtocolEnum) MarshalJSON() ([]byte, error) { 
+func (r NasProtocolEnum) MarshalJSON() ([]byte, error) {
     s := NasProtocolEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *NasProtocolEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *NasProtocolEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  NasProtocolEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -37,9 +38,9 @@ func (r *NasProtocolEnum) UnmarshalJSON(data []byte) error {
 func NasProtocolEnumToValue(nasProtocolEnum NasProtocolEnum) string {
     switch nasProtocolEnum {
         case NasProtocol_KNFS3:
-    		return "kNfs3"		
+    		return "kNfs3"
         case NasProtocol_KCIFS1:
-    		return "kCifs1"		
+    		return "kCifs1"
         default:
         	return "kNfs3"
     }

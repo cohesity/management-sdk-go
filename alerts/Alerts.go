@@ -1,35 +1,36 @@
+// Copyright 2019 Cohesity Inc.
 package alerts
 
-import "github.com/cohesity/management-sdk-go/models"
 import "github.com/cohesity/management-sdk-go/configuration"
+import "github.com/cohesity/management-sdk-go/models"
 
 /*
  * Interface for the ALERTS_IMPL
  */
 type ALERTS interface {
+    GetAlertCategories () ([]*models.AlertCategoryName, error)
+
     GetNotificationRules () ([]*models.NotificationRule, error)
 
-    GetAlertCategories () ([]*models.AlertCategoryName, error)
+    CreateNotificationRule (*models.NotificationRule) (*models.NotificationRule, error)
 
     UpdateNotificationRule () (*models.NotificationRule, error)
 
-    GetAlerts (int64, *bool, []string, *string, []models.AlertStateListEnum, []models.AlertSeverityListEnum, []int64, []string, []int64, []models.AlertCategoryList1Enum, *string, *int64, *int64) ([]*models.Alert, error)
+    DeleteNotificationRule (int64) (error)
 
-    GetResolutions (int64, []string, *int64, *int64, []string, *bool, []int64) ([]*models.AlertResolution1, error)
+    GetResolutions (int64, []int64, []string, *int64, *int64, []string, *bool) ([]*models.AlertResolution, error)
 
-    GetAlertById (string) (*models.Alert, error)
+    CreateResolution (*models.AlertResolutionRequest) (*models.AlertResolution, error)
+
+    GetResolutionById (int64) (*models.AlertResolution, error)
+
+    UpdateResolution (int64, *models.UpdateResolutionParams) (*models.AlertResolution, error)
 
     GetAlertTypes () ([]*models.AlertMetadata, error)
 
-    UpdateResolution (int64, *models.UpdateAlertResolutionRequest) (*models.AlertResolution1, error)
+    GetAlerts (int64, []string, []int64, []models.AlertCategoryListGetAlertsEnum, *string, *string, *int64, *int64, []models.AlertStateListEnum, []models.AlertSeverityListEnum, []models.AlertTypeBucketListEnum, []int64, []string, *bool) ([]*models.Alert, error)
 
-    GetResolutionById (int64) (*models.AlertResolution1, error)
-
-    CreateResolution (*models.CreateAlertResolutionRequest) (*models.AlertResolution1, error)
-
-    DeleteNotificationRule (int64) (error)
-
-    CreateNotificationRule (*models.NotificationRule) (*models.NotificationRule, error)
+    GetAlertById (string) (*models.Alert, error)
 }
 
 /*

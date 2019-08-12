@@ -1,43 +1,46 @@
+// Copyright 2019 Cohesity Inc.
 package tenant
 
-import "github.com/cohesity/management-sdk-go/models"
 import "github.com/cohesity/management-sdk-go/configuration"
+import "github.com/cohesity/management-sdk-go/models"
 
 /*
  * Interface for the TENANT_IMPL
  */
 type TENANT interface {
-    UpdateTenantGroups () ([]*models.GroupDetails, error)
+    DeleteTenant (*string) ([]*models.Tenant, error)
 
-    UpdateTenantViewBox (*models.TenantViewBoxUpdateDetails) (*models.TenantViewBoxUpdate, error)
+    GetTenants ([]string, []models.PropertyEnum, *bool, *bool, []models.StatusGetTenantsEnum) ([]*models.Tenant, error)
 
-    UpdateTenantVlan (*models.TenantVlanUpdateDetails) (*models.TenantVlanUpdate, error)
+    CreateTenant (*models.TenantCreateParameters) (*models.Tenant, error)
 
-    GetTenantsProxyConfigRequest () ([]int64, error)
+    UpdateTenant (*models.TenantUpdate) (*models.Tenant, error)
 
-    UpdateTenantUsers (*models.TenantUserUpdateDetails) ([]*models.UserDetails, error)
+    UpdateTenantActiveDirectory (*models.TenantActiveDirectoryUpdateParameters) (*models.TenantActiveDirectoryUpdate, error)
 
-    UpdateTenantView (*models.TenantViewUpdateDetails) (*models.TenantViewUpdate, error)
+    UpdateTenantEntity (*models.TenantEntityUpdateParameters) (*models.TenantEntityUpdate, error)
 
-    UpdateTenantLdapProvider (*models.TenantLdapProviderUpdateDetails) (*models.TenantLdapProviderUpdate, error)
+    UpdateTenantGroups () ([]*models.Group, error)
 
-    UpdateTenantProtectionPolicy (*models.TenantProtectionPolicyUpdateDetails) (*models.TenantProtectionPolicyUpdate, error)
+    UpdateTenantLdapProvider (*models.TenantLdapProviderUpdateParameters) (*models.TenantLdapProviderUpdate, error)
 
-    UpdateTenantProtectionJob (*models.TenantProtectionJobUpdateDetails) (*models.TenantProtectionJobUpdate, error)
+    UpdateTenantProtectionPolicy (*models.TenantProtectionPolicyUpdateParameters) (*models.TenantProtectionPolicyUpdate, error)
+
+    UpdateTenantProtectionJob (*models.TenantProtectionJobUpdateParameters) (*models.TenantProtectionJobUpdate, error)
 
     GetTenantsProxies ([]string) ([]*models.TenantProxy, error)
 
-    CreateTenant (*models.TenantCreateRequest) (*models.TenantDetails, error)
+    GetTenantsProxyConfigRequest () ([]int64, error)
 
-    DeleteTenant (*string) ([]*models.TenantDetails, error)
+    GetDownloadTenantsProxy (*string) ([]int64, error)
 
-    UpdateTenantActiveDirectory (*models.TenantActiveDirectoryUpdateDetails) (*models.TenantActiveDirectoryUpdate, error)
+    UpdateTenantUsers (*models.TenantUserUpdateParameters) ([]*models.User, error)
 
-    UpdateTenantEntity (*models.TenantEntityUpdateDetails) (*models.TenantEntityUpdate, error)
+    UpdateTenantView (*models.TenantViewUpdateParameters) (*models.TenantViewUpdate, error)
 
-    GetTenants ([]string, []models.PropertiesEnum, *bool, *bool, []models.Status7Enum) ([]*models.TenantDetails, error)
+    UpdateTenantViewBox (*models.TenantViewBoxUpdateParameters) (*models.TenantViewBoxUpdate, error)
 
-    UpdateTenant (*models.TenantUpdateDetails) (*models.TenantDetails, error)
+    UpdateTenantVlan (*models.TenantVlanUpdateParameters) (*models.TenantVlanUpdate, error)
 }
 
 /*

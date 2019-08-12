@@ -1,13 +1,14 @@
+// Copyright 2019 Cohesity Inc.
 package accesstokens
 
 
 import(
 	"errors"
 	"encoding/json"
-	"github.com/cohesity/management-sdk-go/models"
 	"github.com/cohesity/management-sdk-go/unirest-go"
 	"github.com/cohesity/management-sdk-go/apihelper"
 	"github.com/cohesity/management-sdk-go/configuration"
+	"github.com/cohesity/management-sdk-go/models"
 )
 /*
  * Client structure as interface implementation
@@ -29,11 +30,11 @@ type ACCESSTOKENS_IMPL struct {
  * an expired token, the 'Token expired' error message is returned.
  * Add code to your REST client to check for this error and request
  * another access token before reissuing the request.
- * @param    *models.CreateAccessTokenCredentialRequest        body     parameter: Required
+ * @param    *models.AccessTokenCredential        body     parameter: Required
  * @return	Returns the *models.AccessToken response from the API call
  */
 func (me *ACCESSTOKENS_IMPL) CreateGenerateAccessToken (
-            body *models.CreateAccessTokenCredentialRequest) (*models.AccessToken, error) {
+            body *models.AccessTokenCredential) (*models.AccessToken, error) {
 //validating required parameters
     if (body == nil){
         return nil,errors.New("The parameter 'body' is a required parameter and cannot be nil.")
@@ -56,7 +57,7 @@ func (me *ACCESSTOKENS_IMPL) CreateGenerateAccessToken (
     }
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
-        "user-agent" : "cohesity-Go-sdk-6.2.0",
+        "user-agent" : "cohesity-Go-sdk-1.1.2",
         "accept" : "application/json",
         "content-type" : "application/json; charset=utf-8",
     }

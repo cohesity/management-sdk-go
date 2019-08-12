@@ -1,17 +1,18 @@
+// Copyright 2019 Cohesity Inc.
 package cluster
 
-import "github.com/cohesity/management-sdk-go/models"
 import "github.com/cohesity/management-sdk-go/configuration"
+import "github.com/cohesity/management-sdk-go/models"
 
 /*
  * Interface for the CLUSTER_IMPL
  */
 type CLUSTER interface {
-    UpdateCluster (*models.UpdateCluster) (*models.CohesityCluster, error)
+    GetBasicClusterInfo () (*models.BasicClusterInfo, error)
 
-    GetCluster (*bool) (*models.CohesityCluster, error)
+    GetCluster (*bool, *bool) (*models.Cluster, error)
 
-    GetBasicClusterInfo () (*models.BasicCohesityClusterInformation, error)
+    UpdateCluster (*models.UpdateClusterParams) (*models.Cluster, error)
 }
 
 /*

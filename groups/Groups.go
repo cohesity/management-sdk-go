@@ -1,19 +1,20 @@
+// Copyright 2019 Cohesity Inc.
 package groups
 
-import "github.com/cohesity/management-sdk-go/models"
 import "github.com/cohesity/management-sdk-go/configuration"
+import "github.com/cohesity/management-sdk-go/models"
 
 /*
  * Interface for the GROUPS_IMPL
  */
 type GROUPS interface {
-    GetGroups ([]string, *bool, *string, *string) ([]*models.GroupDetails, error)
+    DeleteGroups (*models.GroupDeleteParameters) (error)
 
-    DeleteGroups (*models.DeleteGroupsRequest) (error)
+    GetGroups (*string, *string, []string, *bool) ([]*models.Group, error)
 
-    CreateGroup (*models.GroupRequest) (*models.GroupDetails, error)
+    CreateGroup (*models.GroupParameters) (*models.Group, error)
 
-    UpdateGroup (*models.GroupRequest) (*models.GroupDetails, error)
+    UpdateGroup (*models.GroupParameters) (*models.Group, error)
 }
 
 /*

@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -18,18 +19,18 @@ const (
     BondingMode_BALANCEALB
 )
 
-func (r BondingModeEnum) MarshalJSON() ([]byte, error) { 
+func (r BondingModeEnum) MarshalJSON() ([]byte, error) {
     s := BondingModeEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *BondingModeEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *BondingModeEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  BondingModeEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -38,11 +39,11 @@ func (r *BondingModeEnum) UnmarshalJSON(data []byte) error {
 func BondingModeEnumToValue(bondingModeEnum BondingModeEnum) string {
     switch bondingModeEnum {
         case BondingMode_ACTIVEBACKUP:
-    		return "ActiveBackup"		
+    		return "ActiveBackup"
         case BondingMode_ENUM_802_3AD:
-    		return "Enum_802_3ad"		
+    		return "Enum_802_3ad"
         case BondingMode_BALANCEALB:
-    		return "BalanceAlb"		
+    		return "BalanceAlb"
         default:
         	return "ActiveBackup"
     }

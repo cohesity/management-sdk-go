@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -22,20 +23,24 @@ const (
     GcpType_KSUBNET
     GcpType_KNETWORKSECURITYGROUP
     GcpType_KINSTANCETYPE
+    GcpType_KLABEL
+    GcpType_KMETADATA
+    GcpType_KTAG
+    GcpType_KVPCCONNECTOR
 )
 
-func (r GcpTypeEnum) MarshalJSON() ([]byte, error) { 
+func (r GcpTypeEnum) MarshalJSON() ([]byte, error) {
     s := GcpTypeEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *GcpTypeEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *GcpTypeEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  GcpTypeEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -44,23 +49,31 @@ func (r *GcpTypeEnum) UnmarshalJSON(data []byte) error {
 func GcpTypeEnumToValue(gcpTypeEnum GcpTypeEnum) string {
     switch gcpTypeEnum {
         case GcpType_KIAMUSER:
-    		return "kIAMUser"		
+    		return "kIAMUser"
         case GcpType_KPROJECT:
-    		return "kProject"		
+    		return "kProject"
         case GcpType_KREGION:
-    		return "kRegion"		
+    		return "kRegion"
         case GcpType_KAVAILABILITYZONE:
-    		return "kAvailabilityZone"		
+    		return "kAvailabilityZone"
         case GcpType_KVIRTUALMACHINE:
-    		return "kVirtualMachine"		
+    		return "kVirtualMachine"
         case GcpType_KVPC:
-    		return "kVPC"		
+    		return "kVPC"
         case GcpType_KSUBNET:
-    		return "kSubnet"		
+    		return "kSubnet"
         case GcpType_KNETWORKSECURITYGROUP:
-    		return "kNetworkSecurityGroup"		
+    		return "kNetworkSecurityGroup"
         case GcpType_KINSTANCETYPE:
-    		return "kInstanceType"		
+    		return "kInstanceType"
+        case GcpType_KLABEL:
+    		return "kLabel"
+        case GcpType_KMETADATA:
+    		return "kMetadata"
+        case GcpType_KTAG:
+    		return "kTag"
+        case GcpType_KVPCCONNECTOR:
+    		return "kVPCConnector"
         default:
         	return "kIAMUser"
     }
@@ -101,6 +114,14 @@ func GcpTypeEnumFromValue(value string) GcpTypeEnum {
             return GcpType_KNETWORKSECURITYGROUP
         case "kInstanceType":
             return GcpType_KINSTANCETYPE
+        case "kLabel":
+            return GcpType_KLABEL
+        case "kMetadata":
+            return GcpType_KMETADATA
+        case "kTag":
+            return GcpType_KTAG
+        case "kVPCConnector":
+            return GcpType_KVPCCONNECTOR
         default:
             return GcpType_KIAMUSER
     }

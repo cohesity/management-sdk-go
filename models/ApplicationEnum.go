@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -27,6 +28,7 @@ const (
     Application_KACROPOLIS
     Application_KPHYSICALFILES
     Application_KISILON
+    Application_KGPFS
     Application_KKVM
     Application_KAWS
     Application_KEXCHANGE
@@ -41,20 +43,21 @@ const (
     Application_KHYPERFLEX
     Application_KGCPNATIVE
     Application_KAZURENATIVE
+    Application_KKUBERNETES
 )
 
-func (r ApplicationEnum) MarshalJSON() ([]byte, error) { 
+func (r ApplicationEnum) MarshalJSON() ([]byte, error) {
     s := ApplicationEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *ApplicationEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *ApplicationEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  ApplicationEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -63,61 +66,65 @@ func (r *ApplicationEnum) UnmarshalJSON(data []byte) error {
 func ApplicationEnumToValue(applicationEnum ApplicationEnum) string {
     switch applicationEnum {
         case Application_KVMWARE:
-    		return "kVMware"		
+    		return "kVMware"
         case Application_KHYPERV:
-    		return "kHyperV"		
+    		return "kHyperV"
         case Application_KSQL:
-    		return "kSQL"		
+    		return "kSQL"
         case Application_KVIEW:
-    		return "kView"		
+    		return "kView"
         case Application_KPUPPETEER:
-    		return "kPuppeteer"		
+    		return "kPuppeteer"
         case Application_KPHYSICAL:
-    		return "kPhysical"		
+    		return "kPhysical"
         case Application_KPURE:
-    		return "kPure"		
+    		return "kPure"
         case Application_KAZURE:
-    		return "kAzure"		
+    		return "kAzure"
         case Application_KNETAPP:
-    		return "kNetapp"		
+    		return "kNetapp"
         case Application_KAGENT:
-    		return "kAgent"		
+    		return "kAgent"
         case Application_KGENERICNAS:
-    		return "kGenericNas"		
+    		return "kGenericNas"
         case Application_KACROPOLIS:
-    		return "kAcropolis"		
+    		return "kAcropolis"
         case Application_KPHYSICALFILES:
-    		return "kPhysicalFiles"		
+    		return "kPhysicalFiles"
         case Application_KISILON:
-    		return "kIsilon"		
+    		return "kIsilon"
+        case Application_KGPFS:
+    		return "kGPFS"
         case Application_KKVM:
-    		return "kKVM"		
+    		return "kKVM"
         case Application_KAWS:
-    		return "kAWS"		
+    		return "kAWS"
         case Application_KEXCHANGE:
-    		return "kExchange"		
+    		return "kExchange"
         case Application_KHYPERVVSS:
-    		return "kHyperVVSS"		
+    		return "kHyperVVSS"
         case Application_KORACLE:
-    		return "kOracle"		
+    		return "kOracle"
         case Application_KGCP:
-    		return "kGCP"		
+    		return "kGCP"
         case Application_KFLASHBLADE:
-    		return "kFlashBlade"		
+    		return "kFlashBlade"
         case Application_KAWSNATIVE:
-    		return "kAWSNative"		
+    		return "kAWSNative"
         case Application_KVCD:
-    		return "kVCD"		
+    		return "kVCD"
         case Application_KO365:
-    		return "kO365"		
+    		return "kO365"
         case Application_KO365OUTLOOK:
-    		return "kO365Outlook"		
+    		return "kO365Outlook"
         case Application_KHYPERFLEX:
-    		return "kHyperFlex"		
+    		return "kHyperFlex"
         case Application_KGCPNATIVE:
-    		return "kGCPNative"		
+    		return "kGCPNative"
         case Application_KAZURENATIVE:
-    		return "kAzureNative"		
+    		return "kAzureNative"
+        case Application_KKUBERNETES:
+    		return "kKubernetes"
         default:
         	return "kVMware"
     }
@@ -168,6 +175,8 @@ func ApplicationEnumFromValue(value string) ApplicationEnum {
             return Application_KPHYSICALFILES
         case "kIsilon":
             return Application_KISILON
+        case "kGPFS":
+            return Application_KGPFS
         case "kKVM":
             return Application_KKVM
         case "kAWS":
@@ -196,6 +205,8 @@ func ApplicationEnumFromValue(value string) ApplicationEnum {
             return Application_KGCPNATIVE
         case "kAzureNative":
             return Application_KAZURENATIVE
+        case "kKubernetes":
+            return Application_KKUBERNETES
         default:
             return Application_KVMWARE
     }

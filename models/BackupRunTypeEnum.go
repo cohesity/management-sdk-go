@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -19,18 +20,18 @@ const (
     BackupRunType_KSYSTEM
 )
 
-func (r BackupRunTypeEnum) MarshalJSON() ([]byte, error) { 
+func (r BackupRunTypeEnum) MarshalJSON() ([]byte, error) {
     s := BackupRunTypeEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *BackupRunTypeEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *BackupRunTypeEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  BackupRunTypeEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -39,13 +40,13 @@ func (r *BackupRunTypeEnum) UnmarshalJSON(data []byte) error {
 func BackupRunTypeEnumToValue(backupRunTypeEnum BackupRunTypeEnum) string {
     switch backupRunTypeEnum {
         case BackupRunType_KREGULAR:
-    		return "kRegular"		
+    		return "kRegular"
         case BackupRunType_KFULL:
-    		return "kFull"		
+    		return "kFull"
         case BackupRunType_KLOG:
-    		return "kLog"		
+    		return "kLog"
         case BackupRunType_KSYSTEM:
-    		return "kSystem"		
+    		return "kSystem"
         default:
         	return "kRegular"
     }

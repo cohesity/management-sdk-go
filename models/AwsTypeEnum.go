@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -22,20 +23,26 @@ const (
     AwsType_KNETWORKSECURITYGROUP
     AwsType_KINSTANCETYPE
     AwsType_KKEYPAIR
+    AwsType_KTAG
+    AwsType_KRDSOPTIONGROUP
+    AwsType_KRDSPARAMETERGROUP
+    AwsType_KRDSINSTANCE
+    AwsType_KRDSSUBNET
+    AwsType_KRDSTAG
 )
 
-func (r AwsTypeEnum) MarshalJSON() ([]byte, error) { 
+func (r AwsTypeEnum) MarshalJSON() ([]byte, error) {
     s := AwsTypeEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *AwsTypeEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *AwsTypeEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  AwsTypeEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -44,23 +51,35 @@ func (r *AwsTypeEnum) UnmarshalJSON(data []byte) error {
 func AwsTypeEnumToValue(awsTypeEnum AwsTypeEnum) string {
     switch awsTypeEnum {
         case AwsType_KIAMUSER:
-    		return "kIAMUser"		
+    		return "kIAMUser"
         case AwsType_KREGION:
-    		return "kRegion"		
+    		return "kRegion"
         case AwsType_KAVAILABILITYZONE:
-    		return "kAvailabilityZone"		
+    		return "kAvailabilityZone"
         case AwsType_KEC2INSTANCE:
-    		return "kEC2Instance"		
+    		return "kEC2Instance"
         case AwsType_KVPC:
-    		return "kVPC"		
+    		return "kVPC"
         case AwsType_KSUBNET:
-    		return "kSubnet"		
+    		return "kSubnet"
         case AwsType_KNETWORKSECURITYGROUP:
-    		return "kNetworkSecurityGroup"		
+    		return "kNetworkSecurityGroup"
         case AwsType_KINSTANCETYPE:
-    		return "kInstanceType"		
+    		return "kInstanceType"
         case AwsType_KKEYPAIR:
-    		return "kKeyPair"		
+    		return "kKeyPair"
+        case AwsType_KTAG:
+    		return "kTag"
+        case AwsType_KRDSOPTIONGROUP:
+    		return "kRDSOptionGroup"
+        case AwsType_KRDSPARAMETERGROUP:
+    		return "kRDSParameterGroup"
+        case AwsType_KRDSINSTANCE:
+    		return "kRDSInstance"
+        case AwsType_KRDSSUBNET:
+    		return "kRDSSubnet"
+        case AwsType_KRDSTAG:
+    		return "kRDSTag"
         default:
         	return "kIAMUser"
     }
@@ -101,6 +120,18 @@ func AwsTypeEnumFromValue(value string) AwsTypeEnum {
             return AwsType_KINSTANCETYPE
         case "kKeyPair":
             return AwsType_KKEYPAIR
+        case "kTag":
+            return AwsType_KTAG
+        case "kRDSOptionGroup":
+            return AwsType_KRDSOPTIONGROUP
+        case "kRDSParameterGroup":
+            return AwsType_KRDSPARAMETERGROUP
+        case "kRDSInstance":
+            return AwsType_KRDSINSTANCE
+        case "kRDSSubnet":
+            return AwsType_KRDSSUBNET
+        case "kRDSTag":
+            return AwsType_KRDSTAG
         default:
             return AwsType_KIAMUSER
     }

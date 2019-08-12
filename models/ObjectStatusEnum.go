@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -23,18 +24,18 @@ const (
     ObjectStatus_KINPROGRESS
 )
 
-func (r ObjectStatusEnum) MarshalJSON() ([]byte, error) { 
+func (r ObjectStatusEnum) MarshalJSON() ([]byte, error) {
     s := ObjectStatusEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *ObjectStatusEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *ObjectStatusEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  ObjectStatusEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -43,21 +44,21 @@ func (r *ObjectStatusEnum) UnmarshalJSON(data []byte) error {
 func ObjectStatusEnumToValue(objectStatusEnum ObjectStatusEnum) string {
     switch objectStatusEnum {
         case ObjectStatus_KFILESCLONED:
-    		return "kFilesCloned"		
+    		return "kFilesCloned"
         case ObjectStatus_KFETCHEDENTITYINFO:
-    		return "kFetchedEntityInfo"		
+    		return "kFetchedEntityInfo"
         case ObjectStatus_KVMCREATED:
-    		return "kVMCreated"		
+    		return "kVMCreated"
         case ObjectStatus_KRELOCATIONSTARTED:
-    		return "kRelocationStarted"		
+    		return "kRelocationStarted"
         case ObjectStatus_KFINISHED:
-    		return "kFinished"		
+    		return "kFinished"
         case ObjectStatus_KABORTED:
-    		return "kAborted"		
+    		return "kAborted"
         case ObjectStatus_KDATACOPYSTARTED:
-    		return "kDataCopyStarted"		
+    		return "kDataCopyStarted"
         case ObjectStatus_KINPROGRESS:
-    		return "kInProgress"		
+    		return "kInProgress"
         default:
         	return "kFilesCloned"
     }

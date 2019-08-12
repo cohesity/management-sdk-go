@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -17,20 +18,22 @@ const (
     HostType_KWINDOWS
     HostType_KAIX
     HostType_KSOLARIS
+    HostType_KSAPHANA
+    HostType_KOTHER
 )
 
-func (r HostTypeEnum) MarshalJSON() ([]byte, error) { 
+func (r HostTypeEnum) MarshalJSON() ([]byte, error) {
     s := HostTypeEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *HostTypeEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *HostTypeEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  HostTypeEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -39,13 +42,17 @@ func (r *HostTypeEnum) UnmarshalJSON(data []byte) error {
 func HostTypeEnumToValue(hostTypeEnum HostTypeEnum) string {
     switch hostTypeEnum {
         case HostType_KLINUX:
-    		return "kLinux"		
+    		return "kLinux"
         case HostType_KWINDOWS:
-    		return "kWindows"		
+    		return "kWindows"
         case HostType_KAIX:
-    		return "kAix"		
+    		return "kAix"
         case HostType_KSOLARIS:
-    		return "kSolaris"		
+    		return "kSolaris"
+        case HostType_KSAPHANA:
+    		return "kSapHana"
+        case HostType_KOTHER:
+    		return "kOther"
         default:
         	return "kLinux"
     }
@@ -76,6 +83,10 @@ func HostTypeEnumFromValue(value string) HostTypeEnum {
             return HostType_KAIX
         case "kSolaris":
             return HostType_KSOLARIS
+        case "kSapHana":
+            return HostType_KSAPHANA
+        case "kOther":
+            return HostType_KOTHER
         default:
             return HostType_KLINUX
     }

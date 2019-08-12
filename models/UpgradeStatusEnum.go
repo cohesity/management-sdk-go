@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -19,18 +20,18 @@ const (
     UpgradeStatus_KFINISHED
 )
 
-func (r UpgradeStatusEnum) MarshalJSON() ([]byte, error) { 
+func (r UpgradeStatusEnum) MarshalJSON() ([]byte, error) {
     s := UpgradeStatusEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *UpgradeStatusEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *UpgradeStatusEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  UpgradeStatusEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -39,13 +40,13 @@ func (r *UpgradeStatusEnum) UnmarshalJSON(data []byte) error {
 func UpgradeStatusEnumToValue(upgradeStatusEnum UpgradeStatusEnum) string {
     switch upgradeStatusEnum {
         case UpgradeStatus_KIDLE:
-    		return "kIdle"		
+    		return "kIdle"
         case UpgradeStatus_KACCEPTED:
-    		return "kAccepted"		
+    		return "kAccepted"
         case UpgradeStatus_KSTARTED:
-    		return "kStarted"		
+    		return "kStarted"
         case UpgradeStatus_KFINISHED:
-    		return "kFinished"		
+    		return "kFinished"
         default:
         	return "kIdle"
     }

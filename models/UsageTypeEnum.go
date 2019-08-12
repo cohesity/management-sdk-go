@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -17,18 +18,18 @@ const (
     UsageType_KCLOUDSPILL
 )
 
-func (r UsageTypeEnum) MarshalJSON() ([]byte, error) { 
+func (r UsageTypeEnum) MarshalJSON() ([]byte, error) {
     s := UsageTypeEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *UsageTypeEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *UsageTypeEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  UsageTypeEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -37,9 +38,9 @@ func (r *UsageTypeEnum) UnmarshalJSON(data []byte) error {
 func UsageTypeEnumToValue(usageTypeEnum UsageTypeEnum) string {
     switch usageTypeEnum {
         case UsageType_KARCHIVAL:
-    		return "kArchival"		
+    		return "kArchival"
         case UsageType_KCLOUDSPILL:
-    		return "kCloudSpill"		
+    		return "kCloudSpill"
         default:
         	return "kArchival"
     }

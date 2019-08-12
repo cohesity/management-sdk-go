@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -19,18 +20,18 @@ const (
     AagPreference_KANYREPLICA
 )
 
-func (r AagPreferenceEnum) MarshalJSON() ([]byte, error) { 
+func (r AagPreferenceEnum) MarshalJSON() ([]byte, error) {
     s := AagPreferenceEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *AagPreferenceEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *AagPreferenceEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  AagPreferenceEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -39,13 +40,13 @@ func (r *AagPreferenceEnum) UnmarshalJSON(data []byte) error {
 func AagPreferenceEnumToValue(aagPreferenceEnum AagPreferenceEnum) string {
     switch aagPreferenceEnum {
         case AagPreference_KPRIMARYREPLICAONLY:
-    		return "kPrimaryReplicaOnly"		
+    		return "kPrimaryReplicaOnly"
         case AagPreference_KSECONDARYREPLICAONLY:
-    		return "kSecondaryReplicaOnly"		
+    		return "kSecondaryReplicaOnly"
         case AagPreference_KPREFERSECONDARYREPLICA:
-    		return "kPreferSecondaryReplica"		
+    		return "kPreferSecondaryReplica"
         case AagPreference_KANYREPLICA:
-    		return "kAnyReplica"		
+    		return "kAnyReplica"
         default:
         	return "kPrimaryReplicaOnly"
     }

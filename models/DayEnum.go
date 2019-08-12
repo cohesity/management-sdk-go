@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -22,18 +23,18 @@ const (
     Day_KSATURDAY
 )
 
-func (r DayEnum) MarshalJSON() ([]byte, error) { 
+func (r DayEnum) MarshalJSON() ([]byte, error) {
     s := DayEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *DayEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *DayEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  DayEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -42,19 +43,19 @@ func (r *DayEnum) UnmarshalJSON(data []byte) error {
 func DayEnumToValue(dayEnum DayEnum) string {
     switch dayEnum {
         case Day_KSUNDAY:
-    		return "kSunday"		
+    		return "kSunday"
         case Day_KMONDAY:
-    		return "kMonday"		
+    		return "kMonday"
         case Day_KTUESDAY:
-    		return "kTuesday"		
+    		return "kTuesday"
         case Day_KWEDNESDAY:
-    		return "kWednesday"		
+    		return "kWednesday"
         case Day_KTHURSDAY:
-    		return "kThursday"		
+    		return "kThursday"
         case Day_KFRIDAY:
-    		return "kFriday"		
+    		return "kFriday"
         case Day_KSATURDAY:
-    		return "kSaturday"		
+    		return "kSaturday"
         default:
         	return "kSunday"
     }

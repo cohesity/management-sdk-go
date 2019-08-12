@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -20,18 +21,18 @@ const (
     DayCount_KLAST
 )
 
-func (r DayCountEnum) MarshalJSON() ([]byte, error) { 
+func (r DayCountEnum) MarshalJSON() ([]byte, error) {
     s := DayCountEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *DayCountEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *DayCountEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  DayCountEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -40,15 +41,15 @@ func (r *DayCountEnum) UnmarshalJSON(data []byte) error {
 func DayCountEnumToValue(dayCountEnum DayCountEnum) string {
     switch dayCountEnum {
         case DayCount_KFIRST:
-    		return "kFirst"		
+    		return "kFirst"
         case DayCount_KSECOND:
-    		return "kSecond"		
+    		return "kSecond"
         case DayCount_KTHIRD:
-    		return "kThird"		
+    		return "kThird"
         case DayCount_KFOURTH:
-    		return "kFourth"		
+    		return "kFourth"
         case DayCount_KLAST:
-    		return "kLast"		
+    		return "kLast"
         default:
         	return "kFirst"
     }

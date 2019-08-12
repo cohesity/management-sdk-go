@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -26,18 +27,18 @@ const (
     CombineMethod_CACHEPOOL
 )
 
-func (r CombineMethodEnum) MarshalJSON() ([]byte, error) { 
+func (r CombineMethodEnum) MarshalJSON() ([]byte, error) {
     s := CombineMethodEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *CombineMethodEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *CombineMethodEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  CombineMethodEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -46,27 +47,27 @@ func (r *CombineMethodEnum) UnmarshalJSON(data []byte) error {
 func CombineMethodEnumToValue(combineMethodEnum CombineMethodEnum) string {
     switch combineMethodEnum {
         case CombineMethod_LINEAR:
-    		return "LINEAR"		
+    		return "LINEAR"
         case CombineMethod_STRIPE:
-    		return "STRIPE"		
+    		return "STRIPE"
         case CombineMethod_MIRROR:
-    		return "MIRROR"		
+    		return "MIRROR"
         case CombineMethod_RAID5:
-    		return "RAID5"		
+    		return "RAID5"
         case CombineMethod_RAID6:
-    		return "RAID6"		
+    		return "RAID6"
         case CombineMethod_ZERO:
-    		return "ZERO"		
+    		return "ZERO"
         case CombineMethod_THIN:
-    		return "THIN"		
+    		return "THIN"
         case CombineMethod_THINPOOL:
-    		return "THINPOOL"		
+    		return "THINPOOL"
         case CombineMethod_SNAPSHOT:
-    		return "SNAPSHOT"		
+    		return "SNAPSHOT"
         case CombineMethod_CACHE:
-    		return "CACHE"		
+    		return "CACHE"
         case CombineMethod_CACHEPOOL:
-    		return "CACHEPOOL"		
+    		return "CACHEPOOL"
         default:
         	return "LINEAR"
     }

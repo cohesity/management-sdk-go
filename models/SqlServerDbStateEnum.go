@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -24,18 +25,18 @@ const (
     SqlServerDbState_KOFFLINESECONDARY
 )
 
-func (r SqlServerDbStateEnum) MarshalJSON() ([]byte, error) { 
+func (r SqlServerDbStateEnum) MarshalJSON() ([]byte, error) {
     s := SqlServerDbStateEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *SqlServerDbStateEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *SqlServerDbStateEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  SqlServerDbStateEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -44,23 +45,23 @@ func (r *SqlServerDbStateEnum) UnmarshalJSON(data []byte) error {
 func SqlServerDbStateEnumToValue(sqlServerDbStateEnum SqlServerDbStateEnum) string {
     switch sqlServerDbStateEnum {
         case SqlServerDbState_KONLINE:
-    		return "kOnline"		
+    		return "kOnline"
         case SqlServerDbState_KRESTORING:
-    		return "kRestoring"		
+    		return "kRestoring"
         case SqlServerDbState_KRECOVERING:
-    		return "kRecovering"		
+    		return "kRecovering"
         case SqlServerDbState_KRECOVERYPENDING:
-    		return "kRecoveryPending"		
+    		return "kRecoveryPending"
         case SqlServerDbState_KSUSPECT:
-    		return "kSuspect"		
+    		return "kSuspect"
         case SqlServerDbState_KEMERGENCY:
-    		return "kEmergency"		
+    		return "kEmergency"
         case SqlServerDbState_KOFFLINE:
-    		return "kOffline"		
+    		return "kOffline"
         case SqlServerDbState_KCOPYING:
-    		return "kCopying"		
+    		return "kCopying"
         case SqlServerDbState_KOFFLINESECONDARY:
-    		return "kOfflineSecondary"		
+    		return "kOfflineSecondary"
         default:
         	return "kOnline"
     }

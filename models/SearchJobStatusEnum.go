@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -20,18 +21,18 @@ const (
     SearchJobStatus_KJOBPAUSED
 )
 
-func (r SearchJobStatusEnum) MarshalJSON() ([]byte, error) { 
+func (r SearchJobStatusEnum) MarshalJSON() ([]byte, error) {
     s := SearchJobStatusEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *SearchJobStatusEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *SearchJobStatusEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  SearchJobStatusEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -40,15 +41,15 @@ func (r *SearchJobStatusEnum) UnmarshalJSON(data []byte) error {
 func SearchJobStatusEnumToValue(searchJobStatusEnum SearchJobStatusEnum) string {
     switch searchJobStatusEnum {
         case SearchJobStatus_KJOBRUNNING:
-    		return "kJobRunning"		
+    		return "kJobRunning"
         case SearchJobStatus_KJOBFINISHED:
-    		return "kJobFinished"		
+    		return "kJobFinished"
         case SearchJobStatus_KJOBFAILED:
-    		return "kJobFailed"		
+    		return "kJobFailed"
         case SearchJobStatus_KJOBCANCELED:
-    		return "kJobCanceled"		
+    		return "kJobCanceled"
         case SearchJobStatus_KJOBPAUSED:
-    		return "kJobPaused"		
+    		return "kJobPaused"
         default:
         	return "kJobRunning"
     }

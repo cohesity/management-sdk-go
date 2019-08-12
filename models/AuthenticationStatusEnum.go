@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -19,18 +20,18 @@ const (
     AuthenticationStatus_KREFRESHINPROGRESS
 )
 
-func (r AuthenticationStatusEnum) MarshalJSON() ([]byte, error) { 
+func (r AuthenticationStatusEnum) MarshalJSON() ([]byte, error) {
     s := AuthenticationStatusEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *AuthenticationStatusEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *AuthenticationStatusEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  AuthenticationStatusEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -39,13 +40,13 @@ func (r *AuthenticationStatusEnum) UnmarshalJSON(data []byte) error {
 func AuthenticationStatusEnumToValue(authenticationStatusEnum AuthenticationStatusEnum) string {
     switch authenticationStatusEnum {
         case AuthenticationStatus_KPENDING:
-    		return "kPending"		
+    		return "kPending"
         case AuthenticationStatus_KSCHEDULED:
-    		return "kScheduled"		
+    		return "kScheduled"
         case AuthenticationStatus_KFINISHED:
-    		return "kFinished"		
+    		return "kFinished"
         case AuthenticationStatus_KREFRESHINPROGRESS:
-    		return "kRefreshInProgress"		
+    		return "kRefreshInProgress"
         default:
         	return "kPending"
     }

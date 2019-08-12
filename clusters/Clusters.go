@@ -1,17 +1,42 @@
+// Copyright 2019 Cohesity Inc.
 package clusters
 
-import "github.com/cohesity/management-sdk-go/models"
 import "github.com/cohesity/management-sdk-go/configuration"
+import "github.com/cohesity/management-sdk-go/models"
 
 /*
  * Interface for the CLUSTERS_IMPL
  */
 type CLUSTERS interface {
-    GetExternalClientSubnets () (*models.SpecifiesTheExternalClientSubnetsThatCanCommunicateWithThisCluster, error)
-
     GetClusterKeys () (*models.ClusterPublicKeys, error)
 
-    UpdateExternalClientSubnets (*models.SpecifiesTheExternalClientSubnetsThatCanCommunicateWithThisCluster) (*models.SpecifiesTheExternalClientSubnetsThatCanCommunicateWithThisCluster, error)
+    DestroyCluster () (error)
+
+    CreateCloudCluster (*models.CreateCloudClusterParameters) (*models.CreateClusterResult, error)
+
+    CreateExpandCloudCluster (*models.ExpandCloudClusterParameters) (*models.CreateClusterResult, error)
+
+    GetClusterCreationProgress () (*models.ClusterCreationProgressResult, error)
+
+    GetIoPreferentialTier () (*models.IoPreferentialTier, error)
+
+    RemoveNode (int64) (error)
+
+    CreatePhysicalCluster (*models.CreatePhysicalClusterParameters) (*models.CreateClusterResult, error)
+
+    CreateExpandPhysicalCluster (*models.ExpandPhysicalClusterParameters) (*models.CreateClusterResult, error)
+
+    ListServiceStates () ([]*models.ServiceStateResult, error)
+
+    ChangeServiceState (*models.ChangeServiceStateParameters) (*models.ChangeServiceStateResult, error)
+
+    UpdateUpgradeCluster (*models.UpgradeClusterParameters) (*models.UpgradeClusterResult, error)
+
+    CreateVirtualCluster (*models.CreateVirtualClusterParameters) (*models.CreateClusterResult, error)
+
+    GetExternalClientSubnets () (*models.ExternalClientSubnets, error)
+
+    UpdateExternalClientSubnets (*models.ExternalClientSubnets) (*models.ExternalClientSubnets, error)
 }
 
 /*

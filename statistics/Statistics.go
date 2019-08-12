@@ -1,19 +1,24 @@
+// Copyright 2019 Cohesity Inc.
 package statistics
 
-import "github.com/cohesity/management-sdk-go/models"
 import "github.com/cohesity/management-sdk-go/configuration"
+import "github.com/cohesity/management-sdk-go/models"
 
 /*
  * Interface for the STATISTICS_IMPL
  */
 type STATISTICS interface {
-    GetTimeSeriesStats (string, string, string, int64, *string, *int64, *int64) (*models.MetricDataBlock, error)
+    GetEntities (string, *bool, []string) ([]*models.EntityProto, error)
 
-    GetEntitySchemaByName (string) ([]*models.EntitySchema, error)
+    GetEntitiesSchema ([]string, []string) ([]*models.EntitySchemaProto, error)
 
-    GetEntities (string, *bool, []string) ([]*models.Entity, error)
+    GetEntitySchemaByName (string) ([]*models.EntitySchemaProto, error)
 
-    GetEntitiesSchema ([]string, []string) ([]*models.EntitySchema, error)
+    GetTimeSeriesSchema (models.EntityTypeEnum, int64, string) (*models.TimeSeriesSchemaResponse, error)
+
+    GetTimeSeriesStats (string, string, int64, *string, []string, *int64, *string, *int64) (*models.MetricDataBlock, error)
+
+    GetTasks ([]string, *bool, *int64, *int64, *int64, *bool, []string) ([]*models.Task, error)
 }
 
 /*

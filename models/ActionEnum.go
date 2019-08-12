@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -13,24 +14,23 @@ type ActionEnum int
  * Value collection for ActionEnum enum
  */
 const (
-    Action_KACTIVATE ActionEnum = 1 + iota
-    Action_KDEACTIVATE
-    Action_KPAUSE
-    Action_KRESUME
+    Action_KSTOP ActionEnum = 1 + iota
+    Action_KSTART
+    Action_KRESTART
 )
 
-func (r ActionEnum) MarshalJSON() ([]byte, error) { 
+func (r ActionEnum) MarshalJSON() ([]byte, error) {
     s := ActionEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *ActionEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *ActionEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  ActionEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -38,16 +38,14 @@ func (r *ActionEnum) UnmarshalJSON(data []byte) error {
  */
 func ActionEnumToValue(actionEnum ActionEnum) string {
     switch actionEnum {
-        case Action_KACTIVATE:
-    		return "kActivate"		
-        case Action_KDEACTIVATE:
-    		return "kDeactivate"		
-        case Action_KPAUSE:
-    		return "kPause"		
-        case Action_KRESUME:
-    		return "kResume"		
+        case Action_KSTOP:
+    		return "kStop"
+        case Action_KSTART:
+    		return "kStart"
+        case Action_KRESTART:
+    		return "kRestart"
         default:
-        	return "kActivate"
+        	return "kStop"
     }
 }
 
@@ -68,15 +66,13 @@ func ActionEnumArrayToValue(actionEnum []ActionEnum) []string {
  */
 func ActionEnumFromValue(value string) ActionEnum {
     switch value {
-        case "kActivate":
-            return Action_KACTIVATE
-        case "kDeactivate":
-            return Action_KDEACTIVATE
-        case "kPause":
-            return Action_KPAUSE
-        case "kResume":
-            return Action_KRESUME
+        case "kStop":
+            return Action_KSTOP
+        case "kStart":
+            return Action_KSTART
+        case "kRestart":
+            return Action_KRESTART
         default:
-            return Action_KACTIVATE
+            return Action_KSTOP
     }
 }

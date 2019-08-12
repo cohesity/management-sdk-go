@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -18,18 +19,18 @@ const (
     AlertStateList_KALERTSUPPRESSED
 )
 
-func (r AlertStateListEnum) MarshalJSON() ([]byte, error) { 
+func (r AlertStateListEnum) MarshalJSON() ([]byte, error) {
     s := AlertStateListEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *AlertStateListEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *AlertStateListEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  AlertStateListEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -38,11 +39,11 @@ func (r *AlertStateListEnum) UnmarshalJSON(data []byte) error {
 func AlertStateListEnumToValue(alertStateListEnum AlertStateListEnum) string {
     switch alertStateListEnum {
         case AlertStateList_KOPEN:
-    		return "kOpen"		
+    		return "kOpen"
         case AlertStateList_KRESOLVED:
-    		return "kResolved"		
+    		return "kResolved"
         case AlertStateList_KALERTSUPPRESSED:
-    		return "kAlertSuppressed"		
+    		return "kAlertSuppressed"
         default:
         	return "kOpen"
     }

@@ -1,19 +1,20 @@
+// Copyright 2019 Cohesity Inc.
 package roles
 
-import "github.com/cohesity/management-sdk-go/models"
 import "github.com/cohesity/management-sdk-go/configuration"
+import "github.com/cohesity/management-sdk-go/models"
 
 /*
  * Interface for the ROLES_IMPL
  */
 type ROLES interface {
-    UpdateRole (string, *models.RoleUpdate) (*models.RoleInformation, error)
+    DeleteRoles (*models.RoleDeleteParameters) (error)
 
-    GetRoles ([]string, *bool, *string) ([]*models.RoleInformation, error)
+    GetRoles (*string, []string, *bool) ([]*models.Role, error)
 
-    CreateRole (*models.RoleCreate) (*models.RoleInformation, error)
+    CreateRole (*models.RoleCreateParameters) (*models.Role, error)
 
-    DeleteRoles (*models.DeleteRole) (error)
+    UpdateRole (string, *models.RoleUpdateParameters) (*models.Role, error)
 }
 
 /*

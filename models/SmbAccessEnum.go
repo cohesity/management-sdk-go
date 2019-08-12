@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -18,18 +19,18 @@ const (
     SmbAccess_KREADWRITE
 )
 
-func (r SmbAccessEnum) MarshalJSON() ([]byte, error) { 
+func (r SmbAccessEnum) MarshalJSON() ([]byte, error) {
     s := SmbAccessEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *SmbAccessEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *SmbAccessEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  SmbAccessEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -38,11 +39,11 @@ func (r *SmbAccessEnum) UnmarshalJSON(data []byte) error {
 func SmbAccessEnumToValue(smbAccessEnum SmbAccessEnum) string {
     switch smbAccessEnum {
         case SmbAccess_KDISABLED:
-    		return "kDisabled"		
+    		return "kDisabled"
         case SmbAccess_KREADONLY:
-    		return "kReadOnly"		
+    		return "kReadOnly"
         case SmbAccess_KREADWRITE:
-    		return "kReadWrite"		
+    		return "kReadWrite"
         default:
         	return "kDisabled"
     }

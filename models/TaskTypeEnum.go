@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -19,18 +20,18 @@ const (
     TaskType_FIELDMESSAGE
 )
 
-func (r TaskTypeEnum) MarshalJSON() ([]byte, error) { 
+func (r TaskTypeEnum) MarshalJSON() ([]byte, error) {
     s := TaskTypeEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *TaskTypeEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *TaskTypeEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  TaskTypeEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -39,15 +40,15 @@ func (r *TaskTypeEnum) UnmarshalJSON(data []byte) error {
 func TaskTypeEnumToValue(taskTypeEnum TaskTypeEnum) string {
     switch taskTypeEnum {
         case TaskType_RESTORE:
-    		return "Restore"		
+    		return "restore"
         case TaskType_CLONE:
-    		return "Clone"		
+    		return "clone"
         case TaskType_BACKUPNOW:
-    		return "BackupNow"		
+    		return "backupNow"
         case TaskType_FIELDMESSAGE:
-    		return "FieldMessage"		
+    		return "fieldMessage"
         default:
-        	return "Restore"
+        	return "restore"
     }
 }
 
@@ -68,13 +69,13 @@ func TaskTypeEnumArrayToValue(taskTypeEnum []TaskTypeEnum) []string {
  */
 func TaskTypeEnumFromValue(value string) TaskTypeEnum {
     switch value {
-        case "Restore":
+        case "restore":
             return TaskType_RESTORE
-        case "Clone":
+        case "clone":
             return TaskType_CLONE
-        case "BackupNow":
+        case "backupNow":
             return TaskType_BACKUPNOW
-        case "FieldMessage":
+        case "fieldMessage":
             return TaskType_FIELDMESSAGE
         default:
             return TaskType_RESTORE

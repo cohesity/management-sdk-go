@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -27,6 +28,7 @@ const (
     Environment_KACROPOLIS
     Environment_KPHYSICALFILES
     Environment_KISILON
+    Environment_KGPFS
     Environment_KKVM
     Environment_KAWS
     Environment_KEXCHANGE
@@ -41,20 +43,21 @@ const (
     Environment_KHYPERFLEX
     Environment_KGCPNATIVE
     Environment_KAZURENATIVE
+    Environment_KKUBERNETES
 )
 
-func (r EnvironmentEnum) MarshalJSON() ([]byte, error) { 
+func (r EnvironmentEnum) MarshalJSON() ([]byte, error) {
     s := EnvironmentEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *EnvironmentEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *EnvironmentEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  EnvironmentEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -63,61 +66,65 @@ func (r *EnvironmentEnum) UnmarshalJSON(data []byte) error {
 func EnvironmentEnumToValue(environmentEnum EnvironmentEnum) string {
     switch environmentEnum {
         case Environment_KVMWARE:
-    		return "kVMware"		
+    		return "kVMware"
         case Environment_KHYPERV:
-    		return "kHyperV"		
+    		return "kHyperV"
         case Environment_KSQL:
-    		return "kSQL"		
+    		return "kSQL"
         case Environment_KVIEW:
-    		return "kView"		
+    		return "kView"
         case Environment_KPUPPETEER:
-    		return "kPuppeteer"		
+    		return "kPuppeteer"
         case Environment_KPHYSICAL:
-    		return "kPhysical"		
+    		return "kPhysical"
         case Environment_KPURE:
-    		return "kPure"		
+    		return "kPure"
         case Environment_KAZURE:
-    		return "kAzure"		
+    		return "kAzure"
         case Environment_KNETAPP:
-    		return "kNetapp"		
+    		return "kNetapp"
         case Environment_KAGENT:
-    		return "kAgent"		
+    		return "kAgent"
         case Environment_KGENERICNAS:
-    		return "kGenericNas"		
+    		return "kGenericNas"
         case Environment_KACROPOLIS:
-    		return "kAcropolis"		
+    		return "kAcropolis"
         case Environment_KPHYSICALFILES:
-    		return "kPhysicalFiles"		
+    		return "kPhysicalFiles"
         case Environment_KISILON:
-    		return "kIsilon"		
+    		return "kIsilon"
+        case Environment_KGPFS:
+    		return "kGPFS"
         case Environment_KKVM:
-    		return "kKVM"		
+    		return "kKVM"
         case Environment_KAWS:
-    		return "kAWS"		
+    		return "kAWS"
         case Environment_KEXCHANGE:
-    		return "kExchange"		
+    		return "kExchange"
         case Environment_KHYPERVVSS:
-    		return "kHyperVVSS"		
+    		return "kHyperVVSS"
         case Environment_KORACLE:
-    		return "kOracle"		
+    		return "kOracle"
         case Environment_KGCP:
-    		return "kGCP"		
+    		return "kGCP"
         case Environment_KFLASHBLADE:
-    		return "kFlashBlade"		
+    		return "kFlashBlade"
         case Environment_KAWSNATIVE:
-    		return "kAWSNative"		
+    		return "kAWSNative"
         case Environment_KVCD:
-    		return "kVCD"		
+    		return "kVCD"
         case Environment_KO365:
-    		return "kO365"		
+    		return "kO365"
         case Environment_KO365OUTLOOK:
-    		return "kO365Outlook"		
+    		return "kO365Outlook"
         case Environment_KHYPERFLEX:
-    		return "kHyperFlex"		
+    		return "kHyperFlex"
         case Environment_KGCPNATIVE:
-    		return "kGCPNative"		
+    		return "kGCPNative"
         case Environment_KAZURENATIVE:
-    		return "kAzureNative"		
+    		return "kAzureNative"
+        case Environment_KKUBERNETES:
+    		return "kKubernetes"
         default:
         	return "kVMware"
     }
@@ -168,6 +175,8 @@ func EnvironmentEnumFromValue(value string) EnvironmentEnum {
             return Environment_KPHYSICALFILES
         case "kIsilon":
             return Environment_KISILON
+        case "kGPFS":
+            return Environment_KGPFS
         case "kKVM":
             return Environment_KKVM
         case "kAWS":
@@ -196,6 +205,8 @@ func EnvironmentEnumFromValue(value string) EnvironmentEnum {
             return Environment_KGCPNATIVE
         case "kAzureNative":
             return Environment_KAZURENATIVE
+        case "kKubernetes":
+            return Environment_KKUBERNETES
         default:
             return Environment_KVMWARE
     }

@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -15,24 +16,24 @@ type ConnectionStateEnum int
 const (
     ConnectionState_KCONNECTED ConnectionStateEnum = 1 + iota
     ConnectionState_KDISCONNECTED
-    ConnectionState_KINACCCESSIBLE
+    ConnectionState_KINACCESSIBLE
     ConnectionState_KINVALID
     ConnectionState_KORPHANED
     ConnectionState_KNOTRESPONDING
 )
 
-func (r ConnectionStateEnum) MarshalJSON() ([]byte, error) { 
+func (r ConnectionStateEnum) MarshalJSON() ([]byte, error) {
     s := ConnectionStateEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *ConnectionStateEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *ConnectionStateEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  ConnectionStateEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -41,17 +42,17 @@ func (r *ConnectionStateEnum) UnmarshalJSON(data []byte) error {
 func ConnectionStateEnumToValue(connectionStateEnum ConnectionStateEnum) string {
     switch connectionStateEnum {
         case ConnectionState_KCONNECTED:
-    		return "kConnected"		
+    		return "kConnected"
         case ConnectionState_KDISCONNECTED:
-    		return "kDisconnected"		
-        case ConnectionState_KINACCCESSIBLE:
-    		return "kInacccessible"		
+    		return "kDisconnected"
+        case ConnectionState_KINACCESSIBLE:
+    		return "kInaccessible"
         case ConnectionState_KINVALID:
-    		return "kInvalid"		
+    		return "kInvalid"
         case ConnectionState_KORPHANED:
-    		return "kOrphaned"		
+    		return "kOrphaned"
         case ConnectionState_KNOTRESPONDING:
-    		return "kNotResponding"		
+    		return "kNotResponding"
         default:
         	return "kConnected"
     }
@@ -78,8 +79,8 @@ func ConnectionStateEnumFromValue(value string) ConnectionStateEnum {
             return ConnectionState_KCONNECTED
         case "kDisconnected":
             return ConnectionState_KDISCONNECTED
-        case "kInacccessible":
-            return ConnectionState_KINACCCESSIBLE
+        case "kInaccessible":
+            return ConnectionState_KINACCESSIBLE
         case "kInvalid":
             return ConnectionState_KINVALID
         case "kOrphaned":

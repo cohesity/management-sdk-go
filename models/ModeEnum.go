@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -13,22 +14,27 @@ type ModeEnum int
  * Value collection for ModeEnum enum
  */
 const (
-    Mode_KWHITELIST ModeEnum = 1 + iota
-    Mode_KBLACKLIST
+    Mode_KFOLDERSUBFOLDERSANDFILES ModeEnum = 1 + iota
+    Mode_KFOLDERANDSUBFOLDERS
+    Mode_KFOLDERANDFILES
+    Mode_KFOLDERONLY
+    Mode_KSUBFOLDERSANDFILESONLY
+    Mode_KSUBFOLDERSONLY
+    Mode_KFILESONLY
 )
 
-func (r ModeEnum) MarshalJSON() ([]byte, error) { 
+func (r ModeEnum) MarshalJSON() ([]byte, error) {
     s := ModeEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *ModeEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *ModeEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  ModeEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -36,12 +42,22 @@ func (r *ModeEnum) UnmarshalJSON(data []byte) error {
  */
 func ModeEnumToValue(modeEnum ModeEnum) string {
     switch modeEnum {
-        case Mode_KWHITELIST:
-    		return "kWhitelist"		
-        case Mode_KBLACKLIST:
-    		return "kBlacklist"		
+        case Mode_KFOLDERSUBFOLDERSANDFILES:
+    		return "kFolderSubFoldersAndFiles"
+        case Mode_KFOLDERANDSUBFOLDERS:
+    		return "kFolderAndSubFolders"
+        case Mode_KFOLDERANDFILES:
+    		return "kFolderAndFiles"
+        case Mode_KFOLDERONLY:
+    		return "kFolderOnly"
+        case Mode_KSUBFOLDERSANDFILESONLY:
+    		return "kSubFoldersAndFilesOnly"
+        case Mode_KSUBFOLDERSONLY:
+    		return "kSubFoldersOnly"
+        case Mode_KFILESONLY:
+    		return "kFilesOnly"
         default:
-        	return "kWhitelist"
+        	return "kFolderSubFoldersAndFiles"
     }
 }
 
@@ -62,11 +78,21 @@ func ModeEnumArrayToValue(modeEnum []ModeEnum) []string {
  */
 func ModeEnumFromValue(value string) ModeEnum {
     switch value {
-        case "kWhitelist":
-            return Mode_KWHITELIST
-        case "kBlacklist":
-            return Mode_KBLACKLIST
+        case "kFolderSubFoldersAndFiles":
+            return Mode_KFOLDERSUBFOLDERSANDFILES
+        case "kFolderAndSubFolders":
+            return Mode_KFOLDERANDSUBFOLDERS
+        case "kFolderAndFiles":
+            return Mode_KFOLDERANDFILES
+        case "kFolderOnly":
+            return Mode_KFOLDERONLY
+        case "kSubFoldersAndFilesOnly":
+            return Mode_KSUBFOLDERSANDFILESONLY
+        case "kSubFoldersOnly":
+            return Mode_KSUBFOLDERSONLY
+        case "kFilesOnly":
+            return Mode_KFILESONLY
         default:
-            return Mode_KWHITELIST
+            return Mode_KFOLDERSUBFOLDERSANDFILES
     }
 }

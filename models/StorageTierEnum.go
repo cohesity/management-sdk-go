@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -19,18 +20,18 @@ const (
     StorageTier_KCLOUD
 )
 
-func (r StorageTierEnum) MarshalJSON() ([]byte, error) { 
+func (r StorageTierEnum) MarshalJSON() ([]byte, error) {
     s := StorageTierEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *StorageTierEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *StorageTierEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  StorageTierEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -39,13 +40,13 @@ func (r *StorageTierEnum) UnmarshalJSON(data []byte) error {
 func StorageTierEnumToValue(storageTierEnum StorageTierEnum) string {
     switch storageTierEnum {
         case StorageTier_KPCIESSD:
-    		return "kPCIeSSD"		
+    		return "kPCIeSSD"
         case StorageTier_KSATASSD:
-    		return "kSATASSD"		
+    		return "kSATASSD"
         case StorageTier_KSATAHDD:
-    		return "kSATAHDD"		
+    		return "kSATAHDD"
         case StorageTier_KCLOUD:
-    		return "kCLOUD"		
+    		return "kCLOUD"
         default:
         	return "kPCIeSSD"
     }

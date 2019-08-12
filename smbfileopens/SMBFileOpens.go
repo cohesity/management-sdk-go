@@ -1,15 +1,16 @@
+// Copyright 2019 Cohesity Inc.
 package smbfileopens
 
-import "github.com/cohesity/management-sdk-go/models"
 import "github.com/cohesity/management-sdk-go/configuration"
+import "github.com/cohesity/management-sdk-go/models"
 
 /*
  * Interface for the SMBFILEOPENS_IMPL
  */
 type SMBFILEOPENS interface {
-    GetSmbFileOpens (*string, *string, *string, *int64) (*models.SMBActiveFileOpenResponse, error)
+    GetSmbFileOpens (*string, *string, *int64, *string) (*models.SmbActiveFileOpensResponse, error)
 
-    CreateCloseSmbFileOpen (*models.CloseSMBFileOpenParameters) (error)
+    CreateCloseSmbFileOpen (*models.CloseSmbFileOpenParameters) (error)
 }
 
 /*

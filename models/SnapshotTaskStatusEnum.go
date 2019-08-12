@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -20,18 +21,18 @@ const (
     SnapshotTaskStatus_KJOBPAUSED
 )
 
-func (r SnapshotTaskStatusEnum) MarshalJSON() ([]byte, error) { 
+func (r SnapshotTaskStatusEnum) MarshalJSON() ([]byte, error) {
     s := SnapshotTaskStatusEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *SnapshotTaskStatusEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *SnapshotTaskStatusEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  SnapshotTaskStatusEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -40,15 +41,15 @@ func (r *SnapshotTaskStatusEnum) UnmarshalJSON(data []byte) error {
 func SnapshotTaskStatusEnumToValue(snapshotTaskStatusEnum SnapshotTaskStatusEnum) string {
     switch snapshotTaskStatusEnum {
         case SnapshotTaskStatus_KJOBRUNNING:
-    		return "kJobRunning"		
+    		return "kJobRunning"
         case SnapshotTaskStatus_KJOBFINISHED:
-    		return "kJobFinished"		
+    		return "kJobFinished"
         case SnapshotTaskStatus_KJOBFAILED:
-    		return "kJobFailed"		
+    		return "kJobFailed"
         case SnapshotTaskStatus_KJOBCANCELED:
-    		return "kJobCanceled"		
+    		return "kJobCanceled"
         case SnapshotTaskStatus_KJOBPAUSED:
-    		return "kJobPaused"		
+    		return "kJobPaused"
         default:
         	return "kJobRunning"
     }

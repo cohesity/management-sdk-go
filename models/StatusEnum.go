@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -19,18 +20,18 @@ const (
     Status_KDEGRADED
 )
 
-func (r StatusEnum) MarshalJSON() ([]byte, error) { 
+func (r StatusEnum) MarshalJSON() ([]byte, error) {
     s := StatusEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *StatusEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *StatusEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  StatusEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -39,13 +40,13 @@ func (r *StatusEnum) UnmarshalJSON(data []byte) error {
 func StatusEnumToValue(statusEnum StatusEnum) string {
     switch statusEnum {
         case Status_KUNKNOWN:
-    		return "kUnknown"		
+    		return "kUnknown"
         case Status_KUNREACHABLE:
-    		return "kUnreachable"		
+    		return "kUnreachable"
         case Status_KHEALTHY:
-    		return "kHealthy"		
+    		return "kHealthy"
         case Status_KDEGRADED:
-    		return "kDegraded"		
+    		return "kDegraded"
         default:
         	return "kUnknown"
     }

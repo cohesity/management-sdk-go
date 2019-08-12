@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package smbfileopens
 
 
@@ -5,10 +6,10 @@ import(
 	"errors"
 	"fmt"
 	"encoding/json"
-	"github.com/cohesity/management-sdk-go/models"
 	"github.com/cohesity/management-sdk-go/unirest-go"
 	"github.com/cohesity/management-sdk-go/apihelper"
 	"github.com/cohesity/management-sdk-go/configuration"
+	"github.com/cohesity/management-sdk-go/models"
 )
 /*
  * Client structure as interface implementation
@@ -21,17 +22,17 @@ type SMBFILEOPENS_IMPL struct {
  * If no parameters are specified, all active SMB file opens currently on the
  * Cohesity Cluster are returned. Specifying parameters filters the results that
  * are returned.
- * @param    *string        cookie        parameter: Optional
  * @param    *string        filePath      parameter: Optional
  * @param    *string        viewName      parameter: Optional
  * @param    *int64         pageCount     parameter: Optional
- * @return	Returns the *models.SMBActiveFileOpenResponse response from the API call
+ * @param    *string        cookie        parameter: Optional
+ * @return	Returns the *models.SmbActiveFileOpensResponse response from the API call
  */
 func (me *SMBFILEOPENS_IMPL) GetSmbFileOpens (
-            cookie *string,
             filePath *string,
             viewName *string,
-            pageCount *int64) (*models.SMBActiveFileOpenResponse, error) {
+            pageCount *int64,
+            cookie *string) (*models.SmbActiveFileOpensResponse, error) {
     //the endpoint path uri
     _pathUrl := "/public/smbFileOpens"
 
@@ -45,10 +46,10 @@ func (me *SMBFILEOPENS_IMPL) GetSmbFileOpens (
 
     //process optional query parameters
     _queryBuilder, err = apihelper.AppendUrlWithQueryParameters(_queryBuilder, map[string]interface{} {
-        "cookie" : cookie,
         "filePath" : filePath,
         "viewName" : viewName,
         "pageCount" : pageCount,
+        "cookie" : cookie,
     })
     if err != nil {
         //error in query param handling
@@ -66,7 +67,7 @@ func (me *SMBFILEOPENS_IMPL) GetSmbFileOpens (
     }
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
-        "user-agent" : "cohesity-Go-sdk-6.2.0",
+        "user-agent" : "cohesity-Go-sdk-1.1.2",
         "accept" : "application/json",
         "Authorization" : fmt.Sprintf("%s %s",*me.config.AccessToken().TokenType, *me.config.AccessToken().AccessToken),
     }
@@ -92,7 +93,7 @@ func (me *SMBFILEOPENS_IMPL) GetSmbFileOpens (
     }
 
     //returning the response
-    var retVal *models.SMBActiveFileOpenResponse = &models.SMBActiveFileOpenResponse{}
+    var retVal *models.SmbActiveFileOpensResponse = &models.SmbActiveFileOpensResponse{}
     err = json.Unmarshal(_response.RawBody, &retVal)
 
     if err != nil {
@@ -105,11 +106,11 @@ func (me *SMBFILEOPENS_IMPL) GetSmbFileOpens (
 
 /**
  * Returns nothing upon success.
- * @param    *models.CloseSMBFileOpenParameters        body     parameter: Required
+ * @param    *models.CloseSmbFileOpenParameters        body     parameter: Required
  * @return	Returns the  response from the API call
  */
 func (me *SMBFILEOPENS_IMPL) CreateCloseSmbFileOpen (
-            body *models.CloseSMBFileOpenParameters) (error) {
+            body *models.CloseSmbFileOpenParameters) (error) {
 //validating required parameters
     if (body == nil){
         return errors.New("The parameter 'body' is a required parameter and cannot be nil.")
@@ -135,7 +136,7 @@ func (me *SMBFILEOPENS_IMPL) CreateCloseSmbFileOpen (
     }
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
-        "user-agent" : "cohesity-Go-sdk-6.2.0",
+        "user-agent" : "cohesity-Go-sdk-1.1.2",
         "content-type" : "application/json; charset=utf-8",
         "Authorization" : fmt.Sprintf("%s %s",*me.config.AccessToken().TokenType, *me.config.AccessToken().AccessToken),
     }

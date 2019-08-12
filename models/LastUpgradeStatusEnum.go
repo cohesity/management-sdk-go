@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -19,18 +20,18 @@ const (
     LastUpgradeStatus_KFINISHED
 )
 
-func (r LastUpgradeStatusEnum) MarshalJSON() ([]byte, error) { 
+func (r LastUpgradeStatusEnum) MarshalJSON() ([]byte, error) {
     s := LastUpgradeStatusEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *LastUpgradeStatusEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *LastUpgradeStatusEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  LastUpgradeStatusEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -39,13 +40,13 @@ func (r *LastUpgradeStatusEnum) UnmarshalJSON(data []byte) error {
 func LastUpgradeStatusEnumToValue(lastUpgradeStatusEnum LastUpgradeStatusEnum) string {
     switch lastUpgradeStatusEnum {
         case LastUpgradeStatus_KIDLE:
-    		return "kIdle"		
+    		return "kIdle"
         case LastUpgradeStatus_KACCEPTED:
-    		return "kAccepted"		
+    		return "kAccepted"
         case LastUpgradeStatus_KSTARTED:
-    		return "kStarted"		
+    		return "kStarted"
         case LastUpgradeStatus_KFINISHED:
-    		return "kFinished"		
+    		return "kFinished"
         default:
         	return "kIdle"
     }

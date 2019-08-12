@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -19,18 +20,18 @@ const (
     Style_KUNIFIED
 )
 
-func (r StyleEnum) MarshalJSON() ([]byte, error) { 
+func (r StyleEnum) MarshalJSON() ([]byte, error) {
     s := StyleEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *StyleEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *StyleEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  StyleEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -39,13 +40,13 @@ func (r *StyleEnum) UnmarshalJSON(data []byte) error {
 func StyleEnumToValue(styleEnum StyleEnum) string {
     switch styleEnum {
         case Style_KUNIX:
-    		return "kUnix"		
+    		return "kUnix"
         case Style_KNTFS:
-    		return "kNtfs"		
+    		return "kNtfs"
         case Style_KMIXED:
-    		return "kMixed"		
+    		return "kMixed"
         case Style_KUNIFIED:
-    		return "kUnified"		
+    		return "kUnified"
         default:
         	return "kUnix"
     }

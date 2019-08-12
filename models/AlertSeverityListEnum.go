@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -18,18 +19,18 @@ const (
     AlertSeverityList_KINFO
 )
 
-func (r AlertSeverityListEnum) MarshalJSON() ([]byte, error) { 
+func (r AlertSeverityListEnum) MarshalJSON() ([]byte, error) {
     s := AlertSeverityListEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *AlertSeverityListEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *AlertSeverityListEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  AlertSeverityListEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -38,11 +39,11 @@ func (r *AlertSeverityListEnum) UnmarshalJSON(data []byte) error {
 func AlertSeverityListEnumToValue(alertSeverityListEnum AlertSeverityListEnum) string {
     switch alertSeverityListEnum {
         case AlertSeverityList_KCRITICAL:
-    		return "kCritical"		
+    		return "kCritical"
         case AlertSeverityList_KWARNING:
-    		return "kWarning"		
+    		return "kWarning"
         case AlertSeverityList_KINFO:
-    		return "kInfo"		
+    		return "kInfo"
         default:
         	return "kCritical"
     }

@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -19,18 +20,18 @@ const (
     PkgType_KDEB
 )
 
-func (r PkgTypeEnum) MarshalJSON() ([]byte, error) { 
+func (r PkgTypeEnum) MarshalJSON() ([]byte, error) {
     s := PkgTypeEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *PkgTypeEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *PkgTypeEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  PkgTypeEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -39,13 +40,13 @@ func (r *PkgTypeEnum) UnmarshalJSON(data []byte) error {
 func PkgTypeEnumToValue(pkgTypeEnum PkgTypeEnum) string {
     switch pkgTypeEnum {
         case PkgType_KSCRIPT:
-    		return "kScript"		
+    		return "kScript"
         case PkgType_KRPM:
-    		return "kRPM"		
+    		return "kRPM"
         case PkgType_KSUSERPM:
-    		return "kSuseRPM"		
+    		return "kSuseRPM"
         case PkgType_KDEB:
-    		return "kDEB"		
+    		return "kDEB"
         default:
         	return "kScript"
     }
