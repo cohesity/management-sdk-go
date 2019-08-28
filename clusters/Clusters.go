@@ -8,42 +8,44 @@ import "github.com/cohesity/management-sdk-go/models"
  * Interface for the CLUSTERS_IMPL
  */
 type CLUSTERS interface {
-    GetClusterKeys () (*models.ClusterPublicKeys, error)
+	GetClusterKeys() (*models.ClusterPublicKeys, error)
 
-    DestroyCluster () (error)
+	DestroyCluster() error
 
-    CreateCloudCluster (*models.CreateCloudClusterParameters) (*models.CreateClusterResult, error)
+	ApplyClusterLicence(*models.LicenceClusterParameters) error
 
-    CreateExpandCloudCluster (*models.ExpandCloudClusterParameters) (*models.CreateClusterResult, error)
+	CreateCloudCluster(*models.CreateCloudClusterParameters) (*models.CreateClusterResult, error)
 
-    GetClusterCreationProgress () (*models.ClusterCreationProgressResult, error)
+	CreateExpandCloudCluster(*models.ExpandCloudClusterParameters) (*models.CreateClusterResult, error)
 
-    GetIoPreferentialTier () (*models.IoPreferentialTier, error)
+	GetClusterCreationProgress() (*models.ClusterCreationProgressResult, error)
 
-    RemoveNode (int64) (error)
+	GetIoPreferentialTier() (*models.IoPreferentialTier, error)
 
-    CreatePhysicalCluster (*models.CreatePhysicalClusterParameters) (*models.CreateClusterResult, error)
+	RemoveNode(int64) error
 
-    CreateExpandPhysicalCluster (*models.ExpandPhysicalClusterParameters) (*models.CreateClusterResult, error)
+	CreatePhysicalCluster(*models.CreatePhysicalClusterParameters) (*models.CreateClusterResult, error)
 
-    ListServiceStates () ([]*models.ServiceStateResult, error)
+	CreateExpandPhysicalCluster(*models.ExpandPhysicalClusterParameters) (*models.CreateClusterResult, error)
 
-    ChangeServiceState (*models.ChangeServiceStateParameters) (*models.ChangeServiceStateResult, error)
+	ListServiceStates() ([]*models.ServiceStateResult, error)
 
-    UpdateUpgradeCluster (*models.UpgradeClusterParameters) (*models.UpgradeClusterResult, error)
+	ChangeServiceState(*models.ChangeServiceStateParameters) (*models.ChangeServiceStateResult, error)
 
-    CreateVirtualCluster (*models.CreateVirtualClusterParameters) (*models.CreateClusterResult, error)
+	UpdateUpgradeCluster(*models.UpgradeClusterParameters) (*models.UpgradeClusterResult, error)
 
-    GetExternalClientSubnets () (*models.ExternalClientSubnets, error)
+	CreateVirtualCluster(*models.CreateVirtualClusterParameters) (*models.CreateClusterResult, error)
 
-    UpdateExternalClientSubnets (*models.ExternalClientSubnets) (*models.ExternalClientSubnets, error)
+	GetExternalClientSubnets() (*models.ExternalClientSubnets, error)
+
+	UpdateExternalClientSubnets(*models.ExternalClientSubnets) (*models.ExternalClientSubnets, error)
 }
 
 /*
  * Factory for the CLUSTERS interaface returning CLUSTERS_IMPL
  */
 func NewCLUSTERS(config configuration.CONFIGURATION) *CLUSTERS_IMPL {
-    client := new(CLUSTERS_IMPL)
-    client.config = config
-    return client
+	client := new(CLUSTERS_IMPL)
+	client.config = config
+	return client
 }
