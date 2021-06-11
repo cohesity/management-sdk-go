@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -17,18 +18,18 @@ const (
     PureType_KVOLUME
 )
 
-func (r PureTypeEnum) MarshalJSON() ([]byte, error) { 
+func (r PureTypeEnum) MarshalJSON() ([]byte, error) {
     s := PureTypeEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *PureTypeEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *PureTypeEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  PureTypeEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -37,9 +38,9 @@ func (r *PureTypeEnum) UnmarshalJSON(data []byte) error {
 func PureTypeEnumToValue(pureTypeEnum PureTypeEnum) string {
     switch pureTypeEnum {
         case PureType_KSTORAGEARRAY:
-    		return "kStorageArray"		
+    		return "kStorageArray"
         case PureType_KVOLUME:
-    		return "kVolume"		
+    		return "kVolume"
         default:
         	return "kStorageArray"
     }

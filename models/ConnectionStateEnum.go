@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -21,18 +22,18 @@ const (
     ConnectionState_KNOTRESPONDING
 )
 
-func (r ConnectionStateEnum) MarshalJSON() ([]byte, error) { 
+func (r ConnectionStateEnum) MarshalJSON() ([]byte, error) {
     s := ConnectionStateEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *ConnectionStateEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *ConnectionStateEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  ConnectionStateEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -41,17 +42,17 @@ func (r *ConnectionStateEnum) UnmarshalJSON(data []byte) error {
 func ConnectionStateEnumToValue(connectionStateEnum ConnectionStateEnum) string {
     switch connectionStateEnum {
         case ConnectionState_KCONNECTED:
-    		return "kConnected"		
+    		return "kConnected"
         case ConnectionState_KDISCONNECTED:
-    		return "kDisconnected"		
+    		return "kDisconnected"
         case ConnectionState_KINACCCESSIBLE:
-    		return "kInacccessible"		
+    		return "kInacccessible"
         case ConnectionState_KINVALID:
-    		return "kInvalid"		
+    		return "kInvalid"
         case ConnectionState_KORPHANED:
-    		return "kOrphaned"		
+    		return "kOrphaned"
         case ConnectionState_KNOTRESPONDING:
-    		return "kNotResponding"		
+    		return "kNotResponding"
         default:
         	return "kConnected"
     }

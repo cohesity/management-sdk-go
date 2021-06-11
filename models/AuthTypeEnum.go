@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -17,18 +18,18 @@ const (
     AuthType_KSIMPLE
 )
 
-func (r AuthTypeEnum) MarshalJSON() ([]byte, error) { 
+func (r AuthTypeEnum) MarshalJSON() ([]byte, error) {
     s := AuthTypeEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *AuthTypeEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *AuthTypeEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  AuthTypeEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -37,9 +38,9 @@ func (r *AuthTypeEnum) UnmarshalJSON(data []byte) error {
 func AuthTypeEnumToValue(authTypeEnum AuthTypeEnum) string {
     switch authTypeEnum {
         case AuthType_KANONYMOUS:
-    		return "kAnonymous"		
+    		return "kAnonymous"
         case AuthType_KSIMPLE:
-    		return "kSimple"		
+    		return "kSimple"
         default:
         	return "kAnonymous"
     }

@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -17,18 +18,18 @@ const (
     AclMode_KNATIVE
 )
 
-func (r AclModeEnum) MarshalJSON() ([]byte, error) { 
+func (r AclModeEnum) MarshalJSON() ([]byte, error) {
     s := AclModeEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *AclModeEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *AclModeEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  AclModeEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -37,9 +38,9 @@ func (r *AclModeEnum) UnmarshalJSON(data []byte) error {
 func AclModeEnumToValue(aclModeEnum AclModeEnum) string {
     switch aclModeEnum {
         case AclMode_KSHARED:
-    		return "kShared"		
+    		return "kShared"
         case AclMode_KNATIVE:
-    		return "kNative"		
+    		return "kNative"
         default:
         	return "kShared"
     }

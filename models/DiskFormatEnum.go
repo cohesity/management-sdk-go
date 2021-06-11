@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -20,18 +21,18 @@ const (
     DiskFormat_KUNKNOWN
 )
 
-func (r DiskFormatEnum) MarshalJSON() ([]byte, error) { 
+func (r DiskFormatEnum) MarshalJSON() ([]byte, error) {
     s := DiskFormatEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *DiskFormatEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *DiskFormatEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  DiskFormatEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -40,15 +41,15 @@ func (r *DiskFormatEnum) UnmarshalJSON(data []byte) error {
 func DiskFormatEnumToValue(diskFormatEnum DiskFormatEnum) string {
     switch diskFormatEnum {
         case DiskFormat_KVMDK:
-    		return "kVMDK"		
+    		return "kVMDK"
         case DiskFormat_KVHD:
-    		return "kVHD"		
+    		return "kVHD"
         case DiskFormat_KVHDX:
-    		return "kVHDx"		
+    		return "kVHDx"
         case DiskFormat_KRAW:
-    		return "kRaw"		
+    		return "kRaw"
         case DiskFormat_KUNKNOWN:
-    		return "kUnknown"		
+    		return "kUnknown"
         default:
         	return "kVMDK"
     }

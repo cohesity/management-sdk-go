@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package alerts
 
 
@@ -5,16 +6,80 @@ import(
 	"errors"
 	"fmt"
 	"encoding/json"
-	"github.com/cohesity/management-sdk-go/models"
 	"github.com/cohesity/management-sdk-go/unirest-go"
 	"github.com/cohesity/management-sdk-go/apihelper"
 	"github.com/cohesity/management-sdk-go/configuration"
+	"github.com/cohesity/management-sdk-go/models"
 )
 /*
  * Client structure as interface implementation
  */
 type ALERTS_IMPL struct {
      config configuration.CONFIGURATION
+}
+
+/**
+ * Returns alert categories in Cohesity cluster.
+ * @return	Returns the []*models.AlertCategoryName response from the API call
+ */
+func (me *ALERTS_IMPL) GetAlertCategories () ([]*models.AlertCategoryName, error) {
+    //the endpoint path uri
+    _pathUrl := "/public/alertCategories"
+
+    //variable to hold errors
+    var err error = nil
+    //the base uri for api requests
+    _queryBuilder := configuration.GetBaseURI(configuration.DEFAULT_HOST,me.config);
+
+    //prepare query string for API call
+   _queryBuilder = _queryBuilder + _pathUrl
+
+    //validate and preprocess url
+    _queryBuilder, err = apihelper.CleanUrl(_queryBuilder)
+    if err != nil {
+        //error in url validation or cleaning
+        return nil, err
+    }
+     if me.config.AccessToken() == nil {
+        return nil, errors.New("Access Token not set. Please authorize the client using client.Authorize()");
+    }
+    //prepare headers for the outgoing request
+    headers := map[string]interface{} {
+        "user-agent" : "cohesity-Go-sdk-1.1.0",
+        "accept" : "application/json",
+        "Authorization" : fmt.Sprintf("%s %s",*me.config.AccessToken().TokenType, *me.config.AccessToken().AccessToken),
+    }
+
+    //prepare API request
+    _request := unirest.Get(_queryBuilder, headers)
+    //and invoke the API call request to fetch the response
+    _response, err := unirest.AsString(_request,me.config.SkipSSL());
+    if err != nil {
+        //error in API invocation
+        return nil, err
+    }
+
+    //error handling using HTTP status codes
+    if (_response.Code == 0) {
+        err = apihelper.NewAPIError("Error", _response.Code, _response.RawBody)
+    } else if (_response.Code < 200) || (_response.Code > 206) { //[200,206] = HTTP OK
+            err = apihelper.NewAPIError("HTTP Response Not OK", _response.Code, _response.RawBody)
+    }
+    if(err != nil) {
+        //error detected in status code validation
+        return nil, err
+    }
+
+    //returning the response
+    var retVal []*models.AlertCategoryName
+    err = json.Unmarshal(_response.RawBody, &retVal)
+
+    if err != nil {
+        //error in parsing
+        return nil, err
+    }
+    return retVal, nil
+
 }
 
 /**
@@ -45,7 +110,7 @@ func (me *ALERTS_IMPL) GetNotificationRules () ([]*models.NotificationRule, erro
     }
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
-        "user-agent" : "cohesity-Go-sdk-6.2.0",
+        "user-agent" : "cohesity-Go-sdk-1.1.0",
         "accept" : "application/json",
         "Authorization" : fmt.Sprintf("%s %s",*me.config.AccessToken().TokenType, *me.config.AccessToken().AccessToken),
     }
@@ -83,12 +148,15 @@ func (me *ALERTS_IMPL) GetNotificationRules () ([]*models.NotificationRule, erro
 }
 
 /**
- * Returns alert categories in Cohesity cluster.
- * @return	Returns the []*models.AlertCategoryName response from the API call
+ * Creates a new notification rule with provided delivery targets such as email
+ * addresses and external apis.
+ * @param    *models.NotificationRule        body     parameter: Optional
+ * @return	Returns the *models.NotificationRule response from the API call
  */
-func (me *ALERTS_IMPL) GetAlertCategories () ([]*models.AlertCategoryName, error) {
+func (me *ALERTS_IMPL) CreateNotificationRule (
+            body *models.NotificationRule) (*models.NotificationRule, error) {
     //the endpoint path uri
-    _pathUrl := "/public/alertCategories"
+    _pathUrl := "/public/alertNotificationRules"
 
     //variable to hold errors
     var err error = nil
@@ -109,13 +177,14 @@ func (me *ALERTS_IMPL) GetAlertCategories () ([]*models.AlertCategoryName, error
     }
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
-        "user-agent" : "cohesity-Go-sdk-6.2.0",
+        "user-agent" : "cohesity-Go-sdk-1.1.0",
         "accept" : "application/json",
+        "content-type" : "application/json; charset=utf-8",
         "Authorization" : fmt.Sprintf("%s %s",*me.config.AccessToken().TokenType, *me.config.AccessToken().AccessToken),
     }
 
     //prepare API request
-    _request := unirest.Get(_queryBuilder, headers)
+    _request := unirest.Post(_queryBuilder, headers, body)
     //and invoke the API call request to fetch the response
     _response, err := unirest.AsString(_request,me.config.SkipSSL());
     if err != nil {
@@ -135,7 +204,7 @@ func (me *ALERTS_IMPL) GetAlertCategories () ([]*models.AlertCategoryName, error
     }
 
     //returning the response
-    var retVal []*models.AlertCategoryName
+    var retVal *models.NotificationRule = &models.NotificationRule{}
     err = json.Unmarshal(_response.RawBody, &retVal)
 
     if err != nil {
@@ -174,7 +243,7 @@ func (me *ALERTS_IMPL) UpdateNotificationRule () (*models.NotificationRule, erro
     }
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
-        "user-agent" : "cohesity-Go-sdk-6.2.0",
+        "user-agent" : "cohesity-Go-sdk-1.1.0",
         "accept" : "application/json",
         "Authorization" : fmt.Sprintf("%s %s",*me.config.AccessToken().TokenType, *me.config.AccessToken().AccessToken),
     }
@@ -201,590 +270,6 @@ func (me *ALERTS_IMPL) UpdateNotificationRule () (*models.NotificationRule, erro
 
     //returning the response
     var retVal *models.NotificationRule = &models.NotificationRule{}
-    err = json.Unmarshal(_response.RawBody, &retVal)
-
-    if err != nil {
-        //error in parsing
-        return nil, err
-    }
-    return retVal, nil
-
-}
-
-/**
- * Returns all Alert objects found on the Cohesity Cluster that
- * match the filter criteria specified using parameters.
- * The Cohesity Cluster creates an Alert when a potential problem
- * is found or when a threshold has been exceeded on the Cohesity Cluster.
- * If no filter parameters are specified, all Alert objects are returned.
- * Each object provides details about the Alert such as the Status and Severity.
- * @param    int64                                      maxAlerts             parameter: Required
- * @param    *bool                                      allUnderHierarchy     parameter: Optional
- * @param    []string                                   alertIdList           parameter: Optional
- * @param    *string                                    propertyValue         parameter: Optional
- * @param    []models.AlertStateListEnum            alertStateList        parameter: Optional
- * @param    []models.AlertSeverityListEnum         alertSeverityList     parameter: Optional
- * @param    []int64                                    resolutionIdList      parameter: Optional
- * @param    []string                                   tenantIds             parameter: Optional
- * @param    []int64                                    alertTypeList         parameter: Optional
- * @param    []models.AlertCategoryList1Enum        alertCategoryList     parameter: Optional
- * @param    *string                                    propertyKey           parameter: Optional
- * @param    *int64                                     startDateUsecs        parameter: Optional
- * @param    *int64                                     endDateUsecs          parameter: Optional
- * @return	Returns the []*models.Alert response from the API call
- */
-func (me *ALERTS_IMPL) GetAlerts (
-            maxAlerts int64,
-            allUnderHierarchy *bool,
-            alertIdList []string,
-            propertyValue *string,
-            alertStateList []models.AlertStateListEnum,
-            alertSeverityList []models.AlertSeverityListEnum,
-            resolutionIdList []int64,
-            tenantIds []string,
-            alertTypeList []int64,
-            alertCategoryList []models.AlertCategoryList1Enum,
-            propertyKey *string,
-            startDateUsecs *int64,
-            endDateUsecs *int64) ([]*models.Alert, error) {
-    //the endpoint path uri
-    _pathUrl := "/public/alerts"
-
-    //variable to hold errors
-    var err error = nil
-    //the base uri for api requests
-    _queryBuilder := configuration.GetBaseURI(configuration.DEFAULT_HOST,me.config);
-
-    //prepare query string for API call
-   _queryBuilder = _queryBuilder + _pathUrl
-
-    //process optional query parameters
-    _queryBuilder, err = apihelper.AppendUrlWithQueryParameters(_queryBuilder, map[string]interface{} {
-        "maxAlerts" : maxAlerts,
-        "allUnderHierarchy" : allUnderHierarchy,
-        "alertIdList" : alertIdList,
-        "propertyValue" : propertyValue,
-        "alertStateList" : models.AlertStateListEnumArrayToValue(alertStateList),
-        "alertSeverityList" : models.AlertSeverityListEnumArrayToValue(alertSeverityList),
-        "resolutionIdList" : resolutionIdList,
-        "tenantIds" : tenantIds,
-        "alertTypeList" : alertTypeList,
-        "alertCategoryList" : models.AlertCategoryList1EnumArrayToValue(alertCategoryList),
-        "propertyKey" : propertyKey,
-        "startDateUsecs" : startDateUsecs,
-        "endDateUsecs" : endDateUsecs,
-    })
-    if err != nil {
-        //error in query param handling
-        return nil, err
-    }
-
-    //validate and preprocess url
-    _queryBuilder, err = apihelper.CleanUrl(_queryBuilder)
-    if err != nil {
-        //error in url validation or cleaning
-        return nil, err
-    }
-     if me.config.AccessToken() == nil {
-        return nil, errors.New("Access Token not set. Please authorize the client using client.Authorize()");
-    }
-    //prepare headers for the outgoing request
-    headers := map[string]interface{} {
-        "user-agent" : "cohesity-Go-sdk-6.2.0",
-        "accept" : "application/json",
-        "Authorization" : fmt.Sprintf("%s %s",*me.config.AccessToken().TokenType, *me.config.AccessToken().AccessToken),
-    }
-
-    //prepare API request
-    _request := unirest.Get(_queryBuilder, headers)
-    //and invoke the API call request to fetch the response
-    _response, err := unirest.AsString(_request,me.config.SkipSSL());
-    if err != nil {
-        //error in API invocation
-        return nil, err
-    }
-
-    //error handling using HTTP status codes
-    if (_response.Code == 0) {
-        err = apihelper.NewAPIError("Error", _response.Code, _response.RawBody)
-    } else if (_response.Code < 200) || (_response.Code > 206) { //[200,206] = HTTP OK
-            err = apihelper.NewAPIError("HTTP Response Not OK", _response.Code, _response.RawBody)
-    }
-    if(err != nil) {
-        //error detected in status code validation
-        return nil, err
-    }
-
-    //returning the response
-    var retVal []*models.Alert
-    err = json.Unmarshal(_response.RawBody, &retVal)
-
-    if err != nil {
-        //error in parsing
-        return nil, err
-    }
-    return retVal, nil
-
-}
-
-/**
- * Returns all Alert Resolution objects found on the Cohesity Cluster
- * that match the filter criteria specified using parameters.
- * If no filter parameters are specified,
- * all Alert Resolution objects are returned.
- * Each object provides details about the Alert Resolution such as
- * the resolution summary and details.
- * @param    int64           maxResolutions        parameter: Required
- * @param    []string        alertIdList           parameter: Optional
- * @param    *int64          startDateUsecs        parameter: Optional
- * @param    *int64          endDateUsecs          parameter: Optional
- * @param    []string        tenantIds             parameter: Optional
- * @param    *bool           allUnderHierarchy     parameter: Optional
- * @param    []int64         resolutionIdList      parameter: Optional
- * @return	Returns the []*models.AlertResolution1 response from the API call
- */
-func (me *ALERTS_IMPL) GetResolutions (
-            maxResolutions int64,
-            alertIdList []string,
-            startDateUsecs *int64,
-            endDateUsecs *int64,
-            tenantIds []string,
-            allUnderHierarchy *bool,
-            resolutionIdList []int64) ([]*models.AlertResolution1, error) {
-    //the endpoint path uri
-    _pathUrl := "/public/alertResolutions"
-
-    //variable to hold errors
-    var err error = nil
-    //the base uri for api requests
-    _queryBuilder := configuration.GetBaseURI(configuration.DEFAULT_HOST,me.config);
-
-    //prepare query string for API call
-   _queryBuilder = _queryBuilder + _pathUrl
-
-    //process optional query parameters
-    _queryBuilder, err = apihelper.AppendUrlWithQueryParameters(_queryBuilder, map[string]interface{} {
-        "maxResolutions" : maxResolutions,
-        "alertIdList" : alertIdList,
-        "startDateUsecs" : startDateUsecs,
-        "endDateUsecs" : endDateUsecs,
-        "tenantIds" : tenantIds,
-        "allUnderHierarchy" : allUnderHierarchy,
-        "resolutionIdList" : resolutionIdList,
-    })
-    if err != nil {
-        //error in query param handling
-        return nil, err
-    }
-
-    //validate and preprocess url
-    _queryBuilder, err = apihelper.CleanUrl(_queryBuilder)
-    if err != nil {
-        //error in url validation or cleaning
-        return nil, err
-    }
-     if me.config.AccessToken() == nil {
-        return nil, errors.New("Access Token not set. Please authorize the client using client.Authorize()");
-    }
-    //prepare headers for the outgoing request
-    headers := map[string]interface{} {
-        "user-agent" : "cohesity-Go-sdk-6.2.0",
-        "accept" : "application/json",
-        "Authorization" : fmt.Sprintf("%s %s",*me.config.AccessToken().TokenType, *me.config.AccessToken().AccessToken),
-    }
-
-    //prepare API request
-    _request := unirest.Get(_queryBuilder, headers)
-    //and invoke the API call request to fetch the response
-    _response, err := unirest.AsString(_request,me.config.SkipSSL());
-    if err != nil {
-        //error in API invocation
-        return nil, err
-    }
-
-    //error handling using HTTP status codes
-    if (_response.Code == 0) {
-        err = apihelper.NewAPIError("Error", _response.Code, _response.RawBody)
-    } else if (_response.Code < 200) || (_response.Code > 206) { //[200,206] = HTTP OK
-            err = apihelper.NewAPIError("HTTP Response Not OK", _response.Code, _response.RawBody)
-    }
-    if(err != nil) {
-        //error detected in status code validation
-        return nil, err
-    }
-
-    //returning the response
-    var retVal []*models.AlertResolution1
-    err = json.Unmarshal(_response.RawBody, &retVal)
-
-    if err != nil {
-        //error in parsing
-        return nil, err
-    }
-    return retVal, nil
-
-}
-
-/**
- * Returns the Alert object corresponding to the specified id.
- * @param    string        id     parameter: Required
- * @return	Returns the *models.Alert response from the API call
- */
-func (me *ALERTS_IMPL) GetAlertById (
-            id string) (*models.Alert, error) {
-    //the endpoint path uri
-    _pathUrl := "/public/alerts/{id}"
-
-    //variable to hold errors
-    var err error = nil
-    //process optional template parameters
-    _pathUrl, err = apihelper.AppendUrlWithTemplateParameters(_pathUrl, map[string]interface{} {
-        "id" : id,
-    })
-    if err != nil {
-        //error in template param handling
-        return nil, err
-    }
-
-    //the base uri for api requests
-    _queryBuilder := configuration.GetBaseURI(configuration.DEFAULT_HOST,me.config);
-
-    //prepare query string for API call
-   _queryBuilder = _queryBuilder + _pathUrl
-
-    //validate and preprocess url
-    _queryBuilder, err = apihelper.CleanUrl(_queryBuilder)
-    if err != nil {
-        //error in url validation or cleaning
-        return nil, err
-    }
-     if me.config.AccessToken() == nil {
-        return nil, errors.New("Access Token not set. Please authorize the client using client.Authorize()");
-    }
-    //prepare headers for the outgoing request
-    headers := map[string]interface{} {
-        "user-agent" : "cohesity-Go-sdk-6.2.0",
-        "accept" : "application/json",
-        "Authorization" : fmt.Sprintf("%s %s",*me.config.AccessToken().TokenType, *me.config.AccessToken().AccessToken),
-    }
-
-    //prepare API request
-    _request := unirest.Get(_queryBuilder, headers)
-    //and invoke the API call request to fetch the response
-    _response, err := unirest.AsString(_request,me.config.SkipSSL());
-    if err != nil {
-        //error in API invocation
-        return nil, err
-    }
-
-    //error handling using HTTP status codes
-    if (_response.Code == 0) {
-        err = apihelper.NewAPIError("Error", _response.Code, _response.RawBody)
-    } else if (_response.Code < 200) || (_response.Code > 206) { //[200,206] = HTTP OK
-            err = apihelper.NewAPIError("HTTP Response Not OK", _response.Code, _response.RawBody)
-    }
-    if(err != nil) {
-        //error detected in status code validation
-        return nil, err
-    }
-
-    //returning the response
-    var retVal *models.Alert = &models.Alert{}
-    err = json.Unmarshal(_response.RawBody, &retVal)
-
-    if err != nil {
-        //error in parsing
-        return nil, err
-    }
-    return retVal, nil
-
-}
-
-/**
- * Returns registered alerts in the Cohesity cluster that match the filter
- * criteria specified using parameters. If no filter parameters are specified,
- * all registered alerts in the Cohesity cluster are returned.
- * @return	Returns the []*models.AlertMetadata response from the API call
- */
-func (me *ALERTS_IMPL) GetAlertTypes () ([]*models.AlertMetadata, error) {
-    //the endpoint path uri
-    _pathUrl := "/public/alertTypes"
-
-    //variable to hold errors
-    var err error = nil
-    //the base uri for api requests
-    _queryBuilder := configuration.GetBaseURI(configuration.DEFAULT_HOST,me.config);
-
-    //prepare query string for API call
-   _queryBuilder = _queryBuilder + _pathUrl
-
-    //validate and preprocess url
-    _queryBuilder, err = apihelper.CleanUrl(_queryBuilder)
-    if err != nil {
-        //error in url validation or cleaning
-        return nil, err
-    }
-     if me.config.AccessToken() == nil {
-        return nil, errors.New("Access Token not set. Please authorize the client using client.Authorize()");
-    }
-    //prepare headers for the outgoing request
-    headers := map[string]interface{} {
-        "user-agent" : "cohesity-Go-sdk-6.2.0",
-        "accept" : "application/json",
-        "Authorization" : fmt.Sprintf("%s %s",*me.config.AccessToken().TokenType, *me.config.AccessToken().AccessToken),
-    }
-
-    //prepare API request
-    _request := unirest.Get(_queryBuilder, headers)
-    //and invoke the API call request to fetch the response
-    _response, err := unirest.AsString(_request,me.config.SkipSSL());
-    if err != nil {
-        //error in API invocation
-        return nil, err
-    }
-
-    //error handling using HTTP status codes
-    if (_response.Code == 0) {
-        err = apihelper.NewAPIError("Error", _response.Code, _response.RawBody)
-    } else if (_response.Code < 200) || (_response.Code > 206) { //[200,206] = HTTP OK
-            err = apihelper.NewAPIError("HTTP Response Not OK", _response.Code, _response.RawBody)
-    }
-    if(err != nil) {
-        //error detected in status code validation
-        return nil, err
-    }
-
-    //returning the response
-    var retVal []*models.AlertMetadata
-    err = json.Unmarshal(_response.RawBody, &retVal)
-
-    if err != nil {
-        //error in parsing
-        return nil, err
-    }
-    return retVal, nil
-
-}
-
-/**
- * Apply an existing Alert Resolution to one or more additional Alerts.
- * Mark those additional Alerts as resolved.
- * @param    int64                                           id       parameter: Required
- * @param    *models.UpdateAlertResolutionRequest        body     parameter: Required
- * @return	Returns the *models.AlertResolution1 response from the API call
- */
-func (me *ALERTS_IMPL) UpdateResolution (
-            id int64,
-            body *models.UpdateAlertResolutionRequest) (*models.AlertResolution1, error) {
-//validating required parameters
-    if (body == nil){
-        return nil,errors.New("The parameter 'body' is a required parameter and cannot be nil.")
-}     //the endpoint path uri
-    _pathUrl := "/public/alertResolutions/{id}"
-
-    //variable to hold errors
-    var err error = nil
-    //process optional template parameters
-    _pathUrl, err = apihelper.AppendUrlWithTemplateParameters(_pathUrl, map[string]interface{} {
-        "id" : id,
-    })
-    if err != nil {
-        //error in template param handling
-        return nil, err
-    }
-
-    //the base uri for api requests
-    _queryBuilder := configuration.GetBaseURI(configuration.DEFAULT_HOST,me.config);
-
-    //prepare query string for API call
-   _queryBuilder = _queryBuilder + _pathUrl
-
-    //validate and preprocess url
-    _queryBuilder, err = apihelper.CleanUrl(_queryBuilder)
-    if err != nil {
-        //error in url validation or cleaning
-        return nil, err
-    }
-     if me.config.AccessToken() == nil {
-        return nil, errors.New("Access Token not set. Please authorize the client using client.Authorize()");
-    }
-    //prepare headers for the outgoing request
-    headers := map[string]interface{} {
-        "user-agent" : "cohesity-Go-sdk-6.2.0",
-        "accept" : "application/json",
-        "content-type" : "application/json; charset=utf-8",
-        "Authorization" : fmt.Sprintf("%s %s",*me.config.AccessToken().TokenType, *me.config.AccessToken().AccessToken),
-    }
-
-    //prepare API request
-    _request := unirest.Put(_queryBuilder, headers, body)
-    //and invoke the API call request to fetch the response
-    _response, err := unirest.AsString(_request,me.config.SkipSSL());
-    if err != nil {
-        //error in API invocation
-        return nil, err
-    }
-
-    //error handling using HTTP status codes
-    if (_response.Code == 0) {
-        err = apihelper.NewAPIError("Error", _response.Code, _response.RawBody)
-    } else if (_response.Code < 200) || (_response.Code > 206) { //[200,206] = HTTP OK
-            err = apihelper.NewAPIError("HTTP Response Not OK", _response.Code, _response.RawBody)
-    }
-    if(err != nil) {
-        //error detected in status code validation
-        return nil, err
-    }
-
-    //returning the response
-    var retVal *models.AlertResolution1 = &models.AlertResolution1{}
-    err = json.Unmarshal(_response.RawBody, &retVal)
-
-    if err != nil {
-        //error in parsing
-        return nil, err
-    }
-    return retVal, nil
-
-}
-
-/**
- * Returns the Alert Resolution object corresponding to passed in Alert
- * Resolution Id.
- * @param    int64        id     parameter: Required
- * @return	Returns the *models.AlertResolution1 response from the API call
- */
-func (me *ALERTS_IMPL) GetResolutionById (
-            id int64) (*models.AlertResolution1, error) {
-    //the endpoint path uri
-    _pathUrl := "/public/alertResolutions/{id}"
-
-    //variable to hold errors
-    var err error = nil
-    //process optional template parameters
-    _pathUrl, err = apihelper.AppendUrlWithTemplateParameters(_pathUrl, map[string]interface{} {
-        "id" : id,
-    })
-    if err != nil {
-        //error in template param handling
-        return nil, err
-    }
-
-    //the base uri for api requests
-    _queryBuilder := configuration.GetBaseURI(configuration.DEFAULT_HOST,me.config);
-
-    //prepare query string for API call
-   _queryBuilder = _queryBuilder + _pathUrl
-
-    //validate and preprocess url
-    _queryBuilder, err = apihelper.CleanUrl(_queryBuilder)
-    if err != nil {
-        //error in url validation or cleaning
-        return nil, err
-    }
-     if me.config.AccessToken() == nil {
-        return nil, errors.New("Access Token not set. Please authorize the client using client.Authorize()");
-    }
-    //prepare headers for the outgoing request
-    headers := map[string]interface{} {
-        "user-agent" : "cohesity-Go-sdk-6.2.0",
-        "accept" : "application/json",
-        "Authorization" : fmt.Sprintf("%s %s",*me.config.AccessToken().TokenType, *me.config.AccessToken().AccessToken),
-    }
-
-    //prepare API request
-    _request := unirest.Get(_queryBuilder, headers)
-    //and invoke the API call request to fetch the response
-    _response, err := unirest.AsString(_request,me.config.SkipSSL());
-    if err != nil {
-        //error in API invocation
-        return nil, err
-    }
-
-    //error handling using HTTP status codes
-    if (_response.Code == 0) {
-        err = apihelper.NewAPIError("Error", _response.Code, _response.RawBody)
-    } else if (_response.Code < 200) || (_response.Code > 206) { //[200,206] = HTTP OK
-            err = apihelper.NewAPIError("HTTP Response Not OK", _response.Code, _response.RawBody)
-    }
-    if(err != nil) {
-        //error detected in status code validation
-        return nil, err
-    }
-
-    //returning the response
-    var retVal *models.AlertResolution1 = &models.AlertResolution1{}
-    err = json.Unmarshal(_response.RawBody, &retVal)
-
-    if err != nil {
-        //error in parsing
-        return nil, err
-    }
-    return retVal, nil
-
-}
-
-/**
- * Create an Alert Resolution and apply it to one or more Alerts.
- * Mark the Alerts as resolved.
- * @param    *models.CreateAlertResolutionRequest        body     parameter: Required
- * @return	Returns the *models.AlertResolution1 response from the API call
- */
-func (me *ALERTS_IMPL) CreateResolution (
-            body *models.CreateAlertResolutionRequest) (*models.AlertResolution1, error) {
-//validating required parameters
-    if (body == nil){
-        return nil,errors.New("The parameter 'body' is a required parameter and cannot be nil.")
-}     //the endpoint path uri
-    _pathUrl := "/public/alertResolutions"
-
-    //variable to hold errors
-    var err error = nil
-    //the base uri for api requests
-    _queryBuilder := configuration.GetBaseURI(configuration.DEFAULT_HOST,me.config);
-
-    //prepare query string for API call
-   _queryBuilder = _queryBuilder + _pathUrl
-
-    //validate and preprocess url
-    _queryBuilder, err = apihelper.CleanUrl(_queryBuilder)
-    if err != nil {
-        //error in url validation or cleaning
-        return nil, err
-    }
-     if me.config.AccessToken() == nil {
-        return nil, errors.New("Access Token not set. Please authorize the client using client.Authorize()");
-    }
-    //prepare headers for the outgoing request
-    headers := map[string]interface{} {
-        "user-agent" : "cohesity-Go-sdk-6.2.0",
-        "accept" : "application/json",
-        "content-type" : "application/json; charset=utf-8",
-        "Authorization" : fmt.Sprintf("%s %s",*me.config.AccessToken().TokenType, *me.config.AccessToken().AccessToken),
-    }
-
-    //prepare API request
-    _request := unirest.Post(_queryBuilder, headers, body)
-    //and invoke the API call request to fetch the response
-    _response, err := unirest.AsString(_request,me.config.SkipSSL());
-    if err != nil {
-        //error in API invocation
-        return nil, err
-    }
-
-    //error handling using HTTP status codes
-    if (_response.Code == 0) {
-        err = apihelper.NewAPIError("Error", _response.Code, _response.RawBody)
-    } else if (_response.Code < 200) || (_response.Code > 206) { //[200,206] = HTTP OK
-            err = apihelper.NewAPIError("HTTP Response Not OK", _response.Code, _response.RawBody)
-    }
-    if(err != nil) {
-        //error detected in status code validation
-        return nil, err
-    }
-
-    //returning the response
-    var retVal *models.AlertResolution1 = &models.AlertResolution1{}
     err = json.Unmarshal(_response.RawBody, &retVal)
 
     if err != nil {
@@ -833,7 +318,7 @@ func (me *ALERTS_IMPL) DeleteNotificationRule (
     }
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
-        "user-agent" : "cohesity-Go-sdk-6.2.0",
+        "user-agent" : "cohesity-Go-sdk-1.1.0",
         "Authorization" : fmt.Sprintf("%s %s",*me.config.AccessToken().TokenType, *me.config.AccessToken().AccessToken),
     }
 
@@ -863,15 +348,116 @@ func (me *ALERTS_IMPL) DeleteNotificationRule (
 }
 
 /**
- * Creates a new notification rule with provided delivery targets such as email
- * addresses and external apis.
- * @param    *models.NotificationRule        body     parameter: Optional
- * @return	Returns the *models.NotificationRule response from the API call
+ * Returns all Alert Resolution objects found on the Cohesity Cluster
+ * that match the filter criteria specified using parameters.
+ * If no filter parameters are specified,
+ * all Alert Resolution objects are returned.
+ * Each object provides details about the Alert Resolution such as
+ * the resolution summary and details.
+ * @param    int64           maxResolutions        parameter: Required
+ * @param    *int64          startDateUsecs        parameter: Optional
+ * @param    *int64          endDateUsecs          parameter: Optional
+ * @param    []string        tenantIds             parameter: Optional
+ * @param    *bool           allUnderHierarchy     parameter: Optional
+ * @param    []int64         resolutionIdList      parameter: Optional
+ * @param    []string        alertIdList           parameter: Optional
+ * @return	Returns the []*models.AlertResolution response from the API call
  */
-func (me *ALERTS_IMPL) CreateNotificationRule (
-            body *models.NotificationRule) (*models.NotificationRule, error) {
+func (me *ALERTS_IMPL) GetResolutions (
+            maxResolutions int64,
+            startDateUsecs *int64,
+            endDateUsecs *int64,
+            tenantIds []string,
+            allUnderHierarchy *bool,
+            resolutionIdList []int64,
+            alertIdList []string) ([]*models.AlertResolution, error) {
     //the endpoint path uri
-    _pathUrl := "/public/alertNotificationRules"
+    _pathUrl := "/public/alertResolutions"
+
+    //variable to hold errors
+    var err error = nil
+    //the base uri for api requests
+    _queryBuilder := configuration.GetBaseURI(configuration.DEFAULT_HOST,me.config);
+
+    //prepare query string for API call
+   _queryBuilder = _queryBuilder + _pathUrl
+
+    //process optional query parameters
+    _queryBuilder, err = apihelper.AppendUrlWithQueryParameters(_queryBuilder, map[string]interface{} {
+        "maxResolutions" : maxResolutions,
+        "startDateUsecs" : startDateUsecs,
+        "endDateUsecs" : endDateUsecs,
+        "tenantIds" : tenantIds,
+        "allUnderHierarchy" : allUnderHierarchy,
+        "resolutionIdList" : resolutionIdList,
+        "alertIdList" : alertIdList,
+    })
+    if err != nil {
+        //error in query param handling
+        return nil, err
+    }
+
+    //validate and preprocess url
+    _queryBuilder, err = apihelper.CleanUrl(_queryBuilder)
+    if err != nil {
+        //error in url validation or cleaning
+        return nil, err
+    }
+     if me.config.AccessToken() == nil {
+        return nil, errors.New("Access Token not set. Please authorize the client using client.Authorize()");
+    }
+    //prepare headers for the outgoing request
+    headers := map[string]interface{} {
+        "user-agent" : "cohesity-Go-sdk-1.1.0",
+        "accept" : "application/json",
+        "Authorization" : fmt.Sprintf("%s %s",*me.config.AccessToken().TokenType, *me.config.AccessToken().AccessToken),
+    }
+
+    //prepare API request
+    _request := unirest.Get(_queryBuilder, headers)
+    //and invoke the API call request to fetch the response
+    _response, err := unirest.AsString(_request,me.config.SkipSSL());
+    if err != nil {
+        //error in API invocation
+        return nil, err
+    }
+
+    //error handling using HTTP status codes
+    if (_response.Code == 0) {
+        err = apihelper.NewAPIError("Error", _response.Code, _response.RawBody)
+    } else if (_response.Code < 200) || (_response.Code > 206) { //[200,206] = HTTP OK
+            err = apihelper.NewAPIError("HTTP Response Not OK", _response.Code, _response.RawBody)
+    }
+    if(err != nil) {
+        //error detected in status code validation
+        return nil, err
+    }
+
+    //returning the response
+    var retVal []*models.AlertResolution
+    err = json.Unmarshal(_response.RawBody, &retVal)
+
+    if err != nil {
+        //error in parsing
+        return nil, err
+    }
+    return retVal, nil
+
+}
+
+/**
+ * Create an Alert Resolution and apply it to one or more Alerts.
+ * Mark the Alerts as resolved.
+ * @param    *models.AlertResolutionRequest        body     parameter: Required
+ * @return	Returns the *models.AlertResolution response from the API call
+ */
+func (me *ALERTS_IMPL) CreateResolution (
+            body *models.AlertResolutionRequest) (*models.AlertResolution, error) {
+//validating required parameters
+    if (body == nil){
+        return nil,errors.New("The parameter 'body' is a required parameter and cannot be nil.")
+}     //the endpoint path uri
+    _pathUrl := "/public/alertResolutions"
 
     //variable to hold errors
     var err error = nil
@@ -892,7 +478,7 @@ func (me *ALERTS_IMPL) CreateNotificationRule (
     }
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
-        "user-agent" : "cohesity-Go-sdk-6.2.0",
+        "user-agent" : "cohesity-Go-sdk-1.1.0",
         "accept" : "application/json",
         "content-type" : "application/json; charset=utf-8",
         "Authorization" : fmt.Sprintf("%s %s",*me.config.AccessToken().TokenType, *me.config.AccessToken().AccessToken),
@@ -919,7 +505,422 @@ func (me *ALERTS_IMPL) CreateNotificationRule (
     }
 
     //returning the response
-    var retVal *models.NotificationRule = &models.NotificationRule{}
+    var retVal *models.AlertResolution = &models.AlertResolution{}
+    err = json.Unmarshal(_response.RawBody, &retVal)
+
+    if err != nil {
+        //error in parsing
+        return nil, err
+    }
+    return retVal, nil
+
+}
+
+/**
+ * Returns the Alert Resolution object corresponding to passed in Alert
+ * Resolution Id.
+ * @param    int64        id     parameter: Required
+ * @return	Returns the *models.AlertResolution response from the API call
+ */
+func (me *ALERTS_IMPL) GetResolutionById (
+            id int64) (*models.AlertResolution, error) {
+    //the endpoint path uri
+    _pathUrl := "/public/alertResolutions/{id}"
+
+    //variable to hold errors
+    var err error = nil
+    //process optional template parameters
+    _pathUrl, err = apihelper.AppendUrlWithTemplateParameters(_pathUrl, map[string]interface{} {
+        "id" : id,
+    })
+    if err != nil {
+        //error in template param handling
+        return nil, err
+    }
+
+    //the base uri for api requests
+    _queryBuilder := configuration.GetBaseURI(configuration.DEFAULT_HOST,me.config);
+
+    //prepare query string for API call
+   _queryBuilder = _queryBuilder + _pathUrl
+
+    //validate and preprocess url
+    _queryBuilder, err = apihelper.CleanUrl(_queryBuilder)
+    if err != nil {
+        //error in url validation or cleaning
+        return nil, err
+    }
+     if me.config.AccessToken() == nil {
+        return nil, errors.New("Access Token not set. Please authorize the client using client.Authorize()");
+    }
+    //prepare headers for the outgoing request
+    headers := map[string]interface{} {
+        "user-agent" : "cohesity-Go-sdk-1.1.0",
+        "accept" : "application/json",
+        "Authorization" : fmt.Sprintf("%s %s",*me.config.AccessToken().TokenType, *me.config.AccessToken().AccessToken),
+    }
+
+    //prepare API request
+    _request := unirest.Get(_queryBuilder, headers)
+    //and invoke the API call request to fetch the response
+    _response, err := unirest.AsString(_request,me.config.SkipSSL());
+    if err != nil {
+        //error in API invocation
+        return nil, err
+    }
+
+    //error handling using HTTP status codes
+    if (_response.Code == 0) {
+        err = apihelper.NewAPIError("Error", _response.Code, _response.RawBody)
+    } else if (_response.Code < 200) || (_response.Code > 206) { //[200,206] = HTTP OK
+            err = apihelper.NewAPIError("HTTP Response Not OK", _response.Code, _response.RawBody)
+    }
+    if(err != nil) {
+        //error detected in status code validation
+        return nil, err
+    }
+
+    //returning the response
+    var retVal *models.AlertResolution = &models.AlertResolution{}
+    err = json.Unmarshal(_response.RawBody, &retVal)
+
+    if err != nil {
+        //error in parsing
+        return nil, err
+    }
+    return retVal, nil
+
+}
+
+/**
+ * Apply an existing Alert Resolution to one or more additional Alerts.
+ * Mark those additional Alerts as resolved.
+ * @param    int64                                     id       parameter: Required
+ * @param    *models.UpdateResolutionParams        body     parameter: Required
+ * @return	Returns the *models.AlertResolution response from the API call
+ */
+func (me *ALERTS_IMPL) UpdateResolution (
+            id int64,
+            body *models.UpdateResolutionParams) (*models.AlertResolution, error) {
+//validating required parameters
+    if (body == nil){
+        return nil,errors.New("The parameter 'body' is a required parameter and cannot be nil.")
+}     //the endpoint path uri
+    _pathUrl := "/public/alertResolutions/{id}"
+
+    //variable to hold errors
+    var err error = nil
+    //process optional template parameters
+    _pathUrl, err = apihelper.AppendUrlWithTemplateParameters(_pathUrl, map[string]interface{} {
+        "id" : id,
+    })
+    if err != nil {
+        //error in template param handling
+        return nil, err
+    }
+
+    //the base uri for api requests
+    _queryBuilder := configuration.GetBaseURI(configuration.DEFAULT_HOST,me.config);
+
+    //prepare query string for API call
+   _queryBuilder = _queryBuilder + _pathUrl
+
+    //validate and preprocess url
+    _queryBuilder, err = apihelper.CleanUrl(_queryBuilder)
+    if err != nil {
+        //error in url validation or cleaning
+        return nil, err
+    }
+     if me.config.AccessToken() == nil {
+        return nil, errors.New("Access Token not set. Please authorize the client using client.Authorize()");
+    }
+    //prepare headers for the outgoing request
+    headers := map[string]interface{} {
+        "user-agent" : "cohesity-Go-sdk-1.1.0",
+        "accept" : "application/json",
+        "content-type" : "application/json; charset=utf-8",
+        "Authorization" : fmt.Sprintf("%s %s",*me.config.AccessToken().TokenType, *me.config.AccessToken().AccessToken),
+    }
+
+    //prepare API request
+    _request := unirest.Put(_queryBuilder, headers, body)
+    //and invoke the API call request to fetch the response
+    _response, err := unirest.AsString(_request,me.config.SkipSSL());
+    if err != nil {
+        //error in API invocation
+        return nil, err
+    }
+
+    //error handling using HTTP status codes
+    if (_response.Code == 0) {
+        err = apihelper.NewAPIError("Error", _response.Code, _response.RawBody)
+    } else if (_response.Code < 200) || (_response.Code > 206) { //[200,206] = HTTP OK
+            err = apihelper.NewAPIError("HTTP Response Not OK", _response.Code, _response.RawBody)
+    }
+    if(err != nil) {
+        //error detected in status code validation
+        return nil, err
+    }
+
+    //returning the response
+    var retVal *models.AlertResolution = &models.AlertResolution{}
+    err = json.Unmarshal(_response.RawBody, &retVal)
+
+    if err != nil {
+        //error in parsing
+        return nil, err
+    }
+    return retVal, nil
+
+}
+
+/**
+ * Returns registered alerts in the Cohesity cluster that match the filter
+ * criteria specified using parameters. If no filter parameters are specified,
+ * all registered alerts in the Cohesity cluster are returned.
+ * @return	Returns the []*models.AlertMetadata response from the API call
+ */
+func (me *ALERTS_IMPL) GetAlertTypes () ([]*models.AlertMetadata, error) {
+    //the endpoint path uri
+    _pathUrl := "/public/alertTypes"
+
+    //variable to hold errors
+    var err error = nil
+    //the base uri for api requests
+    _queryBuilder := configuration.GetBaseURI(configuration.DEFAULT_HOST,me.config);
+
+    //prepare query string for API call
+   _queryBuilder = _queryBuilder + _pathUrl
+
+    //validate and preprocess url
+    _queryBuilder, err = apihelper.CleanUrl(_queryBuilder)
+    if err != nil {
+        //error in url validation or cleaning
+        return nil, err
+    }
+     if me.config.AccessToken() == nil {
+        return nil, errors.New("Access Token not set. Please authorize the client using client.Authorize()");
+    }
+    //prepare headers for the outgoing request
+    headers := map[string]interface{} {
+        "user-agent" : "cohesity-Go-sdk-1.1.0",
+        "accept" : "application/json",
+        "Authorization" : fmt.Sprintf("%s %s",*me.config.AccessToken().TokenType, *me.config.AccessToken().AccessToken),
+    }
+
+    //prepare API request
+    _request := unirest.Get(_queryBuilder, headers)
+    //and invoke the API call request to fetch the response
+    _response, err := unirest.AsString(_request,me.config.SkipSSL());
+    if err != nil {
+        //error in API invocation
+        return nil, err
+    }
+
+    //error handling using HTTP status codes
+    if (_response.Code == 0) {
+        err = apihelper.NewAPIError("Error", _response.Code, _response.RawBody)
+    } else if (_response.Code < 200) || (_response.Code > 206) { //[200,206] = HTTP OK
+            err = apihelper.NewAPIError("HTTP Response Not OK", _response.Code, _response.RawBody)
+    }
+    if(err != nil) {
+        //error detected in status code validation
+        return nil, err
+    }
+
+    //returning the response
+    var retVal []*models.AlertMetadata
+    err = json.Unmarshal(_response.RawBody, &retVal)
+
+    if err != nil {
+        //error in parsing
+        return nil, err
+    }
+    return retVal, nil
+
+}
+
+/**
+ * Returns all Alert objects found on the Cohesity Cluster that
+ * match the filter criteria specified using parameters.
+ * The Cohesity Cluster creates an Alert when a potential problem
+ * is found or when a threshold has been exceeded on the Cohesity Cluster.
+ * If no filter parameters are specified, all Alert objects are returned.
+ * Each object provides details about the Alert such as the Status and Severity.
+ * @param    int64                                              maxAlerts             parameter: Required
+ * @param    *bool                                              allUnderHierarchy     parameter: Optional
+ * @param    []string                                           alertIdList           parameter: Optional
+ * @param    []models.AlertCategoryListGetAlertsEnum        alertCategoryList     parameter: Optional
+ * @param    *string                                            propertyKey           parameter: Optional
+ * @param    *string                                            propertyValue         parameter: Optional
+ * @param    *int64                                             endDateUsecs          parameter: Optional
+ * @param    []models.AlertSeverityListEnum                 alertSeverityList     parameter: Optional
+ * @param    []string                                           tenantIds             parameter: Optional
+ * @param    []int64                                            alertTypeList         parameter: Optional
+ * @param    *int64                                             startDateUsecs        parameter: Optional
+ * @param    []models.AlertStateListEnum                    alertStateList        parameter: Optional
+ * @param    []int64                                            resolutionIdList      parameter: Optional
+ * @return	Returns the []*models.Alert response from the API call
+ */
+func (me *ALERTS_IMPL) GetAlerts (
+            maxAlerts int64,
+            allUnderHierarchy *bool,
+            alertIdList []string,
+            alertCategoryList []models.AlertCategoryListGetAlertsEnum,
+            propertyKey *string,
+            propertyValue *string,
+            endDateUsecs *int64,
+            alertSeverityList []models.AlertSeverityListEnum,
+            tenantIds []string,
+            alertTypeList []int64,
+            startDateUsecs *int64,
+            alertStateList []models.AlertStateListEnum,
+            resolutionIdList []int64) ([]*models.Alert, error) {
+    //the endpoint path uri
+    _pathUrl := "/public/alerts"
+
+    //variable to hold errors
+    var err error = nil
+    //the base uri for api requests
+    _queryBuilder := configuration.GetBaseURI(configuration.DEFAULT_HOST,me.config);
+
+    //prepare query string for API call
+   _queryBuilder = _queryBuilder + _pathUrl
+
+    //process optional query parameters
+    _queryBuilder, err = apihelper.AppendUrlWithQueryParameters(_queryBuilder, map[string]interface{} {
+        "maxAlerts" : maxAlerts,
+        "allUnderHierarchy" : allUnderHierarchy,
+        "alertIdList" : alertIdList,
+        "alertCategoryList" : models.AlertCategoryListGetAlertsEnumArrayToValue(alertCategoryList),
+        "propertyKey" : propertyKey,
+        "propertyValue" : propertyValue,
+        "endDateUsecs" : endDateUsecs,
+        "alertSeverityList" : models.AlertSeverityListEnumArrayToValue(alertSeverityList),
+        "tenantIds" : tenantIds,
+        "alertTypeList" : alertTypeList,
+        "startDateUsecs" : startDateUsecs,
+        "alertStateList" : models.AlertStateListEnumArrayToValue(alertStateList),
+        "resolutionIdList" : resolutionIdList,
+    })
+    if err != nil {
+        //error in query param handling
+        return nil, err
+    }
+
+    //validate and preprocess url
+    _queryBuilder, err = apihelper.CleanUrl(_queryBuilder)
+    if err != nil {
+        //error in url validation or cleaning
+        return nil, err
+    }
+     if me.config.AccessToken() == nil {
+        return nil, errors.New("Access Token not set. Please authorize the client using client.Authorize()");
+    }
+    //prepare headers for the outgoing request
+    headers := map[string]interface{} {
+        "user-agent" : "cohesity-Go-sdk-1.1.0",
+        "accept" : "application/json",
+        "Authorization" : fmt.Sprintf("%s %s",*me.config.AccessToken().TokenType, *me.config.AccessToken().AccessToken),
+    }
+
+    //prepare API request
+    _request := unirest.Get(_queryBuilder, headers)
+    //and invoke the API call request to fetch the response
+    _response, err := unirest.AsString(_request,me.config.SkipSSL());
+    if err != nil {
+        //error in API invocation
+        return nil, err
+    }
+
+    //error handling using HTTP status codes
+    if (_response.Code == 0) {
+        err = apihelper.NewAPIError("Error", _response.Code, _response.RawBody)
+    } else if (_response.Code < 200) || (_response.Code > 206) { //[200,206] = HTTP OK
+            err = apihelper.NewAPIError("HTTP Response Not OK", _response.Code, _response.RawBody)
+    }
+    if(err != nil) {
+        //error detected in status code validation
+        return nil, err
+    }
+
+    //returning the response
+    var retVal []*models.Alert
+    err = json.Unmarshal(_response.RawBody, &retVal)
+
+    if err != nil {
+        //error in parsing
+        return nil, err
+    }
+    return retVal, nil
+
+}
+
+/**
+ * Returns the Alert object corresponding to the specified id.
+ * @param    string        id     parameter: Required
+ * @return	Returns the *models.Alert response from the API call
+ */
+func (me *ALERTS_IMPL) GetAlertById (
+            id string) (*models.Alert, error) {
+    //the endpoint path uri
+    _pathUrl := "/public/alerts/{id}"
+
+    //variable to hold errors
+    var err error = nil
+    //process optional template parameters
+    _pathUrl, err = apihelper.AppendUrlWithTemplateParameters(_pathUrl, map[string]interface{} {
+        "id" : id,
+    })
+    if err != nil {
+        //error in template param handling
+        return nil, err
+    }
+
+    //the base uri for api requests
+    _queryBuilder := configuration.GetBaseURI(configuration.DEFAULT_HOST,me.config);
+
+    //prepare query string for API call
+   _queryBuilder = _queryBuilder + _pathUrl
+
+    //validate and preprocess url
+    _queryBuilder, err = apihelper.CleanUrl(_queryBuilder)
+    if err != nil {
+        //error in url validation or cleaning
+        return nil, err
+    }
+     if me.config.AccessToken() == nil {
+        return nil, errors.New("Access Token not set. Please authorize the client using client.Authorize()");
+    }
+    //prepare headers for the outgoing request
+    headers := map[string]interface{} {
+        "user-agent" : "cohesity-Go-sdk-1.1.0",
+        "accept" : "application/json",
+        "Authorization" : fmt.Sprintf("%s %s",*me.config.AccessToken().TokenType, *me.config.AccessToken().AccessToken),
+    }
+
+    //prepare API request
+    _request := unirest.Get(_queryBuilder, headers)
+    //and invoke the API call request to fetch the response
+    _response, err := unirest.AsString(_request,me.config.SkipSSL());
+    if err != nil {
+        //error in API invocation
+        return nil, err
+    }
+
+    //error handling using HTTP status codes
+    if (_response.Code == 0) {
+        err = apihelper.NewAPIError("Error", _response.Code, _response.RawBody)
+    } else if (_response.Code < 200) || (_response.Code > 206) { //[200,206] = HTTP OK
+            err = apihelper.NewAPIError("HTTP Response Not OK", _response.Code, _response.RawBody)
+    }
+    if(err != nil) {
+        //error detected in status code validation
+        return nil, err
+    }
+
+    //returning the response
+    var retVal *models.Alert = &models.Alert{}
     err = json.Unmarshal(_response.RawBody, &retVal)
 
     if err != nil {

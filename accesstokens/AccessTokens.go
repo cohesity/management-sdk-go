@@ -1,13 +1,14 @@
+// Copyright 2019 Cohesity Inc.
 package accesstokens
 
-import "github.com/cohesity/management-sdk-go/models"
 import "github.com/cohesity/management-sdk-go/configuration"
+import "github.com/cohesity/management-sdk-go/models"
 
 /*
  * Interface for the ACCESSTOKENS_IMPL
  */
 type ACCESSTOKENS interface {
-    CreateGenerateAccessToken (*models.CreateAccessTokenCredentialRequest) (*models.AccessToken, error)
+    CreateGenerateAccessToken (*models.AccessTokenCredential) (*models.AccessToken, error)
 }
 
 /*

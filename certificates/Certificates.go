@@ -1,7 +1,8 @@
+// Copyright 2019 Cohesity Inc.
 package certificates
 
-import "github.com/cohesity/management-sdk-go/models"
 import "github.com/cohesity/management-sdk-go/configuration"
+import "github.com/cohesity/management-sdk-go/models"
 
 /*
  * Interface for the CERTIFICATES_IMPL
@@ -9,9 +10,9 @@ import "github.com/cohesity/management-sdk-go/configuration"
 type CERTIFICATES interface {
     DeleteWebServerCertificate () (error)
 
-    GetWebServerCertificate () (*models.SSLCertificateConfiguration, error)
+    GetWebServerCertificate () (*models.SslCertificateConfig, error)
 
-    UpdateWebServerCertificate (*models.SSLCertificateConfiguration) (*models.SSLCertificateConfiguration, error)
+    UpdateWebServerCertificate (*models.SslCertificateConfig) (*models.SslCertificateConfig, error)
 }
 
 /*

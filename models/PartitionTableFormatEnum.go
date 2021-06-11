@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -20,18 +21,18 @@ const (
     PartitionTableFormat_KSUNPARTITION
 )
 
-func (r PartitionTableFormatEnum) MarshalJSON() ([]byte, error) { 
+func (r PartitionTableFormatEnum) MarshalJSON() ([]byte, error) {
     s := PartitionTableFormatEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *PartitionTableFormatEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *PartitionTableFormatEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  PartitionTableFormatEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -40,15 +41,15 @@ func (r *PartitionTableFormatEnum) UnmarshalJSON(data []byte) error {
 func PartitionTableFormatEnumToValue(partitionTableFormatEnum PartitionTableFormatEnum) string {
     switch partitionTableFormatEnum {
         case PartitionTableFormat_KNOPARTITION:
-    		return "kNoPartition"		
+    		return "kNoPartition"
         case PartitionTableFormat_KMBRPARTITION:
-    		return "kMBRPartition"		
+    		return "kMBRPartition"
         case PartitionTableFormat_KGPTPARTITION:
-    		return "kGPTPartition"		
+    		return "kGPTPartition"
         case PartitionTableFormat_KSGIPARTITION:
-    		return "kSGIPartition"		
+    		return "kSGIPartition"
         case PartitionTableFormat_KSUNPARTITION:
-    		return "kSUNPartition"		
+    		return "kSUNPartition"
         default:
         	return "kNoPartition"
     }

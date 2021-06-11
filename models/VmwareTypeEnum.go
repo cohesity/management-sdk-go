@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -38,18 +39,18 @@ const (
     VmwareType_KSTORAGEPOLICY
 )
 
-func (r VmwareTypeEnum) MarshalJSON() ([]byte, error) { 
+func (r VmwareTypeEnum) MarshalJSON() ([]byte, error) {
     s := VmwareTypeEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *VmwareTypeEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *VmwareTypeEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  VmwareTypeEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -58,51 +59,51 @@ func (r *VmwareTypeEnum) UnmarshalJSON(data []byte) error {
 func VmwareTypeEnumToValue(vmware_TypeEnum VmwareTypeEnum) string {
     switch vmware_TypeEnum {
         case VmwareType_KVCENTER:
-    		return "kVCenter"		
+    		return "kVCenter"
         case VmwareType_KFOLDER:
-    		return "kFolder"		
+    		return "kFolder"
         case VmwareType_KDATACENTER:
-    		return "kDatacenter"		
+    		return "kDatacenter"
         case VmwareType_KCOMPUTERESOURCE:
-    		return "kComputeResource"		
+    		return "kComputeResource"
         case VmwareType_KCLUSTERCOMPUTERESOURCE:
-    		return "kClusterComputeResource"		
+    		return "kClusterComputeResource"
         case VmwareType_KRESOURCEPOOL:
-    		return "kResourcePool"		
+    		return "kResourcePool"
         case VmwareType_KDATASTORE:
-    		return "kDatastore"		
+    		return "kDatastore"
         case VmwareType_KHOSTSYSTEM:
-    		return "kHostSystem"		
+    		return "kHostSystem"
         case VmwareType_KVIRTUALMACHINE:
-    		return "kVirtualMachine"		
+    		return "kVirtualMachine"
         case VmwareType_KVIRTUALAPP:
-    		return "kVirtualApp"		
+    		return "kVirtualApp"
         case VmwareType_KSTANDALONEHOST:
-    		return "kStandaloneHost"		
+    		return "kStandaloneHost"
         case VmwareType_KSTORAGEPOD:
-    		return "kStoragePod"		
+    		return "kStoragePod"
         case VmwareType_KNETWORK:
-    		return "kNetwork"		
+    		return "kNetwork"
         case VmwareType_KDISTRIBUTEDVIRTUALPORTGROUP:
-    		return "kDistributedVirtualPortgroup"		
+    		return "kDistributedVirtualPortgroup"
         case VmwareType_KTAGCATEGORY:
-    		return "kTagCategory"		
+    		return "kTagCategory"
         case VmwareType_KTAG:
-    		return "kTag"		
+    		return "kTag"
         case VmwareType_KOPAQUENETWORK:
-    		return "kOpaqueNetwork"		
+    		return "kOpaqueNetwork"
         case VmwareType_KVCLOUDDIRECTOR:
-    		return "kVCloudDirector"		
+    		return "kVCloudDirector"
         case VmwareType_KORGANIZATION:
-    		return "kOrganization"		
+    		return "kOrganization"
         case VmwareType_KVIRTUALDATACENTER:
-    		return "kVirtualDatacenter"		
+    		return "kVirtualDatacenter"
         case VmwareType_KCATALOG:
-    		return "kCatalog"		
+    		return "kCatalog"
         case VmwareType_KORGMETADATA:
-    		return "kOrgMetadata"		
+    		return "kOrgMetadata"
         case VmwareType_KSTORAGEPOLICY:
-    		return "kStoragePolicy"		
+    		return "kStoragePolicy"
         default:
         	return "kVCenter"
     }

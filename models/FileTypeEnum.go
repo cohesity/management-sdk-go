@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -20,18 +21,18 @@ const (
     FileType_KFULLTEXT
 )
 
-func (r FileTypeEnum) MarshalJSON() ([]byte, error) { 
+func (r FileTypeEnum) MarshalJSON() ([]byte, error) {
     s := FileTypeEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *FileTypeEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *FileTypeEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  FileTypeEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -40,15 +41,15 @@ func (r *FileTypeEnum) UnmarshalJSON(data []byte) error {
 func FileTypeEnumToValue(fileTypeEnum FileTypeEnum) string {
     switch fileTypeEnum {
         case FileType_KROWS:
-    		return "kRows"		
+    		return "kRows"
         case FileType_KLOG:
-    		return "kLog"		
+    		return "kLog"
         case FileType_KFILESTREAM:
-    		return "kFileStream"		
+    		return "kFileStream"
         case FileType_KNOTSUPPORTEDTYPE:
-    		return "kNotSupportedType"		
+    		return "kNotSupportedType"
         case FileType_KFULLTEXT:
-    		return "kFullText"		
+    		return "kFullText"
         default:
         	return "kRows"
     }

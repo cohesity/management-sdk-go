@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -18,18 +19,18 @@ const (
     LogicalVolumeType_KLDM
 )
 
-func (r LogicalVolumeTypeEnum) MarshalJSON() ([]byte, error) { 
+func (r LogicalVolumeTypeEnum) MarshalJSON() ([]byte, error) {
     s := LogicalVolumeTypeEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *LogicalVolumeTypeEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *LogicalVolumeTypeEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  LogicalVolumeTypeEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -38,11 +39,11 @@ func (r *LogicalVolumeTypeEnum) UnmarshalJSON(data []byte) error {
 func LogicalVolumeTypeEnumToValue(logicalVolumeTypeEnum LogicalVolumeTypeEnum) string {
     switch logicalVolumeTypeEnum {
         case LogicalVolumeType_KSIMPLEVOLUME:
-    		return "kSimpleVolume"		
+    		return "kSimpleVolume"
         case LogicalVolumeType_KLVM:
-    		return "kLVM"		
+    		return "kLVM"
         case LogicalVolumeType_KLDM:
-    		return "kLDM"		
+    		return "kLDM"
         default:
         	return "kSimpleVolume"
     }

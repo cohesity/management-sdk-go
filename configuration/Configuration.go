@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package configuration
 
 import(
@@ -25,6 +26,6 @@ type CONFIGURATION interface {
 func NewCONFIGURATION() CONFIGURATION{
     configuration := new(CONFIGURATION_IMPL)
     cluster_vip := "prod-cluster.eng.cohesity.com"
-    configuration.SetClusterVip(&cluster_vip) 
+    configuration.SetClusterVip(&cluster_vip)
     return configuration
 }

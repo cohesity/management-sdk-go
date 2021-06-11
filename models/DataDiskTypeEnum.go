@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -18,18 +19,18 @@ const (
     DataDiskType_KSTANDARDHDD
 )
 
-func (r DataDiskTypeEnum) MarshalJSON() ([]byte, error) { 
+func (r DataDiskTypeEnum) MarshalJSON() ([]byte, error) {
     s := DataDiskTypeEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *DataDiskTypeEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *DataDiskTypeEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  DataDiskTypeEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -38,11 +39,11 @@ func (r *DataDiskTypeEnum) UnmarshalJSON(data []byte) error {
 func DataDiskTypeEnumToValue(dataDiskTypeEnum DataDiskTypeEnum) string {
     switch dataDiskTypeEnum {
         case DataDiskType_KPREMIUMSSD:
-    		return "kPremiumSSD"		
+    		return "kPremiumSSD"
         case DataDiskType_KSTANDARDSSD:
-    		return "kStandardSSD"		
+    		return "kStandardSSD"
         case DataDiskType_KSTANDARDHDD:
-    		return "kStandardHDD"		
+    		return "kStandardHDD"
         default:
         	return "kPremiumSSD"
     }

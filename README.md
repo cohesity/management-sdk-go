@@ -6,11 +6,7 @@ Do reach out to cohesity-api-sdks@cohesity.com for more details
 
 # Overview
 
-The *Cohesity Management SDK*  provides an easy-to-use language binding to 
-harness the power of *Cohesity DataPlatform APIs* in your Golang applications
-.These
- APIs are available for apps running on Cohesity Apps Infrastructure.
-
+The Cohesity Management SDK provides an easy-to-use language binding to harness the power of Cohesity REST APIs in your GoLang applications.
 
 # Getting Started
 
@@ -33,17 +29,27 @@ import CohesityManagementSdk "github.com/cohesity/management-sdk-go/managementsd
 
 Initialize the App Client.
 ```
-Username := "cluster_admin"
-Password := "cluster_password"
-ClusterVip := "prod-cluster.eng.cohesity.com"
-var Domain string // Set for AD user only.
-client := CohesityManagementSdk.NewCohesitySdkClient(ClusterVip, Username, Password, Domain)
+Username := "clusterUsername"
+Password := "clusterPassword"
+ClusterVip := "cluster.org.company.com"
+Domain := "AD.org.company.com" //Initialize to 'LOCAL' for cluster user
+client, err := CohesityManagementSdk.NewCohesitySdkClient(ClusterVip, Username, Password, Domain)
+if err != nil {
+    fmt.Println(err.Error())
+    return
+}
 ```
 
 Get Cluster Basic Info
 ```
-cluster = client.Cluster()
-cluster.GetBasicClusterInfo()
+cluster := client.Cluster()
+clusterInfo, err := cluster.GetBasicClusterInfo()
+if err != nil {
+    fmt.Println(err.Error())
+    return
+}
+fmt.Println("Cluster Name: ", *clusterInfo.Name)
+fmt.Println("Cluster Version: ", *clusterInfo.ClusterSoftwareVersion)
 ```
 
 ## Questions or Feedback :

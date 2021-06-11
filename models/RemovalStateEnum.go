@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -18,18 +19,18 @@ const (
     RemovalState_KOKTOREMOVE
 )
 
-func (r RemovalStateEnum) MarshalJSON() ([]byte, error) { 
+func (r RemovalStateEnum) MarshalJSON() ([]byte, error) {
     s := RemovalStateEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *RemovalStateEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *RemovalStateEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  RemovalStateEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -38,11 +39,11 @@ func (r *RemovalStateEnum) UnmarshalJSON(data []byte) error {
 func RemovalStateEnumToValue(removalStateEnum RemovalStateEnum) string {
     switch removalStateEnum {
         case RemovalState_KDONTREMOVE:
-    		return "kDontRemove"		
+    		return "kDontRemove"
         case RemovalState_KMARKEDFORREMOVAL:
-    		return "kMarkedForRemoval"		
+    		return "kMarkedForRemoval"
         case RemovalState_KOKTOREMOVE:
-    		return "kOkToRemove"		
+    		return "kOkToRemove"
         default:
         	return "kDontRemove"
     }

@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -21,18 +22,18 @@ const (
     Upgradability_KNONUPGRADABLEAGENTISOLD
 )
 
-func (r UpgradabilityEnum) MarshalJSON() ([]byte, error) { 
+func (r UpgradabilityEnum) MarshalJSON() ([]byte, error) {
     s := UpgradabilityEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *UpgradabilityEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *UpgradabilityEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  UpgradabilityEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -41,17 +42,17 @@ func (r *UpgradabilityEnum) UnmarshalJSON(data []byte) error {
 func UpgradabilityEnumToValue(upgradabilityEnum UpgradabilityEnum) string {
     switch upgradabilityEnum {
         case Upgradability_KUPGRADABLE:
-    		return "kUpgradable"		
+    		return "kUpgradable"
         case Upgradability_KCURRENT:
-    		return "kCurrent"		
+    		return "kCurrent"
         case Upgradability_KUNKNOWN:
-    		return "kUnknown"		
+    		return "kUnknown"
         case Upgradability_KNONUPGRADABLEINVALIDVERSION:
-    		return "kNonUpgradableInvalidVersion"		
+    		return "kNonUpgradableInvalidVersion"
         case Upgradability_KNONUPGRADABLEAGENTISNEWER:
-    		return "kNonUpgradableAgentIsNewer"		
+    		return "kNonUpgradableAgentIsNewer"
         case Upgradability_KNONUPGRADABLEAGENTISOLD:
-    		return "kNonUpgradableAgentIsOld"		
+    		return "kNonUpgradableAgentIsOld"
         default:
         	return "kUpgradable"
     }

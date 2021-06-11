@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -30,18 +31,18 @@ const (
     Category_KSECURITY
 )
 
-func (r CategoryEnum) MarshalJSON() ([]byte, error) { 
+func (r CategoryEnum) MarshalJSON() ([]byte, error) {
     s := CategoryEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *CategoryEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *CategoryEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  CategoryEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -50,35 +51,35 @@ func (r *CategoryEnum) UnmarshalJSON(data []byte) error {
 func CategoryEnumToValue(categoryEnum CategoryEnum) string {
     switch categoryEnum {
         case Category_KDISK:
-    		return "kDisk"		
+    		return "kDisk"
         case Category_KNODE:
-    		return "kNode"		
+    		return "kNode"
         case Category_KCLUSTER:
-    		return "kCluster"		
+    		return "kCluster"
         case Category_KNODEHEALTH:
-    		return "kNodeHealth"		
+    		return "kNodeHealth"
         case Category_KCLUSTERHEALTH:
-    		return "kClusterHealth"		
+    		return "kClusterHealth"
         case Category_KBACKUPRESTORE:
-    		return "kBackupRestore"		
+    		return "kBackupRestore"
         case Category_KENCRYPTION:
-    		return "kEncryption"		
+    		return "kEncryption"
         case Category_KARCHIVALRESTORE:
-    		return "kArchivalRestore"		
+    		return "kArchivalRestore"
         case Category_KREMOTEREPLICATION:
-    		return "kRemoteReplication"		
+    		return "kRemoteReplication"
         case Category_KQUOTA:
-    		return "kQuota"		
+    		return "kQuota"
         case Category_KLICENSE:
-    		return "kLicense"		
+    		return "kLicense"
         case Category_KHELIOSPROACTIVEWELLNESS:
-    		return "kHeliosProActiveWellness"		
+    		return "kHeliosProActiveWellness"
         case Category_KHELIOSANALYTICSJOBS:
-    		return "kHeliosAnalyticsJobs"		
+    		return "kHeliosAnalyticsJobs"
         case Category_KHELIOSSIGNATUREJOBS:
-    		return "kHeliosSignatureJobs"		
+    		return "kHeliosSignatureJobs"
         case Category_KSECURITY:
-    		return "kSecurity"		
+    		return "kSecurity"
         default:
         	return "kDisk"
     }

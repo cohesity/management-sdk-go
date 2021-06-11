@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package tenants
 
 import "github.com/cohesity/management-sdk-go/configuration"

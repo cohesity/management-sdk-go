@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -19,18 +20,18 @@ const (
     TargetHostType_KSOLARIS
 )
 
-func (r TargetHostTypeEnum) MarshalJSON() ([]byte, error) { 
+func (r TargetHostTypeEnum) MarshalJSON() ([]byte, error) {
     s := TargetHostTypeEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *TargetHostTypeEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *TargetHostTypeEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  TargetHostTypeEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -39,13 +40,13 @@ func (r *TargetHostTypeEnum) UnmarshalJSON(data []byte) error {
 func TargetHostTypeEnumToValue(targetHostTypeEnum TargetHostTypeEnum) string {
     switch targetHostTypeEnum {
         case TargetHostType_KLINUX:
-    		return "kLinux"		
+    		return "kLinux"
         case TargetHostType_KWINDOWS:
-    		return "kWindows"		
+    		return "kWindows"
         case TargetHostType_KAIX:
-    		return "kAix"		
+    		return "kAix"
         case TargetHostType_KSOLARIS:
-    		return "kSolaris"		
+    		return "kSolaris"
         default:
         	return "kLinux"
     }

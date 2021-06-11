@@ -1,15 +1,16 @@
+// Copyright 2019 Cohesity Inc.
 package notifications
 
-import "github.com/cohesity/management-sdk-go/models"
 import "github.com/cohesity/management-sdk-go/configuration"
+import "github.com/cohesity/management-sdk-go/models"
 
 /*
  * Interface for the NOTIFICATIONS_IMPL
  */
 type NOTIFICATIONS interface {
-    UpdateNotifications () (error)
-
     GetNotifications () (*models.Notifications, error)
+
+    UpdateNotifications () (error)
 }
 
 /*

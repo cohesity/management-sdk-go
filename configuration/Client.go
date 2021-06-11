@@ -1,10 +1,11 @@
+// Copyright 2019 Cohesity Inc.
 package configuration
 
 import(
 	"github.com/cohesity/management-sdk-go/apihelper"
 	"github.com/cohesity/management-sdk-go/models"
 )
-/* Setting up enums for Environments and Servers 
+/* Setting up enums for Environments and Servers
 */
 type Environments int
 
@@ -130,7 +131,7 @@ var EnvironmentsMap = map[Environments](map[Servers]string){
         DEFAULT_HOST:"https://{cluster_vip}/irisservices/api/v1",
     },
 }
- 
+
 // Make and return the map of parameters
 func GetBaseURIParameters(config CONFIGURATION) map[string]interface{} {
      kvpMap := map[string]interface{}{

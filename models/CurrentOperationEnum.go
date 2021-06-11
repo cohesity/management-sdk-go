@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -21,18 +22,18 @@ const (
     CurrentOperation_KRESTARTSERVICES
 )
 
-func (r CurrentOperationEnum) MarshalJSON() ([]byte, error) { 
+func (r CurrentOperationEnum) MarshalJSON() ([]byte, error) {
     s := CurrentOperationEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *CurrentOperationEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *CurrentOperationEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  CurrentOperationEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -41,17 +42,17 @@ func (r *CurrentOperationEnum) UnmarshalJSON(data []byte) error {
 func CurrentOperationEnumToValue(currentOperationEnum CurrentOperationEnum) string {
     switch currentOperationEnum {
         case CurrentOperation_KREMOVENODE:
-    		return "kRemoveNode"		
+    		return "kRemoveNode"
         case CurrentOperation_KUPGRADE:
-    		return "kUpgrade"		
+    		return "kUpgrade"
         case CurrentOperation_KNONE:
-    		return "kNone"		
+    		return "kNone"
         case CurrentOperation_KDESTROY:
-    		return "kDestroy"		
+    		return "kDestroy"
         case CurrentOperation_KCLEAN:
-    		return "kClean"		
+    		return "kClean"
         case CurrentOperation_KRESTARTSERVICES:
-    		return "kRestartServices"		
+    		return "kRestartServices"
         default:
         	return "kRemoveNode"
     }

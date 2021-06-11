@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -18,18 +19,18 @@ const (
     ServerType_KCRYPTSOFTKMS
 )
 
-func (r ServerTypeEnum) MarshalJSON() ([]byte, error) { 
+func (r ServerTypeEnum) MarshalJSON() ([]byte, error) {
     s := ServerTypeEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *ServerTypeEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *ServerTypeEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  ServerTypeEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -38,11 +39,11 @@ func (r *ServerTypeEnum) UnmarshalJSON(data []byte) error {
 func ServerTypeEnumToValue(serverTypeEnum ServerTypeEnum) string {
     switch serverTypeEnum {
         case ServerType_KINTERNALKMS:
-    		return "kInternalKms"		
+    		return "kInternalKms"
         case ServerType_KAWSKMS:
-    		return "kAwsKms"		
+    		return "kAwsKms"
         case ServerType_KCRYPTSOFTKMS:
-    		return "kCryptsoftKms"		
+    		return "kCryptsoftKms"
         default:
         	return "kInternalKms"
     }

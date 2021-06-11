@@ -1,7 +1,8 @@
+// Copyright 2019 Cohesity Inc.
 package nodes
 
-import "github.com/cohesity/management-sdk-go/models"
 import "github.com/cohesity/management-sdk-go/configuration"
+import "github.com/cohesity/management-sdk-go/models"
 
 /*
  * Interface for the NODES_IMPL

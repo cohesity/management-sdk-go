@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -25,18 +26,18 @@ const (
     CentrifySchema_KCENTRIFYSFU_3_0_V5
 )
 
-func (r CentrifySchemaEnum) MarshalJSON() ([]byte, error) { 
+func (r CentrifySchemaEnum) MarshalJSON() ([]byte, error) {
     s := CentrifySchemaEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *CentrifySchemaEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *CentrifySchemaEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  CentrifySchemaEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -45,25 +46,25 @@ func (r *CentrifySchemaEnum) UnmarshalJSON(data []byte) error {
 func CentrifySchemaEnumToValue(centrifySchemaEnum CentrifySchemaEnum) string {
     switch centrifySchemaEnum {
         case CentrifySchema_KCENTRIFYDYNAMICSCHEMA_1_0:
-    		return "kCentrifyDynamicSchema_1_0"		
+    		return "kCentrifyDynamicSchema_1_0"
         case CentrifySchema_KCENTRIFYDYNAMICSCHEMA_2_0:
-    		return "kCentrifyDynamicSchema_2_0"		
+    		return "kCentrifyDynamicSchema_2_0"
         case CentrifySchema_KCENTRIFYSFU_3_0:
-    		return "kCentrifySfu_3_0"		
+    		return "kCentrifySfu_3_0"
         case CentrifySchema_KCENTRIFYSFU_4_0:
-    		return "kCentrifySfu_4_0"		
+    		return "kCentrifySfu_4_0"
         case CentrifySchema_KCENTRIFYCDCRFC2307:
-    		return "kCentrifyCdcRfc2307"		
+    		return "kCentrifyCdcRfc2307"
         case CentrifySchema_KCENTRIFYDYNAMICSCHEMA_3_0:
-    		return "kCentrifyDynamicSchema_3_0"		
+    		return "kCentrifyDynamicSchema_3_0"
         case CentrifySchema_KCENTRIFYCDCRFC2307_2:
-    		return "kCentrifyCdcRfc2307_2"		
+    		return "kCentrifyCdcRfc2307_2"
         case CentrifySchema_KCENTRIFYDYNAMICSCHEMA_5_0:
-    		return "kCentrifyDynamicSchema_5_0"		
+    		return "kCentrifyDynamicSchema_5_0"
         case CentrifySchema_KCENTRIFYCDCRFC2307_3:
-    		return "kCentrifyCdcRfc2307_3"		
+    		return "kCentrifyCdcRfc2307_3"
         case CentrifySchema_KCENTRIFYSFU_3_0_V5:
-    		return "kCentrifySfu_3_0_V5"		
+    		return "kCentrifySfu_3_0_V5"
         default:
         	return "kCentrifyDynamicSchema_1_0"
     }

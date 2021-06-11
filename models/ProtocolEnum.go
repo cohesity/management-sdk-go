@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -18,18 +19,18 @@ const (
     Protocol_KHTTP
 )
 
-func (r ProtocolEnum) MarshalJSON() ([]byte, error) { 
+func (r ProtocolEnum) MarshalJSON() ([]byte, error) {
     s := ProtocolEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *ProtocolEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *ProtocolEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  ProtocolEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -38,11 +39,11 @@ func (r *ProtocolEnum) UnmarshalJSON(data []byte) error {
 func ProtocolEnumToValue(protocolEnum ProtocolEnum) string {
     switch protocolEnum {
         case Protocol_KNFS:
-    		return "kNfs"		
+    		return "kNfs"
         case Protocol_KCIFS2:
-    		return "kCifs2"		
+    		return "kCifs2"
         case Protocol_KHTTP:
-    		return "kHttp"		
+    		return "kHttp"
         default:
         	return "kNfs"
     }

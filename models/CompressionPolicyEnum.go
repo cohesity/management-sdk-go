@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -17,18 +18,18 @@ const (
     CompressionPolicy_KCOMPRESSIONLOW
 )
 
-func (r CompressionPolicyEnum) MarshalJSON() ([]byte, error) { 
+func (r CompressionPolicyEnum) MarshalJSON() ([]byte, error) {
     s := CompressionPolicyEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *CompressionPolicyEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *CompressionPolicyEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  CompressionPolicyEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -37,9 +38,9 @@ func (r *CompressionPolicyEnum) UnmarshalJSON(data []byte) error {
 func CompressionPolicyEnumToValue(compressionPolicyEnum CompressionPolicyEnum) string {
     switch compressionPolicyEnum {
         case CompressionPolicy_KCOMPRESSIONNONE:
-    		return "kCompressionNone"		
+    		return "kCompressionNone"
         case CompressionPolicy_KCOMPRESSIONLOW:
-    		return "kCompressionLow"		
+    		return "kCompressionLow"
         default:
         	return "kCompressionNone"
     }

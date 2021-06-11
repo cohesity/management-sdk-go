@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -19,18 +20,18 @@ const (
     ProtocolAccess_KS3ONLY
 )
 
-func (r ProtocolAccessEnum) MarshalJSON() ([]byte, error) { 
+func (r ProtocolAccessEnum) MarshalJSON() ([]byte, error) {
     s := ProtocolAccessEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *ProtocolAccessEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *ProtocolAccessEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  ProtocolAccessEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -39,13 +40,13 @@ func (r *ProtocolAccessEnum) UnmarshalJSON(data []byte) error {
 func ProtocolAccessEnumToValue(protocolAccessEnum ProtocolAccessEnum) string {
     switch protocolAccessEnum {
         case ProtocolAccess_KALL:
-    		return "kAll"		
+    		return "kAll"
         case ProtocolAccess_KNFSONLY:
-    		return "kNFSOnly"		
+    		return "kNFSOnly"
         case ProtocolAccess_KSMBONLY:
-    		return "kSMBOnly"		
+    		return "kSMBOnly"
         case ProtocolAccess_KS3ONLY:
-    		return "kS3Only"		
+    		return "kS3Only"
         default:
         	return "kAll"
     }

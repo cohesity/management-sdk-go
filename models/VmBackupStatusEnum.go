@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -18,18 +19,18 @@ const (
     VmBackupStatus_KMISSING
 )
 
-func (r VmBackupStatusEnum) MarshalJSON() ([]byte, error) { 
+func (r VmBackupStatusEnum) MarshalJSON() ([]byte, error) {
     s := VmBackupStatusEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *VmBackupStatusEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *VmBackupStatusEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  VmBackupStatusEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -38,11 +39,11 @@ func (r *VmBackupStatusEnum) UnmarshalJSON(data []byte) error {
 func VmBackupStatusEnumToValue(vmBackupStatusEnum VmBackupStatusEnum) string {
     switch vmBackupStatusEnum {
         case VmBackupStatus_KSUPPORTED:
-    		return "kSupported"		
+    		return "kSupported"
         case VmBackupStatus_KUNSUPPORTEDCONFIG:
-    		return "kUnsupportedConfig"		
+    		return "kUnsupportedConfig"
         case VmBackupStatus_KMISSING:
-    		return "kMissing"		
+    		return "kMissing"
         default:
         	return "kSupported"
     }

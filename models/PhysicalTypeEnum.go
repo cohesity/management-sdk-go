@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -17,18 +18,18 @@ const (
     PhysicalType_KWINDOWSCLUSTER
 )
 
-func (r PhysicalTypeEnum) MarshalJSON() ([]byte, error) { 
+func (r PhysicalTypeEnum) MarshalJSON() ([]byte, error) {
     s := PhysicalTypeEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *PhysicalTypeEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *PhysicalTypeEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  PhysicalTypeEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -37,9 +38,9 @@ func (r *PhysicalTypeEnum) UnmarshalJSON(data []byte) error {
 func PhysicalTypeEnumToValue(physicalTypeEnum PhysicalTypeEnum) string {
     switch physicalTypeEnum {
         case PhysicalType_KHOST:
-    		return "kHost"		
+    		return "kHost"
         case PhysicalType_KWINDOWSCLUSTER:
-    		return "kWindowsCluster"		
+    		return "kWindowsCluster"
         default:
         	return "kHost"
     }

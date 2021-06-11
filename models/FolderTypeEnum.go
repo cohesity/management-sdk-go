@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -20,18 +21,18 @@ const (
     FolderType_KROOTFOLDER
 )
 
-func (r FolderTypeEnum) MarshalJSON() ([]byte, error) { 
+func (r FolderTypeEnum) MarshalJSON() ([]byte, error) {
     s := FolderTypeEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *FolderTypeEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *FolderTypeEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  FolderTypeEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -40,15 +41,15 @@ func (r *FolderTypeEnum) UnmarshalJSON(data []byte) error {
 func FolderTypeEnumToValue(folderTypeEnum FolderTypeEnum) string {
     switch folderTypeEnum {
         case FolderType_KVMFOLDER:
-    		return "kVMFolder"		
+    		return "kVMFolder"
         case FolderType_KHOSTFOLDER:
-    		return "kHostFolder"		
+    		return "kHostFolder"
         case FolderType_KDATASTOREFOLDER:
-    		return "kDatastoreFolder"		
+    		return "kDatastoreFolder"
         case FolderType_KNETWORKFOLDER:
-    		return "kNetworkFolder"		
+    		return "kNetworkFolder"
         case FolderType_KROOTFOLDER:
-    		return "kRootFolder"		
+    		return "kRootFolder"
         default:
         	return "kVMFolder"
     }

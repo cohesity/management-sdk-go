@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -18,18 +19,18 @@ const (
     NfsAccess_KREADWRITE
 )
 
-func (r NfsAccessEnum) MarshalJSON() ([]byte, error) { 
+func (r NfsAccessEnum) MarshalJSON() ([]byte, error) {
     s := NfsAccessEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *NfsAccessEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *NfsAccessEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  NfsAccessEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -38,11 +39,11 @@ func (r *NfsAccessEnum) UnmarshalJSON(data []byte) error {
 func NfsAccessEnumToValue(nfsAccessEnum NfsAccessEnum) string {
     switch nfsAccessEnum {
         case NfsAccess_KDISABLED:
-    		return "kDisabled"		
+    		return "kDisabled"
         case NfsAccess_KREADONLY:
-    		return "kReadOnly"		
+    		return "kReadOnly"
         case NfsAccess_KREADWRITE:
-    		return "kReadWrite"		
+    		return "kReadWrite"
         default:
         	return "kDisabled"
     }

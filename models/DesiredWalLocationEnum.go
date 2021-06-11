@@ -1,3 +1,4 @@
+// Copyright 2019 Cohesity Inc.
 package models
 
 import(
@@ -19,18 +20,18 @@ const (
     DesiredWalLocation_KSCRIBETABLE
 )
 
-func (r DesiredWalLocationEnum) MarshalJSON() ([]byte, error) { 
+func (r DesiredWalLocationEnum) MarshalJSON() ([]byte, error) {
     s := DesiredWalLocationEnumToValue(r)
-    return json.Marshal(s) 
-} 
+    return json.Marshal(s)
+}
 
-func (r *DesiredWalLocationEnum) UnmarshalJSON(data []byte) error { 
-    var s string 
+func (r *DesiredWalLocationEnum) UnmarshalJSON(data []byte) error {
+    var s string
     json.Unmarshal(data, &s)
     v :=  DesiredWalLocationEnumFromValue(s)
-    *r = v 
-    return nil 
- } 
+    *r = v
+    return nil
+ }
 
 
 /**
@@ -39,13 +40,13 @@ func (r *DesiredWalLocationEnum) UnmarshalJSON(data []byte) error {
 func DesiredWalLocationEnumToValue(desiredWalLocationEnum DesiredWalLocationEnum) string {
     switch desiredWalLocationEnum {
         case DesiredWalLocation_KHOMEPARTITION:
-    		return "kHomePartition"		
+    		return "kHomePartition"
         case DesiredWalLocation_KDISK:
-    		return "kDisk"		
+    		return "kDisk"
         case DesiredWalLocation_KSCRIBE:
-    		return "kScribe"		
+    		return "kScribe"
         case DesiredWalLocation_KSCRIBETABLE:
-    		return "kScribeTable"		
+    		return "kScribeTable"
         default:
         	return "kHomePartition"
     }
