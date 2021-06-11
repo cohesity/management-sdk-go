@@ -1,6 +1,9 @@
 Cohesity Management SDK GO
 =================
 
+Note: This version of SDK is compatible with 6.3.1x only. We plan to release SDK with newer versions of the cluster soon. 
+Do reach out to cohesity-api-sdks@cohesity.com for more details
+
 # Overview
 
 The *Cohesity Management SDK*  provides an easy-to-use language binding to 
