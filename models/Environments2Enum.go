@@ -24,6 +24,10 @@ const (
     Environments2_KHYPERV
     Environments2_KACROPOLIS
     Environments2_KAZURE
+    Environments2_KISILON
+    Environments2_KELASTIFILE
+    Environments2_KGPFS
+    Environments2_KFLASHBLADE
 )
 
 func (r Environments2Enum) MarshalJSON() ([]byte, error) { 
@@ -66,7 +70,15 @@ func Environments2EnumToValue(environments2Enum Environments2Enum) string {
         case Environments2_KACROPOLIS:
     		return "kAcropolis"		
         case Environments2_KAZURE:
-    		return "kAzure"		
+           return "kAzure"
+        case Environments2_KISILON:
+          return "kIsilon"
+        case Environments2_KELASTIFILE:
+          return "kElastifile"
+        case Environments2_KGPFS:
+          return "kGPFS"
+        case Environments2_KFLASHBLADE:
+          return "kFlashBlade"		
         default:
         	return "kVMware"
     }
@@ -111,6 +123,14 @@ func Environments2EnumFromValue(value string) Environments2Enum {
             return Environments2_KACROPOLIS
         case "kAzure":
             return Environments2_KAZURE
+        case "kIsilon":
+          return Environments2_KISILON
+        case "kElastifile":
+          return Environments2_KELASTIFILE
+        case "kGPFS":
+          return Environments2_KGPFS
+        case "kFlashBlade":
+          return Environments2_KFLASHBLADE
         default:
             return Environments2_KVMWARE
     }
