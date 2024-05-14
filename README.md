@@ -48,4 +48,4 @@ cluster.GetBasicClusterInfo()
 
 ## Questions or Feedback :
 
-We would love to hear from you. Please send your questions and feedback to: *cohesity-api-sdks@cohesity.com*
+We would love to hear from you. Please send your questions and feedback to: *support@cohesity.com*
